@@ -1,5 +1,7 @@
 package it.uniroma3.siw.model;
 
+import java.util.Objects;
+
 public class Ingegnere {
 	private String nome;
 	private String cognome;
@@ -40,4 +42,28 @@ public class Ingegnere {
 	public void setNazionalita(String nazionalita) {
 		this.nazionalita = nazionalita;
 	}
+	
+	
+	
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(cognome, dataDiNascita, nazionalita, nome);
+	}
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ingegnere other = (Ingegnere) obj;
+		return Objects.equals(cognome, other.cognome) && Objects.equals(dataDiNascita, other.dataDiNascita)
+				&& Objects.equals(nazionalita, other.nazionalita) && Objects.equals(nome, other.nome);
+	}
+	
+	
 }
