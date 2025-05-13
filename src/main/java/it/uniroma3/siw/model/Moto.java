@@ -15,7 +15,7 @@ public class Moto {
 	private int cilindrata;
 	private String motore;
 	private int potenzaMax;
-	private int velocitaMax;
+	private int velocitàMax;
 	private String scarico;
 	private int peso;
 	
@@ -49,10 +49,10 @@ public class Moto {
 	}
 	
 	public int getVelocitaMax() {
-		return velocitaMax;
+		return velocitàMax;
 	}
 	public void setVelocitaMax(int velocitaMax) {
-		this.velocitaMax = velocitaMax;
+		this.velocitàMax = velocitaMax;
 	}
 	
 	public String getScarico() {
@@ -72,7 +72,7 @@ public class Moto {
 	// Equals e hashCode
 	@Override
 	public int hashCode( ) {
-		return Objects.hash(id, cilindrata, motore, potenzaMax, velocitaMax, scarico, peso);
+		return Objects.hash(id, cilindrata, motore, potenzaMax, velocitàMax, scarico, peso);
 	}
 	
 	@Override
@@ -86,7 +86,7 @@ public class Moto {
 		Moto other = (Moto) o;
 		return Objects.equals(id, other.id) && Objects.equals(cilindrata, other.cilindrata)
 				&& Objects.equals(motore, other.motore) && Objects.equals(potenzaMax, other.potenzaMax)
-				&& Objects.equals(velocitaMax, other.velocitaMax) && Objects.equals(scarico, other.scarico)
+				&& Objects.equals(velocitàMax, other.velocitàMax) && Objects.equals(scarico, other.scarico)
 				&& Objects.equals(peso, other.peso);
 	}
 }
