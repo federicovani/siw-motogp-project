@@ -82,6 +82,7 @@ public class Circuito {
 	public int hashCode() {
 		return Objects.hash(città, curveDx, curveSx, id, larghezza, lunghezza, paese, rettilineo);
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
