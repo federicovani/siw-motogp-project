@@ -1,12 +1,24 @@
 package it.uniroma3.siw.model;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Ingegnere {
 	private String nome;
 	private String cognome;
-	private java.time.LocalDate dataDiNascita;
+	private LocalDate dataDiNascita;
 	private String nazionalita;
+	private ContrattoPersona contratto;
+	
+	
+	
+	public Ingegnere (String nome, String cognome, LocalDate dataDiNascita, String nazionalita, ContrattoPersona contratto) {
+		this.nome = nome;
+		this.cognome = cognome;
+		this.dataDiNascita = dataDiNascita;
+		this.nazionalita = nazionalita;
+		this.setContratto(contratto);
+	}
 	
 	
 	
@@ -41,6 +53,14 @@ public class Ingegnere {
 	}
 	public void setNazionalita(String nazionalita) {
 		this.nazionalita = nazionalita;
+	}
+	
+	
+	public ContrattoPersona getContratto() {
+		return contratto;
+	}
+	public void setContratto(ContrattoPersona contratto) {
+		this.contratto = contratto;
 	}
 	
 	
