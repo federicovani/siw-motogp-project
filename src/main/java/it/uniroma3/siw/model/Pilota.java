@@ -20,6 +20,7 @@ public class Pilota {
     private String nazionalita;
     private int peso;
     private int altezza;
+    private Team team;
 
     public int getAltezza() {
         return altezza;
@@ -84,4 +85,12 @@ public class Pilota {
     public void setId(Long id) {
         this.id = id;
     }
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
 }

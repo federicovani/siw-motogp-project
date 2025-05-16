@@ -9,6 +9,7 @@ public class Ingegnere {
 	private LocalDate dataDiNascita;
 	private String nazionalita;
 	private ContrattoPersona contratto;
+	private Team team;
 	
 	
 	
@@ -61,6 +62,13 @@ public class Ingegnere {
 	}
 	public void setContratto(ContrattoPersona contratto) {
 		this.contratto = contratto;
+	}
+	
+	public Team getTeam() {
+		return team;
+	}
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 	
 	

@@ -5,6 +5,7 @@ import java.util.Objects;
 public class GranPremio {
 	private int numeroDiGiri;
 	private java.time.LocalDate data;
+	private Circuito circuito;
 	
 	
 	
@@ -22,6 +23,18 @@ public class GranPremio {
 	}
 	public void setData(java.time.LocalDate data) {
 		this.data = data;
+	}
+	
+	public Circuito getCircuito() {
+		return circuito;
+	}
+	public void setCircuito(Circuito circuito) {
+		this.circuito = circuito;
+	}
+	
+	
+	public String getCittà() {
+		return circuito.getCittà();
 	}
 	
 	
