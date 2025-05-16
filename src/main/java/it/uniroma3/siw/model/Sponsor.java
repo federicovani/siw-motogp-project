@@ -14,6 +14,16 @@ public class Sponsor {
     private int id;
     private String nome;
     private String descrizione;
+    private Contratto contratto;
+    
+    
+    
+    public Sponsor(int id, String nome, String descrizione, Contratto contratto) {
+    	this.id = id;
+    	this.nome = nome;
+    	this.descrizione = descrizione;
+    	this.setContratto(contratto);
+    }
     
     
     
@@ -30,6 +40,16 @@ public class Sponsor {
 	}
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
+	}
+	
+
+	
+	
+	public Contratto getContratto() {
+		return contratto;
+	}
+	public void setContratto(Contratto contratto) {
+		this.contratto = contratto;
 	}
 	
 	
@@ -52,6 +72,7 @@ public class Sponsor {
 		Sponsor other = (Sponsor) obj;
 		return Objects.equals(descrizione, other.descrizione) && id == other.id && Objects.equals(nome, other.nome);
 	}
+
 	
 	
 }

@@ -8,12 +8,12 @@ public class Ingegnere {
 	private String cognome;
 	private LocalDate dataDiNascita;
 	private String nazionalita;
-	private ContrattoPersona contratto;
+	private Contratto contratto;
 	private Team team;
 	
 	
 	
-	public Ingegnere (String nome, String cognome, LocalDate dataDiNascita, String nazionalita, ContrattoPersona contratto) {
+	public Ingegnere (String nome, String cognome, LocalDate dataDiNascita, String nazionalita, Contratto contratto) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.dataDiNascita = dataDiNascita;
@@ -57,10 +57,10 @@ public class Ingegnere {
 	}
 	
 	
-	public ContrattoPersona getContratto() {
+	public Contratto getContratto() {
 		return contratto;
 	}
-	public void setContratto(ContrattoPersona contratto) {
+	public void setContratto(Contratto contratto) {
 		this.contratto = contratto;
 	}
 	
