@@ -1,13 +1,29 @@
 package it.uniroma3.siw.model;
 
+import jakarta.persistence.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
+@Entity
 public class GranPremio {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 	private int numeroDiGiri;
 	private java.time.LocalDate data;
+	@ManyToOne
 	private Circuito circuito;
-	
-	
+	@ElementCollection
+	@CollectionTable(name = "granpremio_classifica",
+			joinColumns = @JoinColumn(name = "granpremio_id"))
+	@MapKeyJoinColumn(name = "pilota_id")
+	@Column(name = "punti")
+	private Map<Pilota, Integer> classifica = new HashMap<>();
+	@ManyToMany
+	private List<Sponsor> sponsor;
 	
 	
 	public int getNumeroDiGiri() {
