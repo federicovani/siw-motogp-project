@@ -21,7 +21,7 @@ public class AuthenticationController {
     public String index(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken) {
-            return "index.html";
+            return "homepage.html";
         }
         else {
             UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -30,6 +30,6 @@ public class AuthenticationController {
                 return "admin/indexAdmin.html";
             }
         }
-        return "index.html";
+        return "homepage.html";
     }
 }

@@ -1,31 +1,74 @@
 package it.uniroma3.siw.authentication;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+<<<<<<< HEAD
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+=======
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+>>>>>>> a62dd2f407925780f45beb047cfab2bb0306fd0e
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
-import javax.sql.DataSource;
 @Configuration
+<<<<<<< HEAD
 @EnableWebSecurity
 public class AuthConfiguration extends WebSecurityConfiguration {
+=======
+public class AuthConfiguration {
+>>>>>>> a62dd2f407925780f45beb047cfab2bb0306fd0e
 
-    @Autowired
-    private DataSource dataSource;
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .authoritiesByUsernameQuery("SELECT username, role from credentials WHERE username=?")
-                .usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username=?");
-    }
+    private static final String ADMIN_ROLE = "ROLE_ADMIN";
+
+    /**
+     * Definizione della catena di filtri di sicurezza.
+     */
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            // Disabilita CSRF e CORS
+            .csrf(csrf -> csrf.disable())
+            .cors(cors -> cors.disable())
+
+            // Configurazione delle autorizzazioni
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/index", "/register", "/css/**", "/images/**", "favicon.ico").permitAll()
+                .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
+                .requestMatchers(HttpMethod.GET, "/admin/**").hasAuthority(ADMIN_ROLE)
+                .requestMatchers(HttpMethod.POST, "/admin/**").hasAuthority(ADMIN_ROLE)
+                .anyRequest().authenticated()
+            )
+
+            // Configurazione del login
+            .formLogin(form -> form
+                .loginPage("/login")
+                .permitAll()
+                .defaultSuccessUrl("/success", true)
+                .failureUrl("/login?error=true")
+            )
+
+            // Configurazione del logout
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .clearAuthentication(true)
+            );
+
+        return http.build();
+    }
+
+    /**
+     * Configurazione encoder per le password.
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
