@@ -1,9 +1,6 @@
 package it.uniroma3.siw.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -19,6 +16,7 @@ public class Pilota {
     private String nazionalita;
     private int peso;
     private int altezza;
+    @ManyToOne
     private Team team;
 
     public int getAltezza() {

@@ -10,7 +10,9 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nome;
+    @OneToMany(mappedBy = "team")
     private List<Pilota> pilotiUfficiali;
+    @OneToMany(mappedBy = "team")
     private List<Pilota> pilotiTester;
 
     public int getId() {
