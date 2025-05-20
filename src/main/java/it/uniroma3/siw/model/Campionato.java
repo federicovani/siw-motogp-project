@@ -1,22 +1,35 @@
 package it.uniroma3.siw.model;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapKeyJoinColumn;
 
 @Entity
 public class Campionato {
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private Map<Pilota, Integer> classifica;
-	private int anno;
-	
-	// Getter e Setter
+    private Long id;
+    
+    @ElementCollection
+    @CollectionTable(name = "campionato_classifica",
+            joinColumns = @JoinColumn(name = "campionato_id"))
+    @MapKeyJoinColumn(name = "pilota_id")
+    @Column(name = "punti")
+    private Map<Pilota, Integer> classifica = new HashMap<>();
+    
+    private int anno;
+    
+    // Getter e Setter
 	public Long getId() {
 		return id;
 	}

@@ -73,6 +73,5 @@ public class Sponsor {
 		return Objects.equals(descrizione, other.descrizione) && id == other.id && Objects.equals(nome, other.nome);
 	}
 
-	
-	
+
 }
