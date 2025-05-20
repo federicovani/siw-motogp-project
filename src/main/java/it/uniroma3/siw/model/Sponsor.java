@@ -2,10 +2,7 @@ package it.uniroma3.siw.model;
 
 import java.util.Objects;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Sponsor {
@@ -14,7 +11,7 @@ public class Sponsor {
     private int id;
     private String nome;
     private String descrizione;
-    private Contratto contratto;
+    //private Contratto contratto;
     
     
     
@@ -22,7 +19,7 @@ public class Sponsor {
     	this.id = id;
     	this.nome = nome;
     	this.descrizione = descrizione;
-    	this.setContratto(contratto);
+    	//this.setContratto(contratto);
     }
     
     
@@ -45,12 +42,12 @@ public class Sponsor {
 
 	
 	
-	public Contratto getContratto() {
-		return contratto;
-	}
-	public void setContratto(Contratto contratto) {
-		this.contratto = contratto;
-	}
+//	public Contratto getContratto() {
+//		return contratto;
+//	}
+//	public void setContratto(Contratto contratto) {
+//		this.contratto = contratto;
+//	}
 	
 	
 	
