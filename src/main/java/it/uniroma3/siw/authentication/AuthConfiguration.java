@@ -2,26 +2,19 @@ package it.uniroma3.siw.authentication;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-<<<<<<< HEAD
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-=======
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
->>>>>>> a62dd2f407925780f45beb047cfab2bb0306fd0e
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-<<<<<<< HEAD
 @EnableWebSecurity
-public class AuthConfiguration extends WebSecurityConfiguration {
-=======
 public class AuthConfiguration {
->>>>>>> a62dd2f407925780f45beb047cfab2bb0306fd0e
 
     private static final String ADMIN_ROLE = "ROLE_ADMIN";
 
