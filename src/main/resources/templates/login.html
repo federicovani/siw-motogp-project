@@ -3,6 +3,7 @@
 	<head>
 	    <title>Login</title>
 		<link rel="stylesheet" href="css/index.css">
+		<link rel="stylesheet" href="css/login.css">
 	</head>
 	
 	<body>
@@ -23,15 +24,15 @@
 		
 		<main>
 			<div>
-				<h1>Accedi</h1>
+				<h1 class="title">Accedi</h1>
 				
 				<form th:action="@{/login}" method="post">
-					<div>
+					<div class="input-field">
 						<label for="username">Username</label>
 						<input type="text" name="username" id="username" required>
 					</div>
 					
-					<div>
+					<div class="input-field">
 						<label for="password">Password</label>
 						<input type="password" name="password" id="password" required>
 					</div>
@@ -41,9 +42,14 @@
 					</div>
 				</form>
 				
+				<p id="forgot-password">
+					Password dimenticata?
+					<a href="" class="link-button">Recupera Password</a>
+				</p>
+				
 				<p>
 					Non hai un account?
-					<a href="/register">Registrati</a>
+					<a href="/register" class="link-button">Registrati</a>
 				</p>
 			</div>
 		</main>
