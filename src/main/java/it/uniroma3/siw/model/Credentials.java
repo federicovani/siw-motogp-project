@@ -18,6 +18,16 @@ public class Credentials {
 
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
+    
+    public Credentials(String username, String password, String role, User user) {
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.user = user;
+	}
+	
+	public Credentials() {}
+	
 
     public String getUsername() {
         return username;

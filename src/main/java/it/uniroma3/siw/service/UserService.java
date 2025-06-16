@@ -35,7 +35,8 @@ public class UserService {
      *                              as the passed User already exists in the DB
      */
     @Transactional
-    public User saveUser(User user) {
+    public User saveUser(String name, String surname, String email) {
+    	User user = new User(name, surname, email);
         return this.userRepository.save(user);
     }
 
