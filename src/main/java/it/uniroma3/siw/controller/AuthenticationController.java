@@ -32,4 +32,9 @@ public class AuthenticationController {
         }
         return "homepage.html";
     }
+    
+    @GetMapping("/login")
+	public String login() {
+		return "login.html";
+	}
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <title>Login</title>
+		<link rel="stylesheet" href="css/index.css">
+	</head>
+	
+	<body>
+		
+		<header>
+					
+			<nav class="nav">
+				<a href="/" class="nav-link">Home</a>
+				<a href="/pilotiETeam" class="nav-link">Piloti e Team</a>
+				<a href="" class="nav-link">Gran Premi</a>
+				<a href="" class="nav-link">Campionato</a>
+				<a href="" class="nav-link">Shop</a>
+				<a href="" class="nav-link">Accedi/Registrati</a>
+			</nav>
+		</header>
+		
+		<hr>
+		
+		<main>
+			<div>
+				<h id="title">Accedi</h>
+				
+				<form th:action="@{/login}" method="post">
+					<div>
+						<label for="username">Username</label>
+						<input type="text" name="username" id="username" required>
+					</div>
+					
+					<div>
+						<label for="password">Password</label>
+						<input type="password" name="password" id="password" required>
+					</div>
+					
+					<div>
+						<button type="submit" class="button">Accedi</button>
+					</div>
+				</form>
+				
+				<p>
+					Non hai un account?
+					<a href="/register">Registrati</a>
+				</p>
+			</div>
+		</main>
+	</body>
+</html>
