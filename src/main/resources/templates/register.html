@@ -23,9 +23,21 @@
 		
 		<main>
 			<div>
-				<h1>Accedi</h1>
+				<h1id="title">Accedi</h1>
 				
-				<form th:action="@{/login}" method="post">
+				<form th:action="@{/register}" method="post">
+					<div>
+						<label for="username">Nome</label>
+						<input type="text" name="name" id="name" required>
+					</div>
+					<div>
+						<label for="username">Cognome</label>
+						<input type="text" name="surname" id="surname" required>
+					</div>
+					<div>
+						<label for="username">Email</label>
+						<input type="text" name="email" id="email" required>
+					</div>
 					<div>
 						<label for="username">Username</label>
 						<input type="text" name="username" id="username" required>
@@ -42,8 +54,8 @@
 				</form>
 				
 				<p>
-					Non hai un account?
-					<a href="/register">Registrati</a>
+					Hai già un account?
+					<a href="/login">Accedi</a>
 				</p>
 			</div>
 		</main>
