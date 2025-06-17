@@ -42,7 +42,7 @@ public class AuthConfiguration {
 
             // Configurazione delle autorizzazioni
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/index", "/register", "/css/**", "/images/**", "favicon.ico", "/pilotiETeam", "/granPremi").permitAll()
+                .requestMatchers("/", "/index", "/register", "/css/**", "/images/**", "favicon.ico", "/pilotiETeam", "/granPremi", "/campionati").permitAll()
                 .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
                 .requestMatchers(HttpMethod.GET, "/admin/**").hasAuthority(ADMIN_ROLE)
                 .requestMatchers(HttpMethod.POST, "/admin/**").hasAuthority(ADMIN_ROLE)
