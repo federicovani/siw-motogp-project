@@ -2,6 +2,7 @@ package it.uniroma3.siw.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ public class GranPremio {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private int numeroDiGiri;
-	private java.time.LocalDate data;
+	private LocalDate data;
 	@ManyToOne
 	private Circuito circuito;
 	@ElementCollection
@@ -34,10 +35,10 @@ public class GranPremio {
 	}
 	
 	
-	public java.time.LocalDate getData() {
+	public LocalDate getData() {
 		return data;
 	}
-	public void setData(java.time.LocalDate data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 	
