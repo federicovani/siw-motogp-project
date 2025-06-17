@@ -18,3 +18,9 @@ body {
 	font-weight: 200;
 	font-size: 18px;
 }
+
+main {
+	margin-top: 5vh;
+	margin-left: 4vw;
+	margin-right: 4vw;
+}
