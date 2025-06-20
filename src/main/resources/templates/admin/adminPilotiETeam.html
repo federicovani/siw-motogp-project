@@ -2,28 +2,29 @@
 <html>
 	<head>
 	    <title>Piloti e Team</title>
-		<link rel="stylesheet" href="css/index.css">
+		<link rel="stylesheet" href="../css/index.css">
 	</head>
 	
 	<body>
 		
 		<header>
 			<nav class="nav">
-				<a href="/" class="nav-link">Home</a>
-				<a href="/pilotiETeam" class="nav-link">Piloti e Team</a>
+				<a href="/admin/adminHomepage" class="nav-link">Home</a>
+				<a href="/admin/adminPilotiETeam" class="nav-link">Piloti e Team</a>
 				<a href="/granPremi" class="nav-link">Gran Premi</a>
 				<a href="/campionati" class="nav-link">Campionato</a>
 				<a href="" class="nav-link">Shop</a>
-				<a th:if="${user==null}" href="/login" class="nav-link">Accedi/Registrati</a>
-				<a th:if="${user!=null}" href="/account" class="nav-link">Account</a>
+				<a href="/account" class="nav-link">Account</a>
 			</nav>
 		</header>
 		
 		<hr>
 		
 		<main>
+			
 			<div>
 				<h1>Piloti</h1>
+				<a href="">Aggiungi Pilota</a>
 			</div>
 			
 			<div>
