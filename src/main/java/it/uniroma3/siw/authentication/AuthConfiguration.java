@@ -14,12 +14,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
 
 @Configuration
 @EnableWebSecurity
 public class AuthConfiguration {
 
-    private static final String ADMIN_ROLE = "ROLE_ADMIN";
     @Autowired private DataSource dataSource;
     
     
