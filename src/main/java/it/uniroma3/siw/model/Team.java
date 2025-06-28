@@ -8,18 +8,18 @@ import java.util.List;
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     private String nome;
     @OneToMany(mappedBy = "team")
     private List<Pilota> pilotiUfficiali;
     @OneToMany(mappedBy = "team")
     private List<Pilota> pilotiTester;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

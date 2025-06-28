@@ -24,15 +24,84 @@
 		<main>
 			<div>
 				<h1>Piloti</h1>
-				
+				<div th:if="${#lists.isEmpty(piloti)}">
+				    <p style="text-align: center; color: #ccc;">Nessun pilota disponibile al momento.</p>
+				</div>
+
+				<div th:if="${!#lists.isEmpty(piloti)}" class="carousel-container">
+				    <button class="carousel-button prev-btn" onclick="moveSlide(-1)">&#10094;</button>
+				    
+				    <div class="carousel-track" id="carouselTrack">
+				        <div class="carousel-item" th:each="pilota : ${piloti}">
+				            <div class="pilot-number" th:text="'#' + ${pilota.numero}">#63</div>
+				            <div class="pilot-name" th:text="${pilota.nome + ' ' + pilota.cognome}">Francesco Bagnaia</div>
+				            <div class="pilot-info" th:text="${pilota.nazionalita}">Italia</div>
+				            <div class="pilot-info">
+				                <span th:if="${pilota.team != null}" th:text="'Team: ' + ${pilota.team.nome}"></span>
+				                <span th:if="${pilota.team == null}">Team non assegnato</span>
+				            </div>
+				        </div>
+				    </div>
+
+				    <button class="carousel-button next-btn" onclick="moveSlide(1)">&#10095;</button>
+				</div>
+
+				                <button class="carousel-button next-btn" onclick="moveSlide(1)">&#10095;</button>
+				            </div>
 			</div>
 			
 			<div>
-				<h2>Team</h2>
+			    <h2>Team</h2>
+
+			    <div th:if="${#lists.isEmpty(teams)}">
+			        <p style="text-align: center; color: #ccc;">Nessun team disponibile al momento.</p>
+			    </div>
+
+			    <div th:if="${!#lists.isEmpty(teams)}" class="carousel-container">
+			        <button class="carousel-button prev-btn" onclick="moveTeamSlide(-1)">&#10094;</button>
+			        
+			        <div class="carousel-track" id="teamCarouselTrack">
+			            <div class="carousel-item" th:each="team : ${teams}">
+			                <div class="team-name" th:text="${team.nome}">Ducati Lenovo Team</div>
+			            </div>
+			        </div>
+
+			        <button class="carousel-button next-btn" onclick="moveTeamSlide(1)">&#10095;</button>
+			    </div>
 			</div>
 		</main>
 		
-		
+		<script>
+		        let currentIndex = 0;
+		        function moveSlide(direction) {
+		            const track = document.getElementById('carouselTrack');
+		            const items = document.querySelectorAll('.carousel-item');
+		            currentIndex += direction;
+		            if (currentIndex < 0) {
+		                currentIndex = items.length - 1;
+		            } else if (currentIndex >= items.length) {
+		                currentIndex = 0;
+		            }
+		            const offset = -currentIndex * 100;
+		            track.style.transform = 'translateX(' + offset + '%)';
+		        }
+		    </script>
+			
+			<script>
+			    let teamCurrentIndex = 0;
+			    function moveTeamSlide(direction) {
+			        const track = document.getElementById('teamCarouselTrack');
+			        const items = document.querySelectorAll('#teamCarouselTrack .carousel-item');
+			        teamCurrentIndex += direction;
+			        if (teamCurrentIndex < 0) {
+			            teamCurrentIndex = items.length - 1;
+			        } else if (teamCurrentIndex >= items.length) {
+			            teamCurrentIndex = 0;
+			        }
+			        const offset = -teamCurrentIndex * 100;
+			        track.style.transform = 'translateX(' + offset + '%)';
+			    }
+			</script>
 		
 	</body>
 </html>
