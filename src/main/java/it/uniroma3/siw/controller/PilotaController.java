@@ -1,8 +1,12 @@
 package it.uniroma3.siw.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,14 +30,28 @@ public class PilotaController {
 	}
 	
 	@GetMapping("/pilotiETeam")
-	public String mostraPilotiETeam(Model model) {
+	public String mostraPilotiETeam(Model model, Authentication authentication) {
 	    List<PilotaGP> piloti = pilotaService.getAllPiloti();
 	    List<Team> teams = teamService.findAll();
 
+	    List<List<Team>> teamChunks = new ArrayList<>();
+	    for (int i = 0; i < teams.size(); i += 4) {
+	        teamChunks.add(teams.subList(i, Math.min(i + 4, teams.size())));
+	    }
+
 	    model.addAttribute("piloti", piloti);
 	    model.addAttribute("teams", teams);
+	    model.addAttribute("teamChunks", teamChunks);
+
+	    if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+	        model.addAttribute("user", authentication.getPrincipal());
+	    } else {
+	        model.addAttribute("user", null);
+	    }
 
 	    return "pilotiETeam";
 	}
+
+
 
 }

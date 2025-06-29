@@ -10,25 +10,4 @@ INSERT INTO team (id, nome) VALUES (9, 'GasGas Factory Racing Tech3');
 INSERT INTO team (id, nome) VALUES (10, 'Prima Pramac Racing');
 INSERT INTO team (id, nome) VALUES (11, 'RNF MotoGP Team');
 
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (1, 'Francesco', 'Bagnaia', 63, 'Italia', 1);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (2, 'Enea', 'Bastianini', 23, 'Italia', 1);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (3, 'Brad', 'Binder', 33, 'Sudafrica', 2);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (4, 'Jack', 'Miller', 43, 'Australia', 2);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (5, 'Aleix', 'Espargaro', 41, 'Spagna', 3);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (6, 'Maverick', 'Vinales', 12, 'Spagna', 3);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (7, 'Fabio', 'Quartararo', 20, 'Francia', 4);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (8, 'Franco', 'Morbidelli', 21, 'Italia', 4);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (9, 'Marc', 'Marquez', 93, 'Spagna', 5);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (10, 'Joan', 'Mir', 36, 'Spagna', 5);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (11, 'Alex', 'Marquez', 73, 'Spagna', 6);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (12, 'Fabio', 'Di Giannantonio', 49, 'Italia', 6);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (13, 'Luca', 'Marini', 10, 'Italia', 7);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (14, 'Marco', 'Bezzecchi', 72, 'Italia', 7);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (15, 'Takaaki', 'Nakagami', 30, 'Giappone', 8);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (16, 'Stefan', 'Bradl', 6, 'Germania', 8);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (17, 'Pol', 'Espargaro', 44, 'Spagna', 9);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (18, 'Augusto', 'Fernandez', 37, 'Spagna', 9);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (19, 'Johann', 'Zarco', 5, 'Francia', 10);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (20, 'Jorge', 'Martin', 89, 'Spagna', 10);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (21, 'Miguel', 'Oliveira', 88, 'Portogallo', 11);
-INSERT INTO pilota_gp (id, nome, cognome, numero, nazionalita, team_id) VALUES (22, 'Raul', 'Fernandez', 25, 'Spagna', 11);
+

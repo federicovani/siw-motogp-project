@@ -1,0 +1,25 @@
+.carousel-control-custom {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #C10000;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 5px 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.carousel-control-custom:hover {
+  background-color: #a30000;
+}
+
+.carousel-control-custom:first-of-type {
+  left: 10px;
+}
+
+.carousel-control-custom:last-of-type {
+  right: 10px;
+}

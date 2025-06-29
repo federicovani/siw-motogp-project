@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "pilota")
 public class Pilota {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
