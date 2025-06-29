@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.*;
@@ -12,6 +13,8 @@ public class Sponsor {
     private String nome;
     private String descrizione;
     //private Contratto contratto;
+    @ManyToMany(mappedBy = "sponsor")
+    private List<GranPremio> granPremi;
     
     
     
@@ -39,6 +42,7 @@ public class Sponsor {
 		this.descrizione = descrizione;
 	}
 	
+	
 
 	
 	
@@ -52,6 +56,30 @@ public class Sponsor {
 	
 	
 	
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+	public List<GranPremio> getGranPremi() {
+		return granPremi;
+	}
+
+
+
+	public void setGranPremi(List<GranPremio> granPremi) {
+		this.granPremi = granPremi;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(descrizione, id, nome);

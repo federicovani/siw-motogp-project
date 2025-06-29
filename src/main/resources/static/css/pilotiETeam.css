@@ -1,25 +1,105 @@
-.carousel-control-custom {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #C10000;
-  border: none;
-  color: white;
-  font-size: 2rem;
-  padding: 5px 12px;
-  cursor: pointer;
-  border-radius: 50%;
-  z-index: 2;
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-.carousel-control-custom:hover {
-  background-color: #a30000;
+hr {
+    border: 1px solid white;
+    margin: 20px 0;
 }
 
-.carousel-control-custom:first-of-type {
-  left: 10px;
+header .nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: black;
+    padding: 15px 0;
 }
 
-.carousel-control-custom:last-of-type {
-  right: 10px;
+header .nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+}
+
+header .nav-link:hover {
+    text-decoration: underline;
+}
+
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+h2 {
+    color: white;
+    text-align: center;
+}
+
+.empty-message {
+    text-align: center;
+    color: #ccc;
+    margin-top: 20px;
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-card {
+    flex: 0 0 calc(25% - 20px);
+    margin: 10px;
+    background-color: #222;
+    border: 1px solid white;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.carousel-card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.carousel-card h5,
+.carousel-card p {
+    margin-top: 8px;
+    color: white;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    z-index: 2;
+    font-size: 24px;
+}
+
+.carousel-button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.carousel-button.prev {
+    left: 0;
+}
+
+.carousel-button.next {
+    right: 0;
 }

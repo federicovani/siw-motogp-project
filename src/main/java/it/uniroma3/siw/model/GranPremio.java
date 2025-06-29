@@ -54,9 +54,24 @@ public class GranPremio {
 		return circuito.getCittà();
 	}
 	
-	
-	
-	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public Map<Pilota, Integer> getClassifica() {
+		return classifica;
+	}
+	public void setClassifica(Map<Pilota, Integer> classifica) {
+		this.classifica = classifica;
+	}
+	public List<Sponsor> getSponsor() {
+		return sponsor;
+	}
+	public void setSponsor(List<Sponsor> sponsor) {
+		this.sponsor = sponsor;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(data, numeroDiGiri);

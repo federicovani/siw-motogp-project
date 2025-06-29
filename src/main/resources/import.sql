@@ -34,3 +34,27 @@ INSERT INTO pilota (id, nome, cognome, numero_identificativo, nazionalita, altez
 INSERT INTO pilota (id, nome, cognome, numero_identificativo, nazionalita, altezza, peso, team_id) VALUES (20, 'Jorge', 'Martin', 89, 'Spagna', 168, 64, 10);
 INSERT INTO pilota (id, nome, cognome, numero_identificativo, nazionalita, altezza, peso, team_id) VALUES (21, 'Miguel', 'Oliveira', 88, 'Portogallo', 170, 65, 11);
 INSERT INTO pilota (id, nome, cognome, numero_identificativo, nazionalita, altezza, peso, team_id) VALUES (22, 'Raul', 'Fernandez', 25, 'Spagna', 177, 66, 11);
+
+-- Circuiti
+INSERT INTO circuito (id, nome, citta) VALUES (1, 'Mugello', 'Italia');
+INSERT INTO circuito (id, nome, citta) VALUES (2, 'Silverstone', 'Regno Unito');
+INSERT INTO circuito (id, nome, citta) VALUES (3, 'Assen', 'Paesi Bassi');
+INSERT INTO circuito (id, nome, citta) VALUES (4, 'Jerez', 'Spagna');
+INSERT INTO circuito (id, nome, citta) VALUES (5, 'Le Mans', 'Francia');
+
+-- Gran Premi
+INSERT INTO gran_premio (id, numero_di_giri, data, circuito_id) VALUES (1, 23, '2025-05-10', 1);
+INSERT INTO gran_premio (id, numero_di_giri, data, circuito_id) VALUES (2, 20, '2025-06-02', 2);
+INSERT INTO gran_premio (id, numero_di_giri, data, circuito_id) VALUES (3, 24, '2025-06-15', 3);
+INSERT INTO gran_premio (id, numero_di_giri, data, circuito_id) VALUES (4, 22, '2025-07-01', 4);
+INSERT INTO gran_premio (id, numero_di_giri, data, circuito_id) VALUES (5, 21, '2025-07-20', 5);
+
+-- Sponsor
+INSERT INTO sponsor (id, nome) VALUES (1, 'Monster');
+INSERT INTO sponsor (id, nome) VALUES (2, 'Red Bull');
+INSERT INTO sponsor (id, nome) VALUES (3, 'Michelin');
+
+-- GranPremio_Sponsor
+INSERT INTO gran_premio_sponsor (gran_premio_id, sponsor_id) VALUES (1, 1);
+INSERT INTO gran_premio_sponsor (gran_premio_id, sponsor_id) VALUES (2, 2);
+INSERT INTO gran_premio_sponsor (gran_premio_id, sponsor_id) VALUES (3, 3);
