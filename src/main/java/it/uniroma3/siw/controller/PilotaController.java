@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import it.uniroma3.siw.service.PilotaService;
 import it.uniroma3.siw.service.TeamService;
 import it.uniroma3.siw.model.Team;
+import it.uniroma3.siw.model.Pilota;
 import it.uniroma3.siw.model.PilotaGP;
 
 @Controller
@@ -31,7 +32,7 @@ public class PilotaController {
 	
 	@GetMapping("/pilotiETeam")
 	public String mostraPilotiETeam(Model model, Authentication authentication) {
-	    List<PilotaGP> piloti = pilotaService.getAllPiloti();
+	    List<Pilota> piloti = pilotaService.getAllPiloti();
 	    List<Team> teams = teamService.findAll();
 
 	    List<List<Team>> teamChunks = new ArrayList<>();
@@ -51,6 +52,7 @@ public class PilotaController {
 
 	    return "pilotiETeam";
 	}
+
 
 
 

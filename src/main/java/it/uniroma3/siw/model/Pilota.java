@@ -12,7 +12,10 @@ public class Pilota {
     private Long id;
     private String nome;
     private String cognome;
+    
+    @Column(name = "numero_identificativo")
     private int numeroIdentificativo;
+    
     private java.time.LocalDate dataDiNascita;
     private String nazionalita;
     private int peso;

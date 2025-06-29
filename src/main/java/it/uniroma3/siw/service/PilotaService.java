@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.Pilota;
-import it.uniroma3.siw.model.PilotaGP;
 import it.uniroma3.siw.repository.PilotaRepository;
-import it.uniroma3.siw.repository.PilotaGPRepository;
 
 @Service
 public class PilotaService {
@@ -16,16 +14,13 @@ public class PilotaService {
     @Autowired
     private PilotaRepository pilotaRepository;
 
-    @Autowired
-    private PilotaGPRepository pilotaGPRepository;
-
     public Pilota getPilotaById(Long id) {
         return pilotaRepository.findById(id).orElse(null);
     }
 
-    public List<PilotaGP> getAllPiloti() {
-        List<PilotaGP> result = new ArrayList<>();
-        pilotaGPRepository.findAll().forEach(result::add);
+    public List<Pilota> getAllPiloti() {
+        List<Pilota> result = new ArrayList<>();
+        pilotaRepository.findAll().forEach(result::add);
         return result;
     }
 }

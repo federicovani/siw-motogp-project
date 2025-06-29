@@ -19,6 +19,23 @@
             margin: 20px 0;
         }
 
+        header .nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: black;
+            padding: 15px 0;
+        }
+
+        header .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+
+        header .nav-link:hover {
+            text-decoration: underline;
+        }
+
         main {
             max-width: 1200px;
             margin: 20px auto;
@@ -36,7 +53,6 @@
             margin-top: 20px;
         }
 
-        /* Carosello */
         .carousel-container {
             position: relative;
             overflow: hidden;
@@ -65,8 +81,9 @@
             height: auto;
         }
 
-        .carousel-card h5 {
-            margin-top: 10px;
+        .carousel-card h5,
+        .carousel-card p {
+            margin-top: 8px;
             color: white;
         }
 
@@ -105,7 +122,7 @@
         <a href="/pilotiETeam" class="nav-link">Piloti e Team</a>
         <a href="/granPremi" class="nav-link">Gran Premi</a>
         <a href="/campionati" class="nav-link">Campionato</a>
-        <a href="" class="nav-link">Shop</a>
+        <a href="/shop" class="nav-link">Shop</a>
         <a th:if="${user==null}" href="/login" class="nav-link">Accedi/Registrati</a>
         <a th:if="${user!=null}" href="/account" class="nav-link">Account</a>
     </nav>
@@ -117,8 +134,22 @@
     <!-- Piloti Section -->
     <section>
         <h2>Piloti</h2>
-        <div>
-            <p class="empty-message">Sezione piloti temporaneamente vuota.</p>
+
+        <div th:if="${#lists.isEmpty(piloti)}" class="empty-message">
+            Nessun pilota disponibile al momento.
+        </div>
+
+        <div th:if="${not #lists.isEmpty(piloti)}" class="carousel-container">
+            <button class="carousel-button prev" onclick="moveCarousel(-1, 'pilotiCarouselTrack')">❮</button>
+            <div class="carousel-track" id="pilotiCarouselTrack" data-index="0">
+                <div class="carousel-card" th:each="pilota : ${piloti}">
+                    <img src="https://via.placeholder.com/300x200/000000/FFFFFF?text=Pilota+Image" alt="Immagine Pilota">
+                    <h5 th:text="'#' + ${pilota.numeroIdentificativo} + ' - ' + ${pilota.nome} + ' ' + ${pilota.cognome}">Numero Nome Cognome</h5>
+                    <p th:text="'Nazionalità: ' + ${pilota.nazionalita}">Nazionalità</p>
+                    <p th:text="'Team: ' + ${pilota.team.nome}">Team</p>
+                </div>
+            </div>
+            <button class="carousel-button next" onclick="moveCarousel(1, 'pilotiCarouselTrack')">❯</button>
         </div>
     </section>
 
@@ -133,28 +164,28 @@
         </div>
 
         <div th:if="${not #lists.isEmpty(teams)}" class="carousel-container">
-            <button class="carousel-button prev" onclick="moveCarousel(-1)">❮</button>
-            <div class="carousel-track" id="carouselTrack">
+            <button class="carousel-button prev" onclick="moveCarousel(-1, 'teamCarouselTrack')">❮</button>
+            <div class="carousel-track" id="teamCarouselTrack" data-index="0">
                 <div class="carousel-card" th:each="team : ${teams}">
                     <img src="https://via.placeholder.com/300x200/000000/FFFFFF?text=Team+Image" alt="Immagine Team">
                     <h5 th:text="${team.nome}">Nome Team</h5>
                 </div>
             </div>
-            <button class="carousel-button next" onclick="moveCarousel(1)">❯</button>
+            <button class="carousel-button next" onclick="moveCarousel(1, 'teamCarouselTrack')">❯</button>
         </div>
     </section>
 </main>
 
 <script>
-    let currentIndex = 0;
-
-    function moveCarousel(direction) {
-        const track = document.getElementById('carouselTrack');
+    function moveCarousel(direction, trackId) {
+        const track = document.getElementById(trackId);
         const cards = track.children;
         const visibleCards = 4;
         const totalCards = cards.length;
 
-        if (totalCards <= visibleCards) return;  // niente da scorrere
+        if (totalCards <= visibleCards) return;
+
+        let currentIndex = parseInt(track.getAttribute('data-index') || '0');
 
         const cardWidth = cards[0].offsetWidth + 20;
 
@@ -164,6 +195,7 @@
         if (currentIndex < 0) currentIndex = 0;
         if (currentIndex > maxIndex) currentIndex = maxIndex;
 
+        track.setAttribute('data-index', currentIndex);
         track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
     }
 </script>
