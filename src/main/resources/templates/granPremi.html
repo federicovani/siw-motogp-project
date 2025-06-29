@@ -1,28 +1,46 @@
 <!DOCTYPE html>
-<html>
-	<head>
-	    <title>GranPremi</title>
-		<link rel="stylesheet" href="css/index.css">
-	</head>
-	
-	<body>
-		
-		<header>
-			<nav class="nav">
-				<a href="/" class="nav-link">Home</a>
-				<a href="/pilotiETeam" class="nav-link">Piloti e Team</a>
-				<a href="/granPremi" class="nav-link">Gran Premi</a>
-				<a href="/campionati" class="nav-link">Campionato</a>
-				<a href="" class="nav-link">Shop</a>
-				<a th:if="${user==null}" href="/login" class="nav-link">Accedi/Registrati</a>
-				<a th:if="${user!=null}" href="/account" class="nav-link">Account</a>
-			</nav>
-		</header>
-		
-		<hr>
-		
-		<main>
-		</main>
-		
-	</body>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Gran Premi</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/granpremi.css">
+</head>
+<body>
+
+<header>
+    <nav class="nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/pilotiETeam" class="nav-link">Piloti e Team</a>
+        <a href="/granPremi" class="nav-link">Gran Premi</a>
+        <a href="/campionati" class="nav-link">Campionato</a>
+        <a href="/shop" class="nav-link">Shop</a>
+        <a th:if="${user==null}" href="/login" class="nav-link">Accedi/Registrati</a>
+        <a th:if="${user!=null}" href="/account" class="nav-link">Account</a>
+    </nav>
+</header>
+
+<hr>
+
+<main>
+    <h2>Gran Premi</h2>
+
+    <div th:if="${#lists.isEmpty(granPremi)}" class="empty-message">
+        Nessun Gran Premio disponibile al momento.
+    </div>
+
+    <div th:if="${not #lists.isEmpty(granPremi)}" class="vertical-scroll-container">
+        <div class="gp-card" th:each="gp : ${granPremi}">
+            <h3 th:text="${#temporals.format(gp.data, 'dd/MM/yyyy')}">Data</h3>
+            <p th:text="'Nazione: ' + ${gp.circuito.paese}">Nazione</p>
+            <p th:text="'Numero di giri: ' + ${gp.numeroDiGiri}">Numero di giri</p>
+            <p>Sponsor:</p>
+            <ul>
+                <li th:each="s : ${gp.sponsor}" th:text="${s.nome}">Sponsor</li>
+            </ul>
+        </div>
+    </div>
+</main>
+
+</body>
 </html>

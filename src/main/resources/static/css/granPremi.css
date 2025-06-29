@@ -1,0 +1,79 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+hr {
+    border: 1px solid white;
+    margin: 20px 0;
+}
+
+header .nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: black;
+    padding: 15px 0;
+}
+
+header .nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+}
+
+header .nav-link:hover {
+    text-decoration: underline;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+h2 {
+    text-align: center;
+    color: white;
+}
+
+.empty-message {
+    text-align: center;
+    color: #ccc;
+    margin-top: 20px;
+}
+
+.vertical-scroll-container {
+    max-height: 80vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.gp-card {
+    background-color: #222;
+    border: 1px solid white;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.gp-card h3 {
+    margin-top: 0;
+    color: white;
+}
+
+.gp-card p, .gp-card li {
+    color: white;
+    margin: 5px 0;
+}
+
+.gp-card ul {
+    padding-left: 20px;
+    margin: 5px 0;
+}

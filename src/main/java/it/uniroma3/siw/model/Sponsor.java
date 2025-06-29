@@ -16,7 +16,9 @@ public class Sponsor {
     @ManyToMany(mappedBy = "sponsor")
     private List<GranPremio> granPremi;
     
-    
+    public Sponsor() {
+    	
+    }
     
     public Sponsor(int id, String nome, String descrizione, Contratto contratto) {
     	this.id = id;
