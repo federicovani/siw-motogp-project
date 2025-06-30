@@ -19,6 +19,9 @@ public class Moto {
 	private String scarico;
 	private int peso;
 	
+	//ricavo i costruttori dalla moto
+	private String costruttore;
+	
 	// Getter e Setter
 	public Long getId() {
 		return id;
@@ -68,7 +71,12 @@ public class Moto {
 	public void setPeso(int peso) {
 		this.peso = peso;
 	}
-	
+	public String getCostruttore() {
+		return costruttore;
+	}
+	public void setCostruttore(String costruttore) {
+		this.costruttore = costruttore;
+	}
 	// Equals e hashCode
 	@Override
 	public int hashCode( ) {

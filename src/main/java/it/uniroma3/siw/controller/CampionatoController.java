@@ -12,10 +12,14 @@ public class CampionatoController {
 	
 	@Autowired CampionatoService campionatoService;
 	
-	@GetMapping("/campionati")
+	/*@GetMapping("/campionati")
 	public String showCampionati(Model model) {
 		model.addAttribute("campionati", this.campionatoService.getAllCampionati());
-		return "campionati.html";
-	}
+		ret*/
+	
+	@GetMapping("/campionati")
+    public String showCampionati() {
+        return "campionati.html";
+    }
 
 }
