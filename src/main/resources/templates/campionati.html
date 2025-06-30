@@ -1,28 +1,54 @@
 <!DOCTYPE html>
-<html>
-	<head>
-	    <title>Campionati</title>
-		<link rel="stylesheet" href="css/index.css">
-	</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Campionati</title>
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/campionati.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+	<header>
+	    <nav class="nav">
+	        <a href="/" class="nav-link">Home</a>
+	        <a href="/pilotiETeam" class="nav-link">Piloti e Team</a>
+	        <a href="/granPremi" class="nav-link">Gran Premi</a>
+	        <a href="/campionati" class="nav-link">Campionato</a>
+	        <a href="/shop" class="nav-link">Shop</a>
+	        <a th:if="${user==null}" href="/login" class="nav-link">Accedi/Registrati</a>
+	        <a th:if="${user!=null}" href="/account" class="nav-link">Account</a>
+	    </nav>
+	</header>
 	
-	<body>
-		
-		<header>
-			<nav class="nav">
-				<a href="/" class="nav-link">Home</a>
-				<a href="/pilotiETeam" class="nav-link">Piloti e Team</a>
-				<a href="/granPremi" class="nav-link">Gran Premi</a>
-				<a href="/campionati" class="nav-link">Campionato</a>
-				<a href="" class="nav-link">Shop</a>
-				<a th:if="${user==null}" href="/login" class="nav-link">Accedi/Registrati</a>
-				<a th:if="${user!=null}" href="/account" class="nav-link">Account</a>
-			</nav>
-		</header>
-		
-		<hr>
-		
-		<main>
-		</main>
-		
-	</body>
+<hr>
+<main>
+
+    <!-- Contenuto principale -->
+    <div class="container">
+        <h2>Campionati</h2>
+        <div class="card-container">
+            <div class="card">
+                <a th:href="@{/campionati/piloti}">
+                    <div class="card-title">Campionato Piloti</div>
+                    <div class="card-text">Consulta la classifica dei piloti per anno.</div>
+                </a>
+            </div>
+            <div class="card">
+                <a th:href="@{/campionati/team}">
+                    <div class="card-title">Campionato Team</div>
+                    <div class="card-text">Scopri la classifica dei team per anno.</div>
+                </a>
+            </div>
+            <div class="card">
+                <a th:href="@{/campionati/costruttori}">
+                    <div class="card-title">Campionato Costruttori</div>
+                    <div class="card-text">Visualizza la classifica costruttori per anno.</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</main>
+</body>
 </html>
