@@ -1,97 +1,96 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>Piloti e Team</title>
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/pilotiETeam.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoGP</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/pilotiETeam.css}">
 </head>
-
 <body>
-
-<header>
-    <nav class="nav">
-        <a href="/" class="nav-link">Home</a>
-        <a href="/pilotiETeam" class="nav-link">Piloti e Team</a>
-        <a href="/granPremi" class="nav-link">Gran Premi</a>
-        <a href="/campionati" class="nav-link">Campionato</a>
-        <a href="/shop" class="nav-link">Shop</a>
-        <a th:if="${user==null}" href="/login" class="nav-link">Accedi/Registrati</a>
-        <a th:if="${user!=null}" href="/account" class="nav-link">Account</a>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a th:if="${isAdmin}" th:href="@{'/'}" th:text="'MotoGP - Admin'"></a>
+                <a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
+            </div>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
+                <li class="navbar-item"><a th:href="@{'/granPremi'}">Gran Premi</a></li>
+                <li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
+                <li class="navbar-item">
+                    <a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
+                    <a th:if="${!isAnonymous}" th:href="'/logout'" th:text="${username} + ' - Logout'"></a>
+                </li>
+            </ul>
+        </div>
     </nav>
-</header>
+    <header>
+        <h1>Esplora i nostri Piloti e Team</h1>
+    </header>
 
-<hr>
+    <main>
+        <!-- Piloti Section -->
+        <section class="sectionContainer">
+            <h2>Piloti</h2>
 
-<main>
-    <!-- Piloti Section -->
-    <section>
-        <h2>Piloti</h2>
+            <div th:if="${#lists.isEmpty(piloti)}" class="empty-message">
+                Nessun pilota disponibile al momento.
+            </div>
 
-        <div th:if="${#lists.isEmpty(piloti)}" class="empty-message">
-            Nessun pilota disponibile al momento.
-        </div>
-
-        <div th:if="${not #lists.isEmpty(piloti)}" class="carousel-container">
-            <button class="carousel-button prev" onclick="moveCarousel(-1, 'pilotiCarouselTrack')">❮</button>
-            <div class="carousel-track" id="pilotiCarouselTrack" data-index="0">
-                <div class="carousel-card" th:each="pilota : ${piloti}">
-                    <img src="https://via.placeholder.com/300x200/000000/FFFFFF?text=Pilota+Image" alt="Immagine Pilota">
-                    <h5 th:text="'#' + ${pilota.numeroIdentificativo} + ' - ' + ${pilota.nome} + ' ' + ${pilota.cognome}">Numero Nome Cognome</h5>
-                    <p th:text="'Nazionalità: ' + ${pilota.nazionalita}">Nazionalità</p>
-                    <p th:text="'Team: ' + ${pilota.team.nome}">Team</p>
+            <div th:if="${not #lists.isEmpty(piloti)}" class="carousel-container">
+                <div class="carousel-track" id="pilotiCarouselTrack">
+                    <div class="carousel-card" th:each="pilota : ${piloti}">
+                        <a th:href="@{'/pilota/' + ${pilota.id}}">
+                            <img th:if="${pilota.immagine} != null" th:src="@{'/images/' + ${pilota.immagine}}" alt="Immagine">
+                            <h5 th:text="'#' + ${pilota.numeroIdentificativo} + ' - ' + ${pilota.nome} + ' ' + ${pilota.cognome}">Numero Nome Cognome</h5>
+                            <p th:text="'Nazionalità: ' + ${pilota.nazionalita}">Nazionalità</p>
+                            <p th:if="${pilota.team != null}" th:text="'Team: ' + ${pilota.team.nome}">Team</p>
+                        </a>
+                            <div class="button-container">
+                            <a class="tasto-card-admin" th:if="${isAdmin}" th:href="@{'/admin/deletePilota/' + ${pilota.id}}">Elimina Pilota</a>
+                            </div>
+                    </div>
                 </div>
             </div>
-            <button class="carousel-button next" onclick="moveCarousel(1, 'pilotiCarouselTrack')">❯</button>
-        </div>
-    </section>
+            <div>
+                <a class="tasto-generico-admin" th:if="${isAdmin}" th:href="@{'/admin/formNewPilota'}"> Aggiungi Nuovo Pilota</a>
+            </div>
+        </section>
 
-    <hr>
+        <!-- Team Section -->
+        <section class="sectionContainer">
+            <h2>Team</h2>
 
-    <!-- Team Section -->
-    <section>
-        <h2>Team</h2>
+            <div th:if="${#lists.isEmpty(teams)}" class="empty-message">
+                Nessun team disponibile al momento.
+            </div>
 
-        <div th:if="${#lists.isEmpty(teams)}" class="empty-message">
-            Nessun team disponibile al momento.
-        </div>
-
-        <div th:if="${not #lists.isEmpty(teams)}" class="carousel-container">
-            <button class="carousel-button prev" onclick="moveCarousel(-1, 'teamCarouselTrack')">❮</button>
-            <div class="carousel-track" id="teamCarouselTrack" data-index="0">
-                <div class="carousel-card" th:each="team : ${teams}">
-                    <img src="https://via.placeholder.com/300x200/000000/FFFFFF?text=Team+Image" alt="Immagine Team">
-                    <h5 th:text="${team.nome}">Nome Team</h5>
+            <div th:if="${not #lists.isEmpty(teams)}" class="carousel-container">
+                <div class="carousel-track" id="teamCarouselTrack">
+                    <div class="carousel-card" th:each="team : ${teams}">
+                        <a th:href="@{'/team/' + ${team.id}}">
+                            <img th:if="${team.immagine} != null" th:src="@{'/images/' + ${team.immagine}}" alt="Immagine">
+                            <h5 th:text="${team.nome}">Nome Team</h5>
+                            <div th:if="${team.pilotiUfficiali != null}">
+                                <ul>
+                                    <li th:each="pilota : ${team.pilotiUfficiali}" th:text="${pilota.nome} + ' ' + ${pilota.cognome}"></li>
+                                </ul>
+                            </div>
+                        </a>
+                        <div class="button-container">
+                            <a class="tasto-card-admin" th:if="${isAdmin}" th:href="@{'/admin/deleteTeam/' + ${team.id}}">Elimina Team</a>
+                        </div>
+                </div>
                 </div>
             </div>
-            <button class="carousel-button next" onclick="moveCarousel(1, 'teamCarouselTrack')">❯</button>
-        </div>
-    </section>
-</main>
-
-<script>
-    function moveCarousel(direction, trackId) {
-        const track = document.getElementById(trackId);
-        const cards = track.children;
-        const visibleCards = 4;
-        const totalCards = cards.length;
-
-        if (totalCards <= visibleCards) return;
-
-        let currentIndex = parseInt(track.getAttribute('data-index') || '0');
-
-        const cardWidth = cards[0].offsetWidth + 20;
-
-        const maxIndex = totalCards - visibleCards;
-        currentIndex += direction;
-
-        if (currentIndex < 0) currentIndex = 0;
-        if (currentIndex > maxIndex) currentIndex = maxIndex;
-
-        track.setAttribute('data-index', currentIndex);
-        track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-    }
-</script>
-
+            <div>
+                <a class="tasto-generico-admin" th:if="${isAdmin}" th:href="@{'/admin/formNewTeam'}"> Aggiungi Nuovo Team</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>© 2025 MotoGP - Tutti i diritti riservati</p>
+    </footer>
 </body>
 </html>

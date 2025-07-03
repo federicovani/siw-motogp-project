@@ -3,6 +3,7 @@ package it.uniroma3.siw.model;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Team {
@@ -12,8 +13,7 @@ public class Team {
     private String nome;
     @OneToMany(mappedBy = "team")
     private List<Pilota> pilotiUfficiali;
-    @OneToMany(mappedBy = "team")
-    private List<Pilota> pilotiTester;
+    private String immagine;
 
     public Long getId() {
         return id;
@@ -39,12 +39,24 @@ public class Team {
         this.pilotiUfficiali = pilotiUfficiali;
     }
 
-    public List<Pilota> getPilotiTester() {
-        return pilotiTester;
+    public String getImmagine() {
+        return immagine;
     }
 
-    public void setPilotiTester(List<Pilota> pilotiTester) {
-        this.pilotiTester = pilotiTester;
+    public void setImmagine(String immagine) {
+        this.immagine = immagine;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Team team = (Team) o;
+        return Objects.equals(id, team.id) && Objects.equals(nome, team.nome) && Objects.equals(pilotiUfficiali, team.pilotiUfficiali) && Objects.equals(immagine, team.immagine);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, pilotiUfficiali, immagine);
     }
 }
 

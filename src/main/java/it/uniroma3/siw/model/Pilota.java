@@ -3,6 +3,7 @@ package it.uniroma3.siw.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "pilota")
@@ -12,16 +13,15 @@ public class Pilota {
     private Long id;
     private String nome;
     private String cognome;
-    
-    @Column(name = "numero_identificativo")
+    @Column(name = "numero_identificativo", unique = true, nullable = false)
     private int numeroIdentificativo;
-    
     private java.time.LocalDate dataDiNascita;
     private String nazionalita;
     private int peso;
     private int altezza;
     @ManyToOne
     private Team team;
+    private String immagine;
 
     public int getAltezza() {
         return altezza;
@@ -94,4 +94,24 @@ public class Pilota {
 	public void setTeam(Team team) {
 		this.team = team;
 	}
+
+    public String getImmagine() {
+        return immagine;
+    }
+
+    public void setImmagine(String immagine) {
+        this.immagine = immagine;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Pilota pilota = (Pilota) o;
+        return numeroIdentificativo == pilota.numeroIdentificativo && peso == pilota.peso && altezza == pilota.altezza && Objects.equals(id, pilota.id) && Objects.equals(nome, pilota.nome) && Objects.equals(cognome, pilota.cognome) && Objects.equals(dataDiNascita, pilota.dataDiNascita) && Objects.equals(nazionalita, pilota.nazionalita) && Objects.equals(team, pilota.team) && Objects.equals(immagine, pilota.immagine);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, cognome, numeroIdentificativo, dataDiNascita, nazionalita, peso, altezza, team, immagine);
+    }
 }

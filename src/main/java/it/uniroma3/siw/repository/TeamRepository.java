@@ -10,4 +10,5 @@ import it.uniroma3.siw.model.Team;
 @Repository
 public interface TeamRepository extends CrudRepository<Team, Long>  {
 
+    boolean existsByNomeIgnoreCase(String nome);
 }

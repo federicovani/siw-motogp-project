@@ -1,40 +1,40 @@
 <!DOCTYPE html>
-<html>
-	<head>
-	    <title>HomePage</title>
-		<link rel="stylesheet" href="css/index.css">
-		<link rel="stylesheet" href="css/homepage.css">
-	</head>
-	
-	<body>
-		
-		<header>
-			<nav class="nav">
-				<a href="/" class="nav-link">Home</a>
-				<a href="/pilotiETeam" class="nav-link">Piloti e Team</a>
-				<a href="/granPremi" class="nav-link">Gran Premi</a>
-				<a href="/campionati" class="nav-link">Campionato</a>
-				<a href="" class="nav-link">Shop</a>
-				<a th:if="${user==null}" href="/login" class="nav-link">Accedi/Registrati</a>
-				<a th:if="${user!=null}" href="/account" class="nav-link">Account</a>
-			</nav>
-		</header>
-		
-		<hr>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MotoGP</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<nav class="navbar">
+		<div class="navbar-container">
+			<div class="navbar-logo">
+				<a th:if="${isAdmin}" th:href="@{'/'}" th:text="'MotoGP - Admin'"></a>
+				<a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
+			</div>
+			<ul class="navbar-menu">
+				<li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
+				<li class="navbar-item"><a th:href="@{'/granPremi'}">Gran Premi</a></li>
+				<li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
+				<li class="navbar-item">
+					<a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
+					<a th:if="${!isAnonymous}" th:href="'/logout'" th:text="${username} + ' - Logout'"></a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<header>
+		<h1>Benvenuto su MotoGP</h1>
+	</header>
 		
 		<main>
 			<div>
 				<h1>Campionato 2025</h1>
 			</div>
-			
 			<div>
 				<h2>Prossimi eventi</h2>
 			</div>
-			
-			<div>
-				<h2>Shop</h2>
-			</div>
-			
 			<div>
 				<h3>Sponsor</h3>
 			</div>

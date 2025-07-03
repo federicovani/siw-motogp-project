@@ -1,103 +1,91 @@
-body {
-	font-family: "Arial", "Helvetica", sans-serif;
-	color: white;
-	background-color: black;
-}
-
-hr {
-    border: 1px solid white;
-    margin: 20px 0;
-}
-
-header .nav {
-	align-items: center;
-	display: flex;
-	justify-content: space-evenly;
-	height: 10vh;
-	margin-top: 5vh;
-}
-
-header .nav-link {
-	text-decoration: none;
-	color: white;
-	font-weight: 200;
-	font-size: 18px;
-}
-
-
-
-main {
-	margin-top: 5vh;
-	margin-left: 4vw;
-	margin-right: 4vw;
-}
-
-h2 {
-    color: white;
-    text-align: center;
-}
-
 .empty-message {
     text-align: center;
     color: #ccc;
     margin-top: 20px;
 }
 
+/* Contenitore del carosello */
 .carousel-container {
     position: relative;
-    overflow: hidden;
     width: 100%;
-    max-width: 1000px;
+    max-width: 1500px;
     margin: 20px auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px; /* Bordo arrotondato */
+    background-color: #661111; /* Colore rosso scuro */
 }
 
+/* Traccia del carosello */
 .carousel-track {
     display: flex;
     transition: transform 0.5s ease;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    scrollbar-color: #cc4444 #661111;
 }
 
+/* Card del carosello */
 .carousel-card {
-    flex: 0 0 calc(25% - 20px);
-    margin: 10px;
-    background-color: #222;
-    border: 1px solid white;
+    display: flex;
+    flex: 0 0 calc(20% - 20px);
+    margin: 15px;
+    background-color: #cc4444;
+    border: 1px solid #aa2222;
+    border-radius: 4px;
     text-align: center;
-    padding: 10px;
-    box-sizing: border-box;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover ed effetto visivo card */
+.carousel-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .carousel-card img {
     max-width: 100%;
     height: auto;
+    border-radius: 4px; /* Allinea il bordo immagine con la card */
 }
 
-.carousel-card h5,
+.carousel-card h5 {
+    margin-top: 8px;
+    color: #ffffff; /* Testo bianco per contrasti migliori */
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
 .carousel-card p {
     margin-top: 8px;
-    color: white;
+    color: #ffffff; /* Testo bianco */
+    font-size: 1rem;
 }
 
-.carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    z-index: 2;
-    font-size: 24px;
+/* Responsività del carosello */
+@media (max-width: 768px) {
+    .carousel-card {
+        flex: 0 0 calc(50% - 20px); /* Mostra 2 card per riga su schermi più piccoli */
+    }
 }
 
-.carousel-button:hover {
-    background-color: rgba(255, 255, 255, 0.4);
+@media (max-width: 480px) {
+    .carousel-card {
+        flex: 0 0 calc(100% - 20px); /* Mostra 1 card per riga su schermi molto piccoli */
+    }
 }
 
-.carousel-button.prev {
-    left: 0;
+.carousel-card ul {
+    list-style-type: none; /* Rimuove l'elenco puntato */
+    padding: 0; /* Elimina lo spazio interno */
+    margin: 0; /* Elimina i margini */
+    text-align: center; /* Centra il testo */
 }
 
-.carousel-button.next {
-    right: 0;
+.carousel-card li {
+    color: #ffffff; /* Colore del testo bianco */
+    font-size: 1rem; /* Dimensione del testo per i nomi */
+    margin-bottom: 5px; /* Spaziatura tra i nomi */
 }

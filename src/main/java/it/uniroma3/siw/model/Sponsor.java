@@ -12,7 +12,6 @@ public class Sponsor {
     private int id;
     private String nome;
     private String descrizione;
-    //private Contratto contratto;
     @ManyToMany(mappedBy = "sponsor")
     private List<GranPremio> granPremi;
     
@@ -20,14 +19,11 @@ public class Sponsor {
     	
     }
     
-    public Sponsor(int id, String nome, String descrizione, Contratto contratto) {
+    public Sponsor(int id, String nome, String descrizione) {
     	this.id = id;
     	this.nome = nome;
     	this.descrizione = descrizione;
-    	//this.setContratto(contratto);
     }
-    
-    
     
 	public String getNome() {
 		return nome;
@@ -43,50 +39,25 @@ public class Sponsor {
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
-	
-	
 
-	
-	
-//	public Contratto getContratto() {
-//		return contratto;
-//	}
-//	public void setContratto(Contratto contratto) {
-//		this.contratto = contratto;
-//	}
-	
-	
-	
-	
 	public int getId() {
 		return id;
 	}
-
-
-
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
-
 	public List<GranPremio> getGranPremi() {
 		return granPremi;
 	}
-
-
-
 	public void setGranPremi(List<GranPremio> granPremi) {
 		this.granPremi = granPremi;
 	}
-
-
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(descrizione, id, nome);
 	}
-	
 	
 	@Override
 	public boolean equals(Object obj) {

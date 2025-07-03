@@ -8,22 +8,16 @@ public class Ingegnere {
 	private String cognome;
 	private LocalDate dataDiNascita;
 	private String nazionalita;
-	private Contratto contratto;
 	private Team team;
 	
 	
 	
-	public Ingegnere (String nome, String cognome, LocalDate dataDiNascita, String nazionalita, Contratto contratto) {
+	public Ingegnere (String nome, String cognome, LocalDate dataDiNascita, String nazionalita) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.dataDiNascita = dataDiNascita;
 		this.nazionalita = nazionalita;
-		this.setContratto(contratto);
 	}
-	
-	
-	
-	
 	
 	public String getNome() {
 		return nome;
@@ -55,14 +49,7 @@ public class Ingegnere {
 	public void setNazionalita(String nazionalita) {
 		this.nazionalita = nazionalita;
 	}
-	
-	
-	public Contratto getContratto() {
-		return contratto;
-	}
-	public void setContratto(Contratto contratto) {
-		this.contratto = contratto;
-	}
+
 	
 	public Team getTeam() {
 		return team;
@@ -72,14 +59,11 @@ public class Ingegnere {
 	}
 	
 	
-	
-	
 	@Override
 	public int hashCode() {
 		return Objects.hash(cognome, dataDiNascita, nazionalita, nome);
 	}
-	
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

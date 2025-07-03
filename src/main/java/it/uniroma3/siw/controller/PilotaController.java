@@ -9,13 +9,14 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import it.uniroma3.siw.service.PilotaService;
 import it.uniroma3.siw.service.TeamService;
 import it.uniroma3.siw.model.Team;
 import it.uniroma3.siw.model.Pilota;
 import it.uniroma3.siw.model.PilotaGP;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class PilotaController {
@@ -52,6 +53,34 @@ public class PilotaController {
 
 	    return "pilotiETeam";
 	}
+
+	@GetMapping("/admin/formNewPilota")
+	public String formNewPilota(Model model) {
+		model.addAttribute("pilota", new Pilota());
+		return "admin/formNewPilota.html";
+	}
+
+	@PostMapping("/admin/formNewPilota")
+	public String salvaPilota(@ModelAttribute("pilota") Pilota pilota, @RequestParam("file") MultipartFile file, Model model) {
+
+		if (!pilotaService.existsByNomeAndCognome(pilota.getNome(), pilota.getCognome())) {
+			if (file != null && !file.isEmpty())
+				pilotaService.saveImmagine(pilota, file);
+			pilotaService.save(pilota);
+			model.addAttribute("pilota", pilota);
+			return "redirect:/pilota/" + pilota.getId();
+		} else {
+			model.addAttribute("messaggioErrore", "Questo pilota esiste già");
+			return "admin/formNewPilota.html";
+		}
+	}
+
+	@GetMapping("/admin/deletePilota/{pilotaId}")
+	public String deletePilota(@PathVariable("pilotaId") Long pilotaId, Model model) {
+		pilotaService.deleteById(pilotaId);
+		return "redirect:/pilotiETeam";
+	}
+
 
 
 

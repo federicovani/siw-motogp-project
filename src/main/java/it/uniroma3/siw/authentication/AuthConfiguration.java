@@ -68,7 +68,7 @@ public class AuthConfiguration {
             .formLogin(form -> form
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/success", true)
+                .defaultSuccessUrl("/")
                 .failureUrl("/login?error=true")
             )
 
