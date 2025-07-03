@@ -27,7 +27,9 @@ public class PilotaController {
 	
 	@GetMapping("/pilota/{id}")
 	public String getPilota(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("pilota", this.pilotaService.getPilotaById(id));
+		Pilota compagnoDiSquadra = pilotaService.getCompagnoDiSquadra(id);
+		model.addAttribute("pilota", pilotaService.getPilotaById(id));
+		model.addAttribute("compagnoDiSquadra", compagnoDiSquadra);
 		return "pilota.html";
 	}
 	

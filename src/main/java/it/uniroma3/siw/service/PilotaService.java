@@ -78,4 +78,21 @@ public class PilotaService {
         // Collega l'immagine al libro
         pilota.setImmagine(fileName);
     }
+
+    @Transactional
+    public Pilota getCompagnoDiSquadra(Long id) {
+        Pilota pilota = getPilotaById(id);
+        Team team = pilota.getTeam();
+        if (team != null) {
+            List<Pilota> piloti = team.getPilotiUfficiali();
+            if (piloti != null) {
+                for (Pilota p : piloti) {
+                    if (p.getId() != id) {
+                        return p;
+                    }
+                }
+            }
+        }
+        return null;
+    }
 }

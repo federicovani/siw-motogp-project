@@ -47,8 +47,8 @@
                             <p th:text="'Nazionalità: ' + ${pilota.nazionalita}">Nazionalità</p>
                             <p th:if="${pilota.team != null}" th:text="'Team: ' + ${pilota.team.nome}">Team</p>
                         </a>
-                            <div class="button-container">
-                            <a class="tasto-card-admin" th:if="${isAdmin}" th:href="@{'/admin/deletePilota/' + ${pilota.id}}">Elimina Pilota</a>
+                            <div th:if="${isAdmin}" class="button-container">
+                            <a class="tasto-card-admin" th:href="@{'/admin/deletePilota/' + ${pilota.id}}">Elimina Pilota</a>
                             </div>
                     </div>
                 </div>
@@ -74,12 +74,12 @@
                             <h5 th:text="${team.nome}">Nome Team</h5>
                             <div th:if="${team.pilotiUfficiali != null}">
                                 <ul>
-                                    <li th:each="pilota : ${team.pilotiUfficiali}" th:text="${pilota.nome} + ' ' + ${pilota.cognome}"></li>
+                                    <li th:each="pilota : ${team.pilotiUfficiali}" th:text="${pilota.nome} + ' ' + ${pilota.cognome} + ' - #' + ${pilota.numeroIdentificativo}"></li>
                                 </ul>
                             </div>
                         </a>
-                        <div class="button-container">
-                            <a class="tasto-card-admin" th:if="${isAdmin}" th:href="@{'/admin/deleteTeam/' + ${team.id}}">Elimina Team</a>
+                        <div th:if="${isAdmin}" class="button-container">
+                            <a class="tasto-card-admin" th:href="@{'/admin/deleteTeam/' + ${team.id}}">Elimina Team</a>
                         </div>
                 </div>
                 </div>

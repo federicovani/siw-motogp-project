@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoGP</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/pilota.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a th:if="${isAdmin}" th:href="@{'/'}" th:text="'MotoGP - Admin'"></a>
+                <a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
+            </div>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
+                <li class="navbar-item"><a th:href="@{'/granPremi'}">Gran Premi</a></li>
+                <li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
+                <li class="navbar-item">
+                    <a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
+                    <a th:if="${!isAnonymous}" th:href="'/logout'" th:text="${username} + ' - Logout'"></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <header>
+        <h1 th:text="${pilota.nome} + ' ' + ${pilota.cognome}"></h1>
+    </header>
+
+    <main>
+        <div class="pilota-container">
+    <!-- Header superiore: numero e nome -->
+    <div class="pilota-header">
+        <h4 th:text="'#' + ${pilota.numeroIdentificativo}"></h4>
+        <h2 th:text="${pilota.nome} + ' ' + ${pilota.cognome}"></h2>
+    </div>
+
+    <!-- Sezione Informazioni iniziali -->
+    <div class="section">
+        <h3>Informazioni Iniziali</h3>
+        <p th:text="${pilota.nazionalita} + ' - ' + ${pilota.team.nome}"></p>
+    </div>
+
+    <!-- Sezione Stagione in Corso -->
+    <div class="section">
+        <h3>Stagione in Corso</h3>
+        <p>Dati Stagione</p>
+    </div>
+
+    <!-- Sezione Compagno di Squadra -->
+    <div class="section teammate">
+        <h3>Compagno di Squadra</h3>
+        <a th:if="${compagnoDiSquadra != null}" th:href="@{'/pilota/' + ${compagnoDiSquadra.id}}">
+            <p th:text="${compagnoDiSquadra.nome} + ' ' + ${compagnoDiSquadra.cognome} + ' - #' + ${compagnoDiSquadra.numeroIdentificativo}"></p>
+        </a>
+        <p th:if="${compagnoDiSquadra == null}">Nessun compagno di squadra disponibile</p>
+    </div>
+</div>
+
+<a th:href="@{'/pilotiETeam'}" class="btn">Torna alla lista Piloti</a>
+    </main>
+    <footer>
+        <p>© 2025 MotoGP - Tutti i diritti riservati</p>
+    </footer>
+</body>
+</html>
