@@ -53,15 +53,34 @@
             </tr>
             </tbody>
         </table>
+        <h2>Gran Premi del Campionato</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Gran Premio</th>
+                <th>Circuito</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="gp : ${campionato.granPremi}">
+                <td th:text="${#temporals.format(gp.data, 'dd/MM/yyyy')}">01/01/2025</td>
+                <td th:text="'Gran Premio ' + (${gp.sponsor.size() > 0 ? gp.sponsor.get(0).nome : 'Senza Sponsor'}) + ' di ' + ${gp.circuito.paese}">
+                    Gran Premio
+                </td>
+                <td th:text="'Circuito di ' + ${gp.circuito.citta}">Circuito</td>
+            </tr>
+            </tbody>
+        </table>
     </section>
 
     <div class="tasto-center-container">
-        <a class="tasto-generico-admin" th:href="@{/campionati/}">Torna ai Campionati</a>
+        <a class="tasto-generico-admin" th:href="@{/campionati}">Torna ai Campionati</a>
     </div>
 </main>
 
 <footer>
-    <p>Classifica aggiornata automaticamente</p>
+    <p>© 2025 MotoGP - Tutti i diritti riservati</p>
 </footer>
 </body>
 

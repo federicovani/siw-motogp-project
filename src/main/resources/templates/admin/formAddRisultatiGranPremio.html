@@ -38,6 +38,9 @@
         <label th:text="${pilota.nome} + ' ' + ${pilota.cognome} + ' #' + ${pilota.numeroIdentificativo}"></label>
         <input type="text" placeholder="Posizione" th:name="${pilota.id}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
       </div>
+      <div>
+        <span th:if="${errorMessage != null}" th:text="${errorMessage}">Errore.</span>
+      </div>
       <button type="submit">Salva Risultati</button>
     </form>
   </section>

@@ -24,9 +24,6 @@ public class GranPremio {
     @OneToMany(mappedBy = "granPremio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PilotaGP> risultati = new ArrayList<>();
 
-    @ManyToOne
-    private Campionato campionato;
-
     // Getter e Setter principali
 
     public long getId() {
@@ -89,23 +86,15 @@ public class GranPremio {
         pilotaGP.setGranPremio(null);
     }
 
-    public Campionato getCampionato() {
-        return campionato;
-    }
-
-    public void setCampionato(Campionato campionato) {
-        this.campionato = campionato;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         GranPremio that = (GranPremio) o;
-        return id == that.id && numeroDiGiri == that.numeroDiGiri && Objects.equals(data, that.data) && Objects.equals(circuito, that.circuito) && Objects.equals(sponsor, that.sponsor) && Objects.equals(risultati, that.risultati) && Objects.equals(campionato, that.campionato);
+        return id == that.id && numeroDiGiri == that.numeroDiGiri && Objects.equals(data, that.data) && Objects.equals(circuito, that.circuito) && Objects.equals(sponsor, that.sponsor) && Objects.equals(risultati, that.risultati);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, numeroDiGiri, data, circuito, sponsor, risultati, campionato);
+        return Objects.hash(id, numeroDiGiri, data, circuito, sponsor, risultati);
     }
 }

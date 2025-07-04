@@ -261,6 +261,140 @@ footer p {
 	margin-bottom: 1em;
 }
 
+/* Contenitore del selettore spostato tutto a destra */
+.filtro-anno {
+	margin: 20px 0;
+	display: flex;
+	justify-content: flex-end; /* Sposta il contenuto tutto a destra */
+	align-items: center; /* Allineamento verticale */
+}
+
+/* Stile generale del selettore */
+.filtro-anno select {
+	-webkit-appearance: none; /* Safari/Chrome */
+	-moz-appearance: none;    /* Firefox */
+	appearance: none;         /* Compatibile moderni */
+	padding: 10px 15px;
+	font-size: 1rem;
+	color: #333;
+	background-color: #ffffff;
+	border: 2px solid #cc4444;
+	border-radius: 6px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	cursor: pointer;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover del selettore */
+.filtro-anno select:hover {
+	border-color: #aa2222;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Focus del selettore */
+.filtro-anno select:focus {
+	outline: none;
+	border-color: #ff4444;
+	box-shadow: 0 3px 6px rgba(255, 68, 68, 0.5);
+}
+
+/* Etichetta vicina al selettore */
+.filtro-anno label {
+	font-size: 1rem;
+	color: #cc4444;
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+/* Contenitore delle checkbox */
+.checkbox-contenitore {
+	display: flex;
+	flex-direction: column; /* Dispone le checkbox verticalmente */
+	gap: 10px; /* Spazio tra una checkbox e l'altra */
+	margin: 15px 0;
+}
+
+/* Stile delle singole checkbox */
+.checkbox-contenitore input[type="checkbox"] {
+	width: 18px; /* Dimensioni coerenti per la checkbox */
+	height: 18px;
+	cursor: pointer; /* Puntatore interattivo */
+	accent-color: #cc4444; /* Cambia colore della checkbox in rosso (browser che supportano questa proprietà) */
+}
+
+/* Stile delle label associate a ogni checkbox */
+.checkbox-contenitore label {
+	font-size: 1rem;         /* Dimensione del testo */
+	color: #333;             /* Testo scuro */
+	margin-left: 5px;        /* Spazio tra la checkbox e il testo */
+	cursor: pointer;         /* Anche la label è interattiva */
+	display: inline-flex;    /* Align testo e checkbox */
+	align-items: center;     /* Allinea centrato con checkbox */
+	gap: 5px;                /* Spazio tra checkbox e testo */
+}
+
+/* Stile della checkbox al passaggio con il mouse */
+.checkbox-contenitore input[type="checkbox"]:hover {
+	border-color: #aa2222; /* Cambia colore del bordo */
+}
+
+/* Stile della label al passaggio con il mouse */
+.checkbox-contenitore label:hover {
+	color: #cc4444; /* Testo rosso alla hover */
+}
+
+/* Stile per la checkbox selezionata */
+.checkbox-contenitore input[type="checkbox"]:checked {
+	background-color: #cc4444; /* Sfondo scelto */
+	border-color: #cc4444;     /* Cambia colore del bordo */
+}
+
+/* Contenitore del selettore */
+.selezione-contenitore {
+	margin: 20px 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px; /* Spazio tra l'etichetta e il selettore */
+}
+
+/* Etichetta vicino al selettore */
+.selezione-contenitore label {
+	font-size: 1rem;
+	color: #cc4444; /* Colore rosso coerente */
+	font-weight: bold;
+}
+
+/* Stile del selettore */
+.selezione-contenitore select {
+	-webkit-appearance: none; /* Rimuove lo stile predefinito (Safari/Chrome) */
+	-moz-appearance: none;    /* Rimuove lo stile predefinito (Firefox) */
+	appearance: none;         /* Compatibile con tutti i browser moderni */
+	padding: 10px 15px;       /* Spaziatura interna */
+	font-size: 1rem;          /* Dimensione del testo */
+	color: #333;              /* Colore del testo */
+	background-color: #ffffff; /* Sfondo bianco */
+	border: 2px solid #cc4444; /* Bordo rosso scuro */
+	border-radius: 6px;       /* Angoli arrotondati */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+	cursor: pointer;          /* Cursore puntatore */
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover del selettore */
+.selezione-contenitore select:hover {
+	border-color: #aa2222; /* Cambia il bordo con un rosso più scuro */
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Ombra più marcata */
+}
+
+/* Focus del selettore */
+.selezione-contenitore select:focus {
+	outline: none;
+	border-color: #ff4444; /* Bordo rosso acceso */
+	box-shadow: 0 3px 6px rgba(255, 68, 68, 0.5); /* Ombra rossa */
+}
+
+
+
 .button-container {
 	margin-top: auto; /* Spinge il contenitore verso il fondo della card */
 	width: 100%; /* Larghezza completa della card */

@@ -12,14 +12,24 @@ public class CampionatoPiloti {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "campionato_id", nullable = false, unique = false) 
+    @JoinColumn(name = "campionato_id", nullable = false)
     private Campionato campionato;
 
     @ManyToOne
-    @JoinColumn(name = "pilota_id", nullable = false, unique = false)
+    @JoinColumn(name = "pilota_id", nullable = false)
     private Pilota pilota;
 
+    @Column(nullable = false)
+    private int anno;
 
+    public CampionatoPiloti() {}
+
+    public CampionatoPiloti(Campionato campionato, Pilota pilota) {
+        this.campionato = campionato;
+        this.pilota = pilota;
+        this.puntiTotali = 0;
+        this.anno = campionato.getAnno();
+    }
 
     private int puntiTotali;
 
@@ -53,6 +63,14 @@ public class CampionatoPiloti {
 
     public void setPuntiTotali(int puntiTotali) {
         this.puntiTotali = puntiTotali;
+    }
+
+    public int getAnno() {
+        return anno;
+    }
+
+    public void setAnno(int anno) {
+        this.anno = anno;
     }
 
     public void aggiungiPunti(int punti) {

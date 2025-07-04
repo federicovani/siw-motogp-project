@@ -11,10 +11,8 @@ public class Campionato {
     private Long id;
 	@Column(nullable=false, unique=true)
     private int anno;
-	@OneToMany(mappedBy = "campionato", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<GranPremio> granPremi;
 	@OneToMany
-	private List<Pilota> piloti;
+	private List<GranPremio> granPremi;
 
 	@OneToMany(mappedBy = "campionato", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CampionatoPiloti> classifica = new ArrayList<>();
@@ -47,14 +45,6 @@ public class Campionato {
 		this.granPremi = granPremi;
 	}
 
-	public List<Pilota> getPiloti() {
-		return piloti;
-	}
-
-	public void setPiloti(List<Pilota> piloti) {
-		this.piloti = piloti;
-	}
-
 	public void setClassifica(List<CampionatoPiloti> classifica) {
 		this.classifica = classifica;
 	}
@@ -63,11 +53,11 @@ public class Campionato {
 	public boolean equals(Object o) {
 		if (o == null || getClass() != o.getClass()) return false;
 		Campionato that = (Campionato) o;
-		return anno == that.anno && Objects.equals(id, that.id) && Objects.equals(granPremi, that.granPremi) && Objects.equals(piloti, that.piloti) && Objects.equals(classifica, that.classifica);
+		return anno == that.anno && Objects.equals(id, that.id) && Objects.equals(granPremi, that.granPremi) && Objects.equals(classifica, that.classifica);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, anno, granPremi, piloti, classifica);
+		return Objects.hash(id, anno, granPremi, classifica);
 	}
 }
