@@ -26,35 +26,33 @@
         </div>
     </nav>
     <header>
-        <h1 th:text="${pilota.nome} + ' ' + ${pilota.cognome}"></h1>
+        <h1 th:text="${team.nome}"></h1>
     </header>
 
     <main>
         <div class="pilota-container">
-            <!-- Nome e numero del pilota -->
+            <!-- Nome del team -->
             <div class="pilota-header">
-                <img th:if="${pilota.immagine} != null" th:src="@{'/images/' + ${pilota.immagine}}" alt="Immagine">
-                <h4 th:text="'#' + ${pilota.numeroIdentificativo}"></h4>
-                <h2 th:text="${pilota.nome} + ' ' + ${pilota.cognome}"></h2>
-                <p th:text="${pilota.nazionalita} + ' - ' + ${pilota.team.nome}"></p>
+                <img th:if="${team.immagine} != null" th:src="@{'/images/' + ${team.immagine}}" alt="Immagine">
+                <h2 th:text="${team.nome}"></h2>
+                <p th:if="${team.moto != null}" th:text="'Costruttore ' + ${team.moto.costruttore}"></p>
             </div>
 
-            <!-- Dettagli della stagione in corso -->
-            <div class="section">
-                <h3>Stagione in Corso</h3>
-                <p>Dati Stagione</p>
-            </div>
-
-            <!-- Sezione Compagno di squadra -->
+            <!-- Piloti del team -->
             <div class="section teammate">
-                <h3>Compagno di Squadra</h3>
-                <a th:if="${compagnoDiSquadra != null}" th:href="@{'/pilota/' + ${compagnoDiSquadra.id}}">
-                    <p th:text="${compagnoDiSquadra.nome} + ' ' + ${compagnoDiSquadra.cognome} + ' - #' + ${compagnoDiSquadra.numeroIdentificativo}"></p>
-                </a>
-                <p th:if="${compagnoDiSquadra == null}">Nessun compagno di squadra disponibile</p>
+                <h3>Piloti del Team</h3>
+                <div th:if="${team.pilotiUfficiali != null}">
+                    <ul class="pilot-list">
+                        <li th:each="pilota : ${team.pilotiUfficiali}">
+                            <a th:href="@{'/pilota/' + ${pilota.id}}" 
+                               th:text="${pilota.nome} + ' ' + ${pilota.cognome} + ' - #' + ${pilota.numeroIdentificativo}">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="tasto-center-container">
-                <a class="tasto-generico-admin" th:if="${isAdmin}" th:href="@{'/admin/formUpdatePilota/' + ${pilota.id}}">Modifica Pilota</a>
+                <a class="tasto-generico-admin" th:if="${isAdmin}" th:href="@{'/admin/formUpdateTeam/' + ${team.id}}">Modifica Team</a>
             </div>
         </div>
     </main>

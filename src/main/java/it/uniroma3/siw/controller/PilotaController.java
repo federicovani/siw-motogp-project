@@ -83,6 +83,49 @@ public class PilotaController {
 		return "redirect:/pilotiETeam";
 	}
 
+	@GetMapping("/admin/formUpdatePilota/{id}")
+	public String formEditPilota(@PathVariable("id") Long id, Model model) {
+		Pilota pilota = pilotaService.getPilotaById(id);
+
+		if (pilota != null) {
+			model.addAttribute("pilota", pilota);
+			return "admin/formUpdatePilota.html";
+		} else {
+			model.addAttribute("messaggioErrore", "Pilota non trovato.");
+			return "redirect:/pilotiETeam";
+		}
+	}
+
+	@PostMapping("/admin/formUpdatePilota")
+	public String updatePilota(@ModelAttribute("pilota") Pilota pilota, @RequestParam("file") MultipartFile file, Model model) {
+		// Controlla l'esistenza del pilota in base all'ID
+		Pilota pilotaEsistente = pilotaService.getPilotaById(pilota.getId());
+
+		if (pilotaEsistente != null) {
+			// Aggiorna i dati del pilota
+			pilotaEsistente.setNome(pilota.getNome());
+			pilotaEsistente.setCognome(pilota.getCognome());
+			pilotaEsistente.setNumeroIdentificativo(pilota.getNumeroIdentificativo());
+			pilotaEsistente.setNazionalita(pilota.getNazionalita());
+			pilotaEsistente.setPeso(pilota.getPeso());
+			pilotaEsistente.setAltezza(pilota.getAltezza());
+			pilotaEsistente.setTeam(pilota.getTeam());
+
+			// Aggiorna l'immagine, se caricata
+			if (file != null && !file.isEmpty()) {
+				pilotaService.saveImmagine(pilotaEsistente, file);
+			}
+
+			// Salva le modifiche
+			pilotaService.save(pilotaEsistente);
+			model.addAttribute("pilota", pilotaEsistente);
+			return "redirect:/pilota/" + pilotaEsistente.getId();
+		} else {
+			model.addAttribute("messaggioErrore", "Pilota non trovato per l'aggiornamento.");
+			return "admin/formNewPilota.html";
+		}
+	}
+
 
 
 

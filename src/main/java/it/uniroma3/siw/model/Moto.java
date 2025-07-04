@@ -15,11 +15,10 @@ public class Moto {
 	private int cilindrata;
 	private String motore;
 	private int potenzaMax;
-	private int velocitàMax;
+	private int velocitaMax;
 	private String scarico;
 	private int peso;
-	
-	//ricavo i costruttori dalla moto
+	private int anno;
 	private String costruttore;
 	
 	// Getter e Setter
@@ -51,13 +50,6 @@ public class Moto {
 		this.potenzaMax = potenzaMax;
 	}
 	
-	public int getVelocitaMax() {
-		return velocitàMax;
-	}
-	public void setVelocitaMax(int velocitaMax) {
-		this.velocitàMax = velocitaMax;
-	}
-	
 	public String getScarico() {
 		return scarico;
 	}
@@ -77,24 +69,32 @@ public class Moto {
 	public void setCostruttore(String costruttore) {
 		this.costruttore = costruttore;
 	}
-	// Equals e hashCode
-	@Override
-	public int hashCode( ) {
-		return Objects.hash(id, cilindrata, motore, potenzaMax, velocitàMax, scarico, peso);
+
+	public int getVelocitaMax() {
+		return velocitaMax;
 	}
-	
+
+	public void setVelocitaMax(int velocitaMax) {
+		this.velocitaMax = velocitaMax;
+	}
+
+	public int getAnno() {
+		return anno;
+	}
+
+	public void setAnno(int anno) {
+		this.anno = anno;
+	}
+
 	@Override
 	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null)
-			return false;
-		if (getClass() != o.getClass())
-			return false;
-		Moto other = (Moto) o;
-		return Objects.equals(id, other.id) && Objects.equals(cilindrata, other.cilindrata)
-				&& Objects.equals(motore, other.motore) && Objects.equals(potenzaMax, other.potenzaMax)
-				&& Objects.equals(velocitàMax, other.velocitàMax) && Objects.equals(scarico, other.scarico)
-				&& Objects.equals(peso, other.peso);
+		if (o == null || getClass() != o.getClass()) return false;
+		Moto moto = (Moto) o;
+		return cilindrata == moto.cilindrata && potenzaMax == moto.potenzaMax && velocitaMax == moto.velocitaMax && peso == moto.peso && anno == moto.anno && Objects.equals(id, moto.id) && Objects.equals(motore, moto.motore) && Objects.equals(scarico, moto.scarico) && Objects.equals(costruttore, moto.costruttore);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, cilindrata, motore, potenzaMax, velocitaMax, scarico, peso, anno, costruttore);
 	}
 }

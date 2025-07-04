@@ -13,6 +13,8 @@ public class Team {
     private String nome;
     @OneToMany(mappedBy = "team")
     private List<Pilota> pilotiUfficiali;
+    @ManyToOne
+    private Moto moto;
     private String immagine;
 
     public Long getId() {
@@ -45,6 +47,15 @@ public class Team {
 
     public void setImmagine(String immagine) {
         this.immagine = immagine;
+    }
+
+    public Moto getMoto() {
+
+        return moto;
+    }
+
+    public void setMoto(Moto moto) {
+        this.moto = moto;
     }
 
     @Override

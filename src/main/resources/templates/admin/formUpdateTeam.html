@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MotoGP</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/pilotiETeam.css}">
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-logo">
+      <a th:if="${isAdmin}" th:href="@{'/'}" th:text="'MotoGP - Admin'"></a>
+      <a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
+    </div>
+    <ul class="navbar-menu">
+      <li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
+      <li class="navbar-item"><a th:href="@{'/granPremi'}">Gran Premi</a></li>
+      <li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
+      <li class="navbar-item">
+        <a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
+        <a th:if="${!isAnonymous}" th:href="'/logout'" th:text="${username} + ' - Logout'"></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<header>
+  <h1>Modifica Team</h1>
+</header>
+
+<section class="formGenerico">
+  <h2 th:text="'Modifica Team: ' + ${team.nome}">Modifica Team</h2>
+  <form th:action="@{/admin/formUpdateTeam}" enctype="multipart/form-data" method="POST">
+    <!-- Campo nascosto per l'id del team -->
+    <input type="hidden" th:field="${team.id}" />
+    <div>
+      <label>Nome Team</label>
+      <span>
+            <input type="text" placeholder="Nome del Team" required th:field="${team.nome}" />
+        </span>
+    </div>
+    <div>
+      <label>Immagine Team</label>
+      <span>
+            <input type="file" name="file" accept="image/*" />
+        </span>
+    </div>
+
+    <!-- Messaggio di errore -->
+    <div th:if="${messaggioErrore != null}" class="messaggio-errore" style="color: red; margin-bottom: 1rem;">
+      <p th:text="${messaggioErrore}"></p>
+    </div>
+
+    <div>
+      <button type="submit">Salva Team</button>
+      <a th:href="@{'/team/' + ${team.id}}" class="link"><button type="button">Annulla</button></a>
+    </div>
+  </form>
+
+</section>
+
+<footer>
+  <p>© 2025 MotoGP - Tutti i diritti riservati</p>
+</footer>
+
+</body>
+</html>

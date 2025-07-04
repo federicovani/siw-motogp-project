@@ -59,4 +59,41 @@ public class TeamController {
         teamService.deleteById(teamId);
         return "redirect:/pilotiETeam";
     }
+
+    @GetMapping("/admin/formUpdateTeam/{id}")
+    public String formEditTeam(@PathVariable("id") Long id, Model model) {
+        Team team = teamService.getTeamById(id);
+
+        if (team != null) {
+            model.addAttribute("team", team);
+            return "admin/formUpdateTeam.html";
+        } else {
+            model.addAttribute("messaggioErrore", "Team non trovato.");
+            return "redirect:/pilotiETeam";
+        }
+    }
+
+    @PostMapping("/admin/formUpdateTeam")
+    public String updateTeam(@ModelAttribute("team") Team team, @RequestParam("file") MultipartFile file, Model model) {
+        // Controlla l'esistenza del team in base all'ID
+        Team teamEsistente = teamService.getTeamById(team.getId());
+
+        if (teamEsistente != null) {
+            // Aggiorna i dati del team
+            teamEsistente.setNome(team.getNome());
+
+            // Aggiorna l'immagine, se caricata
+            if (file != null && !file.isEmpty()) {
+                teamService.saveImmagine(teamEsistente, file);
+            }
+
+            // Salva le modifiche
+            teamService.save(teamEsistente);
+            model.addAttribute("team", teamEsistente);
+            return "redirect:/team/" + teamEsistente.getId();
+        } else {
+            model.addAttribute("messaggioErrore", "Team non trovato per l'aggiornamento.");
+            return "admin/formNewTeam.html";
+        }
+    }
 }

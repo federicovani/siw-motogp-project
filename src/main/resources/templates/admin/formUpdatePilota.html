@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MotoGP</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/pilotiETeam.css}">
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-logo">
+      <a th:if="${isAdmin}" th:href="@{'/'}" th:text="'MotoGP - Admin'"></a>
+      <a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
+    </div>
+    <ul class="navbar-menu">
+      <li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
+      <li class="navbar-item"><a th:href="@{'/granPremi'}">Gran Premi</a></li>
+      <li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
+      <li class="navbar-item">
+        <a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
+        <a th:if="${!isAnonymous}" th:href="'/logout'" th:text="${username} + ' - Logout'"></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<header>
+  <h1>Modifica Pilota</h1>
+</header>
+
+<section class="formGenerico">
+  <h2 th:text="'Modifica Pilota: ' + ${pilota.nome} + ' ' + ${pilota.cognome}">Modifica Pilota</h2>
+  <form th:action="@{/admin/formUpdatePilota}" enctype="multipart/form-data" method="POST">
+    <!-- Campo nascosto per l'id del pilota -->
+    <input type="hidden" th:field="${pilota.id}" />
+
+    <div>
+        <label>Nome</label>
+        <span>
+            <input type="text" placeholder="Nome" required th:field="${pilota.nome}" />
+        </span>
+    </div>
+    <div>
+        <label>Cognome</label>
+        <span>
+            <input type="text" placeholder="Cognome" required th:field="${pilota.cognome}" />
+        </span>
+    </div>
+    <div>
+        <label>Numero</label>
+        <span>
+            <input type="text" placeholder="Numero" required th:field="${pilota.numeroIdentificativo}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+        </span>
+    </div>
+    <div>
+        <label>Nazionalità</label>
+        <span>
+            <input type="text" placeholder="Nazionalità" required th:field="${pilota.nazionalita}" />
+        </span>
+    </div>
+    <div>
+        <label>Peso (kg)</label>
+        <span>
+            <input type="text" placeholder="Peso" required th:field="${pilota.peso}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+        </span>
+    </div>
+    <div>
+        <label>Altezza (cm)</label>
+        <span>
+            <input type="text" placeholder="Altezza" required th:field="${pilota.altezza}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+        </span>
+    </div>
+    <div>
+        <label>Foto</label>
+        <span>
+            <input type="file" name="file" accept="image/*" />
+        </span>
+    </div>
+    <div>
+        <label>Team</label>
+        <span>
+            <select th:field="${pilota.team}">
+                <option th:each="team : ${pilota.team}" th:value="${team.id}" th:text="${team.nome}"></option>
+            </select>
+        </span>
+    </div>
+    <div>
+        <button type="submit">Salva Modifiche</button>
+        <a th:href="@{'/pilota/' + ${pilota.id}}" class="link"><button type="button">Annulla</button></a>
+    </div>
+</form>
+</section>
+
+<footer>
+  <p>© 2025 MotoGP - Tutti i diritti riservati</p>
+</footer>
+
+</body>
+</html>

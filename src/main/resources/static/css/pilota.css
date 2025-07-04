@@ -10,41 +10,41 @@ body {
 
 /* Contenitore principale del pilota */
 .pilota-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
     background: #fff;
-    border-radius: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     padding: 20px;
-    margin: 40px auto;
-    width: 90%;
-    max-width: 1200px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    margin: 25px auto; /* Centrato con margini superiore/inferiore */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1500px; /* Limita la larghezza massima per evitare l'espansione oltre il layout */
+    width: calc(100% - 40px); /* Lascia 20px di margine interno su entrambi i lati */
+    box-sizing: border-box; /* Includi padding e bordi nella dimensione totale */
+    overflow: hidden; /* Evita che contenuti fuori misura escano dal contenitore */
 }
 
 /* Singola sezione */
 .section {
     width: 100%;
-    margin-top: 20px;
-    padding: 20px;
+    margin-top: 10px;
+    padding: 15px;
     background-color: #f9f9f9;
-    border-radius: 10px;
+    border-radius: 6px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Header della sezione */
 .section h3 {
-    font-size: 2em;
+    font-size: 1.8em;
     color: #cc4444;
     margin: 0 0 10px 0;
-    border-bottom: 2px solid #cc4444;
     padding-bottom: 5px;
+    border-bottom: 2px solid #cc4444;
     text-align: left;
 }
 
 /* Testo delle sezioni */
 .section p {
-    font-size: 1.4em;
+    font-size: 1.2em;
     color: #555;
     line-height: 1.6;
     text-align: left;
@@ -53,7 +53,7 @@ body {
 /* Compagno di Squadra Specifico */
 .section.teammate p {
     font-style: italic;
-    font-size: 1.4em;
+    font-size: 1.2em;
     color: #333;
 }
 
@@ -62,7 +62,7 @@ body {
     color: #cc4444;
     font-weight: bold;
     text-decoration: none;
-    font-size: 1.4em;
+    font-size: 1.2em;
     transition: color 0.3s;
 }
 
@@ -150,16 +150,142 @@ body {
 }
 
 .pilota-header h4 {
-    font-size: 2.8em;
+    font-size: 2.5em;
     color: #aa2222;
     margin: 0;
+    line-height: 1.2;
     text-align: left;
 }
 
 .pilota-header h2 {
-    font-size: 3.6em;
+    font-size: 3.2em;
     color: #cc4444;
     margin: 5px 0 0 0;
     text-transform: uppercase;
     text-align: left;
+}
+/* Nome e numero del pilota */
+.pilota-header h4 {
+    font-size: 2.5rem;
+    color: #cc4444;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+    word-wrap: break-word; /* Spezza le parole lunghe in caso di overflow */
+}
+
+.pilota-header h2 {
+    font-size: 2.8rem;
+    color: #333;
+    margin: 0 0 10px;
+    font-weight: bold;
+    word-wrap: break-word; /* Spezza le parole lunghe */
+}
+
+.pilota-header p {
+    font-size: 1.2rem;
+    color: #666;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+/* Sezioni */
+.section {
+    margin-top: 20px;
+    padding: 15px;
+    border-left: 4px solid #cc4444;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    box-sizing: border-box;
+    word-wrap: break-word; /* Assicurati che il testo non esca dai bordi */
+}
+
+/* Titoli delle sezioni */
+.section h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #cc4444;
+    font-weight: bold;
+}
+
+/* Testo delle sezioni */
+.section p {
+    font-size: 1.1rem;
+    color: #444;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Stile per il compagno di squadra */
+.section.teammate {
+    background-color: #f4f4f4;
+}
+
+.section.teammate p {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #444;
+}
+
+.section.teammate a {
+    text-decoration: none;
+    color: #cc4444;
+    font-weight: bold;
+    word-wrap: break-word; /* Spezza le parole lunghe */
+}
+
+.section.teammate a:hover {
+    color: #aa2222;
+}
+
+/* Evita overflow dei link lunghi */
+a {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+/* Stile generale per l'elenco piloti */
+.pilot-list {
+    list-style: none; /* Rimuove i punti elenco */
+    padding: 0; /* Rimuove il padding predefinito */
+    margin: 0; /* Rimuove i margini predefiniti */
+}
+
+.pilot-list li {
+    margin-bottom: 10px; /* Spaziatura tra gli elementi */
+}
+
+/* Stile per i link dei piloti */
+.pilot-list a {
+    display: inline-block;
+    text-decoration: none; /* Rimuove la sottolineatura */
+    color: #cc4444; /* Colore rosso del link */
+    font-weight: bold;
+    font-size: 1.2rem; /* Dimensione font */
+    padding: 10px 15px;
+    border: 1px solid #cc4444; /* Bordi rossi */
+    border-radius: 5px; /* Angoli arrotondati */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Aggiunge un effetto di transizione */
+}
+
+/* Stile hover per i link */
+.pilot-list a:hover {
+    background-color: #cc4444; /* Sfondo rosso più scuro */
+    color: #fff; /* Testo bianco */
+}
+
+/* Responsività: Spaziatura maggiore tra gli elementi su dispositivi più piccoli */
+@media (max-width: 768px) {
+    .pilot-list li {
+        margin-bottom: 15px;
+    }
+}
+
+.pilota-header img {
+    max-width: 400px; /* Larghezza massima */
+    max-height: 400px; /* Altezza massima */
+    height: auto; /* Mantiene le proporzioni */
+    width: auto; /* Mantiene le proporzioni */
+    border-radius: 8px; /* Bordo arrotondato (opzionale) */
+    object-fit: contain; /* Assicura che l'immagine si adatti all'interno dei limiti */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Effetto ombra per personalizzazione */
 }

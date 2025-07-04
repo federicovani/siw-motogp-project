@@ -137,25 +137,33 @@ footer p {
 	font-size: 0.9em;
 }
 
-/* Stile generale per il link con aspetto di pulsante */
-.tasto-generico-admin {
-	display: inline-block; /* Necessario per comportarsi come un pulsante */
-	background-color: #cc4444; /* Colore di sfondo */
-	color: white; /* Colore del testo */
-	text-decoration: none; /* Rimozione della sottolineatura */
-	border: none; /* Nessun bordo */
-	padding: 10px 15px; /* Spaziatura interna */
-	border-radius: 5px; /* Angoli arrotondati */
-	cursor: pointer; /* Cambia il cursore su hover */
-	font-size: 16px; /* Dimensione del testo */
-	text-align: center; /* Allinea il testo all'interno */
-	transition: background-color 0.3s ease, transform 0.2s ease; /* Effetto di transizione */
+/* Centra il tasto all'interno del contenitore div */
+.tasto-center-container {
+    display: flex; /* Imposta il layout flessibile */
+    justify-content: center; /* Centra orizzontalmente il pulsante */
+    align-items: center; /* Centra verticalmente il pulsante */
+    margin: 20px 0; /* Margine sopra e sotto al contenitore */
 }
 
-/* Stato hover del link */
+/* Nessuna modifica al tasto */
+.tasto-generico-admin {
+	background-color: #cc4444; /* Colore di sfondo */
+	color: white;
+	text-decoration: none;
+	border: none;
+	padding: 10px 20px; /* Spaziatura interna */
+	border-radius: 6px; /* Angoli arrotondati */
+	font-size: 16px; /* Dimensione del testo */
+	font-weight: bold;
+	cursor: pointer; /* Cursore per i pulsanti */
+	transition: background-color 0.3s ease, transform 0.2s ease;
+	text-align: center;
+}
+
+/* Hover effetto */
 .tasto-generico-admin:hover {
-	background-color: #aa2222; /* Cambia colore al passaggio del mouse */
-	transform: scale(1.1); /* Ingrandimento leggero */
+	background-color: #aa2222; /* Cambia colore al passaggio */
+	transform: scale(1.05); /* Effetto ingrandimento */
 }
 
 /* Stato attivo o clic del link */
@@ -284,5 +292,3 @@ footer p {
 	background-color: #CC0000; /* Rosso più scuro */
 	transform: scale(1); /* Ritorna alle dimensioni originali */
 }
-
-
