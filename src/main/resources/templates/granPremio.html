@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettagli Gran Premio</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/granPremio.css}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a th:if="${isAdmin}" th:href="@{'/'}" th:text="'MotoGP - Admin'"></a>
+                <a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
+            </div>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
+                <li class="navbar-item"><a th:href="@{'/granPremi'}" class="active-link">Gran Premi</a></li>
+                <li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
+                <li class="navbar-item">
+                    <a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
+                    <a th:if="${!isAnonymous}" th:href="'/logout'" th:text="${username} + ' - Logout'"></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <h1 th:text="'Gran Premio di ' + ${granPremio.circuito.paese}"></h1>
+        <p th:text="'Data: ' + ${#temporals.format(granPremio.data, 'dd/MM/yyyy')}"></p>
+        <p th:text="'Giri totali: ' + ${granPremio.numeroDiGiri}"></p>
+    </header>
+
+    <!-- Main content -->
+    <main>
+        <!-- Informazioni sul circuito -->
+        <section class="section">
+            <h2>Informazioni Circuito</h2>
+            <div class="circuito-container">
+                <img th:src="@{'/images/' + ${granPremio.circuito.immagine}}" alt="Immagine Circuito" class="circuito-immagine">
+                <div class="circuito-dettagli">
+                    <p th:text="'Paese: ' + ${granPremio.circuito.paese}"></p>
+                    <p th:text="'Lunghezza: ' + ${granPremio.circuito.lunghezza} + 'm'"></p>
+                    <p th:text="'Curve a destra: ' + ${granPremio.circuito.curveDx}"></p>
+                    <p th:text="'Curve a sinistra: ' + ${granPremio.circuito.curveSx}"></p>
+                    <p th:text="'Rettilineo più lungo: ' + ${granPremio.circuito.rettilineo} + 'm'"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Classifica del Gran Premio -->
+        <section th:if="${granPremio.risultati != null}" class="section">
+            <h2>Classifica Piloti</h2>
+            <table class="classifica-table">
+                <thead>
+                    <tr>
+                        <th>Posizione</th>
+                        <th>Pilota</th>
+                        <th>Team</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="risultato : ${granPremio.risultati}">
+                        <td th:text="${risultato.posizione}"></td>
+                        <td>
+                            <a th:href="@{'/pilota/' + ${risultato.pilota.id}}" 
+                               th:text="${risultato.pilota.nome} + ' ' + ${risultato.pilota.cognome}+ ' #' + ${risultato.pilota.numeroIdentificativo}"></a>
+                        </td>
+                        <td>
+                            <a th:href="@{'/team/' + ${risultato.pilota.team.id}}"
+                               th:text="${risultato.pilota.team.nome}"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="tasto-center-container">
+                <a class="tasto-generico-admin" th:href="@{'/admin/formAddRisultatiGranPremio/' + ${granPremio.id}}">
+                    Aggiungi o Modifica Risultati
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 MotoGP - Tutti i diritti riservati</p>
+    </footer>
+</body>
+</html>

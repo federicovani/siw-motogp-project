@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MotoGP</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/granPremio.css}">
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-logo">
+      <a th:if="${isAdmin}" th:href="@{'/'}" th:text="'MotoGP - Admin'"></a>
+      <a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
+    </div>
+    <ul class="navbar-menu">
+      <li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
+      <li class="navbar-item"><a th:href="@{'/granPremi'}">Gran Premi</a></li>
+      <li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
+      <li class="navbar-item">
+        <a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
+        <a th:if="${!isAnonymous}" th:href="'/logout'" th:text="${username} + ' - Logout'"></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- Titolo -->
+<header>
+  <h1 th:text="'Aggiungi Risultati per il Gran Premio di ' + ${granPremio.circuito.paese}"></h1>
+  <p th:text="'Data: ' + ${#temporals.format(granPremio.data, 'dd/MM/yyyy')}"></p>
+</header>
+
+<!-- Form -->
+<main>
+  <section class="formGenerico">
+    <form th:action="@{/admin/addRisultatiGranPremio/{idGranPremio}(idGranPremio=${granPremio.id})}" method="post">
+      <div th:each="pilota : ${piloti}">
+        <label th:text="${pilota.nome} + ' ' + ${pilota.cognome} + ' #' + ${pilota.numeroIdentificativo}"></label>
+        <input type="text" placeholder="Posizione" th:name="${pilota.id}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+      </div>
+      <button type="submit">Salva Risultati</button>
+    </form>
+  </section>
+</main>
+</body>
+</html>

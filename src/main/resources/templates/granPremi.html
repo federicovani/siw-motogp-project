@@ -72,18 +72,20 @@
                 <div class="gp-card" th:each="gp : ${granPremi}">
                     <!-- Parte sinistra: informazioni testuali -->
                     <div class="gp-card-left">
-                        <header class="gp-card-header">
-                            <p class="gp-card-date" th:text="${#temporals.format(gp.data, 'dd/MM/yyyy')}">01/01/2025</p>
-                            <h4 class="gp-card-title"
-                                th:text="'Gran Premio ' + (${gp.sponsor.size() > 0 ? gp.sponsor.get(0).nome : 'Senza Sponsor'}) + ' di ' + ${gp.circuito.paese}">
-                                Gran Premio NomeSponsor di Paese
-                            </h4>
-                        </header>
-                        <hr class="gp-card-divider">
-                        <div class="gp-card-content">
-                            <p th:text="'Circuito di ' + ${gp.circuito.citta}">Circuito NomeCircuito</p>
-                            <p th:text="'Lunghezza: ' + ${gp.numeroDiGiri} + ' giri'">Lunghezza: 50 giri</p>
-                        </div>
+                        <a th:href="@{'/granPremio/' + ${gp.id}}" class="gp-card-link">
+                            <header class="gp-card-header">
+                                <p class="gp-card-date" th:text="${#temporals.format(gp.data, 'dd/MM/yyyy')}">01/01/2025</p>
+                                <h4 class="gp-card-title"
+                                    th:text="'Gran Premio ' + (${gp.sponsor.size() > 0 ? gp.sponsor.get(0).nome : 'Senza Sponsor'}) + ' di ' + ${gp.circuito.paese}">
+                                    Gran Premio NomeSponsor di Paese
+                                </h4>
+                            </header>
+                            <hr class="gp-card-divider">
+                            <div class="gp-card-content">
+                                <p th:text="'Circuito di ' + ${gp.circuito.citta}">Circuito NomeCircuito</p>
+                                <p th:text="'Lunghezza: ' + ${gp.numeroDiGiri} + ' giri'">Lunghezza: 50 giri</p>
+                            </div>
+                        </a>
                     </div>
                     
                     <!-- Parte destra: immagine -->

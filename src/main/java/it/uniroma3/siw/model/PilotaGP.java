@@ -7,29 +7,61 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "pilotagp")
+@Table(name = "piloto_gp") // Nome della tabella di relazione
 public class PilotaGP {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @ManyToOne // Molti PilotaGP per un Pilota
+    @JoinColumn(name = "pilota_id", nullable = false)
+    private Pilota pilota;
+
+    @ManyToOne // Molti PilotaGP per un GranPremio
+    @JoinColumn(name = "gran_premio_id", nullable = false)
+    private GranPremio granPremio;
+
     private int posizione;
-    private Duration migliorTempo;
 
     // Costruttore vuoto
     public PilotaGP() {}
 
-    // Getter e setter per ID
+    // Costruttore personalizzato
+    public PilotaGP(Pilota pilota, GranPremio granPremio, int posizione, Duration migliorTempo) {
+        this.pilota = pilota;
+        this.granPremio = granPremio;
+        this.posizione = posizione;
+    }
+
+    // Getter e Setter
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Pilota getPilota() {
+        return pilota;
+    }
+
+    public void setPilota(Pilota pilota) {
+        this.pilota = pilota;
+    }
+
+    public GranPremio getGranPremio() {
+        return granPremio;
+    }
+
+    public void setGranPremio(GranPremio granPremio) {
+        this.granPremio = granPremio;
     }
 
     public int getPosizione() {
@@ -40,27 +72,19 @@ public class PilotaGP {
         this.posizione = posizione;
     }
 
-    public Duration getMigliorTempo() {
-        return migliorTempo;
-    }
-
-    public void setMigliorTempo(Duration migliorTempo) {
-        this.migliorTempo = migliorTempo;
-    }
-
     @Override
     public int hashCode() {
-        return Objects.hash(id, migliorTempo, posizione);
+        return Objects.hash(id, pilota, granPremio, posizione);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
+        if (obj == null || getClass() != obj.getClass()) return false;
         PilotaGP other = (PilotaGP) obj;
         return Objects.equals(id, other.id)
-                && Objects.equals(migliorTempo, other.migliorTempo)
+                && Objects.equals(pilota, other.pilota)
+                && Objects.equals(granPremio, other.granPremio)
                 && posizione == other.posizione;
     }
 }

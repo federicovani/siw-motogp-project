@@ -3,72 +3,40 @@ package it.uniroma3.siw.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "pilota")
 public class Pilota {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
+
     private String nome;
     private String cognome;
-    @Column(name = "numero_identificativo", unique = true, nullable = false)
     private int numeroIdentificativo;
-    private java.time.LocalDate dataDiNascita;
     private String nazionalita;
     private int peso;
     private int altezza;
+
     @ManyToOne
     private Team team;
+
+    @OneToMany(mappedBy = "pilota", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PilotaGP> partecipazioni = new ArrayList<>();
+
     private String immagine;
 
-    public int getAltezza() {
-        return altezza;
+    // Getter e Setter principali
+
+    public long getId() {
+        return id;
     }
 
-    public void setAltezza(int altezza) {
-        this.altezza = altezza;
-    }
-
-    public int getPeso() {
-        return peso;
-    }
-
-    public void setPeso(int peso) {
-        this.peso = peso;
-    }
-
-    public String getNazionalita() {
-        return nazionalita;
-    }
-
-    public void setNazionalita(String nazionalita) {
-        this.nazionalita = nazionalita;
-    }
-
-    public LocalDate getDataDiNascita() {
-        return dataDiNascita;
-    }
-
-    public void setDataDiNascita(LocalDate dataDiNascita) {
-        this.dataDiNascita = dataDiNascita;
-    }
-
-    public int getNumeroIdentificativo() {
-        return numeroIdentificativo;
-    }
-
-    public void setNumeroIdentificativo(int numeroIdentificativo) {
-        this.numeroIdentificativo = numeroIdentificativo;
-    }
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -79,21 +47,41 @@ public class Pilota {
         this.nome = nome;
     }
 
-    public Long getId() {
-        return id;
+    public String getCognome() {
+        return cognome;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
     }
 
-	public Team getTeam() {
-		return team;
-	}
+    public Team getTeam() {
+        return team;
+    }
 
-	public void setTeam(Team team) {
-		this.team = team;
-	}
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public List<PilotaGP> getPartecipazioni() {
+        return partecipazioni;
+    }
+
+    public void setPartecipazioni(List<PilotaGP> partecipazioni) {
+        this.partecipazioni = partecipazioni;
+    }
+
+    // Aggiunge una partecipazione
+    public void addPartecipazione(PilotaGP pilotaGP) {
+        partecipazioni.add(pilotaGP);
+        pilotaGP.setPilota(this);
+    }
+
+    // Rimuove una partecipazione
+    public void removePartecipazione(PilotaGP pilotaGP) {
+        partecipazioni.remove(pilotaGP);
+        pilotaGP.setPilota(null);
+    }
 
     public String getImmagine() {
         return immagine;
@@ -103,15 +91,47 @@ public class Pilota {
         this.immagine = immagine;
     }
 
+    public int getNumeroIdentificativo() {
+        return numeroIdentificativo;
+    }
+
+    public void setNumeroIdentificativo(int numeroIdentificativo) {
+        this.numeroIdentificativo = numeroIdentificativo;
+    }
+
+    public String getNazionalita() {
+        return nazionalita;
+    }
+
+    public void setNazionalita(String nazionalita) {
+        this.nazionalita = nazionalita;
+    }
+
+    public int getPeso() {
+        return peso;
+    }
+
+    public void setPeso(int peso) {
+        this.peso = peso;
+    }
+
+    public int getAltezza() {
+        return altezza;
+    }
+
+    public void setAltezza(int altezza) {
+        this.altezza = altezza;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Pilota pilota = (Pilota) o;
-        return numeroIdentificativo == pilota.numeroIdentificativo && peso == pilota.peso && altezza == pilota.altezza && Objects.equals(id, pilota.id) && Objects.equals(nome, pilota.nome) && Objects.equals(cognome, pilota.cognome) && Objects.equals(dataDiNascita, pilota.dataDiNascita) && Objects.equals(nazionalita, pilota.nazionalita) && Objects.equals(team, pilota.team) && Objects.equals(immagine, pilota.immagine);
+        return id == pilota.id && numeroIdentificativo == pilota.numeroIdentificativo && peso == pilota.peso && altezza == pilota.altezza && Objects.equals(nome, pilota.nome) && Objects.equals(cognome, pilota.cognome) && Objects.equals(nazionalita, pilota.nazionalita) && Objects.equals(team, pilota.team) && Objects.equals(partecipazioni, pilota.partecipazioni) && Objects.equals(immagine, pilota.immagine);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, cognome, numeroIdentificativo, dataDiNascita, nazionalita, peso, altezza, team, immagine);
+        return Objects.hash(id, nome, cognome, numeroIdentificativo, nazionalita, peso, altezza, team, partecipazioni, immagine);
     }
 }
