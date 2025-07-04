@@ -51,7 +51,7 @@ public class GranPremio {
 	
 	
 	public String getCittà() {
-		return circuito.getCittà();
+		return circuito.getCitta();
 	}
 	
 	public long getId() {

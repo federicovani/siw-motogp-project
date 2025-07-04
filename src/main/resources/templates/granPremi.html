@@ -3,48 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MotoGP</title>
+    <title>Gran Premi</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" th:href="@{/css/granPremi.css}">
+    <link rel="stylesheet" th:href="@{/css/pilotiETeam.css}">
 </head>
 <body>
-<nav class="navbar">
-    <div class="navbar-container">
-        <div class="navbar-logo">
-            <a th:if="${isAdmin}" th:href="@{'/'}" th:text="'MotoGP - Admin'"></a>
-            <a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
-        </div>
-        <ul class="navbar-menu">
-            <li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
-            <li class="navbar-item"><a th:href="@{'/granPremi'}">Gran Premi</a></li>
-            <li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
-            <li class="navbar-item">
-                <a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
-                <a th:if="${!isAnonymous}" th:href="'/logout'" th:text="${username} + ' - Logout'"></a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<main>
-    <h2>Gran Premi</h2>
-
-    <div th:if="${#lists.isEmpty(granPremi)}" class="empty-message">
-        Nessun Gran Premio disponibile al momento.
-    </div>
-
-    <div th:if="${not #lists.isEmpty(granPremi)}" class="vertical-scroll-container">
-        <div class="gp-card" th:each="gp : ${granPremi}">
-            <h3 th:text="${#temporals.format(gp.data, 'dd/MM/yyyy')}">Data</h3>
-            <p th:text="'Nazione: ' + ${gp.circuito.paese}">Nazione</p>
-            <p th:text="'Numero di giri: ' + ${gp.numeroDiGiri}">Numero di giri</p>
-            <p>Sponsor:</p>
-            <ul>
-                <li th:each="s : ${gp.sponsor}" th:text="${s.nome}">Sponsor</li>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a th:if="${isAdmin}" th:href="@{'/'}" th:text="'MotoGP - Admin'"></a>
+                <a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
+            </div>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
+                <li class="navbar-item"><a th:href="@{'/granPremi'}" class="active-link">Gran Premi</a></li>
+                <li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
+                <li class="navbar-item">
+                    <a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
+                    <a th:if="${!isAnonymous}" th:href="'/logout'" th:text="${username} + ' - Logout'"></a>
+                </li>
             </ul>
         </div>
-    </div>
-</main>
+    </nav>
+    <header>
+        <h1>Elenco dei Gran Premi</h1>
+    </header>
 
+    <main>
+        <section class="sectionContainer">
+            <h2>Gran Premi Stagione</h2>
+
+            <div th:if="${#lists.isEmpty(granPremi)}" class="empty-message">
+                Nessun Gran Premio disponibile al momento.
+            </div>
+
+            <!-- Contenitore delle card -->
+            <div th:if="${not #lists.isEmpty(granPremi)}" class="vertical-scroll-container">
+                <!-- Card per ogni Gran Premio -->
+                <div class="gp-card" th:each="gp : ${granPremi}">
+                    <!-- Parte sinistra: informazioni testuali -->
+                    <div class="gp-card-left">
+                        <header class="gp-card-header">
+                            <p class="gp-card-date" th:text="${#temporals.format(gp.data, 'dd/MM/yyyy')}">01/01/2025</p>
+                            <h4 class="gp-card-title"
+                                th:text="'Gran Premio ' + (${gp.sponsor.size() > 0 ? gp.sponsor.get(0).nome : 'Senza Sponsor'}) + ' di ' + ${gp.circuito.paese}">
+                                Gran Premio NomeSponsor di Paese
+                            </h4>
+                        </header>
+                        <hr class="gp-card-divider">
+                        <div class="gp-card-content">
+                            <p th:text="'Circuito di ' + ${gp.circuito.citta}">Circuito NomeCircuito</p>
+                            <p th:text="'Lunghezza: ' + ${gp.numeroDiGiri} + ' giri'">Lunghezza: 50 giri</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Parte destra: immagine -->
+                    <div class="gp-card-right">
+                        <img th:src="@{'/images/' + ${gp.circuito.immagine}}" alt="Immagine Circuito" class="gp-card-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 MotoGP - Tutti i diritti riservati</p>
+    </footer>
 </body>
 </html>

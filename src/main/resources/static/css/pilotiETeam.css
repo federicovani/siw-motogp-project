@@ -89,3 +89,120 @@
     font-size: 1rem; /* Dimensione del testo per i nomi */
     margin-bottom: 5px; /* Spaziatura tra i nomi */
 }
+
+/* Contenitore della card */
+.gp-card {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    background-color: #cc4444;
+    border: 1px solid #aa2222;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    color: #ffffff;
+    gap: 20px;
+}
+
+/* Parte sinistra (testo) */
+.gp-card-left {
+    flex: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Header della card */
+.gp-card-header {
+    margin-bottom: 10px;
+}
+
+.gp-card-date {
+    font-size: 0.8rem;
+    color: #e0e0e0;
+    margin-bottom: 5px;
+}
+
+.gp-card-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.gp-card-divider {
+    border: 1px solid #aa2222;
+    margin: 10px 0;
+}
+
+/* Contenuto dei dati */
+.gp-card-content p {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.gp-card-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 5px 0;
+}
+
+.gp-card-content li {
+    font-size: 0.9rem;
+    color: #e0e0e0;
+}
+
+/* Parte destra (immagine) */
+.gp-card-right {
+    flex: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gp-card-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover della card */
+.gp-card:hover {
+    transform: scale(1.01);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.gp-card h5 {
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.gp-card p, .gp-card ul, .gp-card li {
+    color: #ffffff;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.gp-card ul {
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+.gp-card li {
+    list-style-type: none;
+}
+
+/* Contenitore verticale per le schede di Gran Premi */
+.vertical-scroll-container {
+    max-height: 80vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Maggiore spazio tra le card */
+    padding: 10px;
+    box-sizing: border-box;
+}

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import it.uniroma3.siw.model.GranPremio;
 import it.uniroma3.siw.repository.GranPremioRepository;
 
+import java.util.List;
+
 @Service
 public class GranPremioService {
 	
@@ -15,8 +17,8 @@ public class GranPremioService {
 		return granPremioRepository.findById(id).orElse(null);
 	}
 	
-	public Iterable<GranPremio> getAllGranPremi() {
-		return granPremioRepository.findAll();
+	public List<GranPremio> getAllGranPremi() {
+		return granPremioRepository.findAllByOrderByDataAsc();
 	}
 
 }
