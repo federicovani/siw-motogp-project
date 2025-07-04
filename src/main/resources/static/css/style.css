@@ -200,6 +200,7 @@ footer p {
 
 .formGenerico input[type="text"],
 .formGenerico input[type="date"],
+.formGenerico input[type="password"],
 .formGenerico input[type="file"],
 .formGenerico button {
 	width: 100%;
@@ -216,6 +217,7 @@ footer p {
 
 .formGenerico input[type="text"]:focus,
 .formGenerico input[type="date"]:focus,
+.formGenerico input[type="password"]:focus,
 .formGenerico input[type="file"]:focus {
 	border-color: #007bff;
 	box-shadow: 0 3px 6px rgba(0, 123, 255, 0.15);

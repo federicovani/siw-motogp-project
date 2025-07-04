@@ -21,4 +21,18 @@ public class GranPremioService {
 		return granPremioRepository.findAllByOrderByDataAsc();
 	}
 
+	// Recupera i gran premi per anno specifico
+	public List<GranPremio> getGranPremiByAnno(Integer anno) {
+		return granPremioRepository.findByAnno(anno);
+	}
+
+	// Recupera gli anni unici disponibili dai gran premi
+	public List<Integer> getAnniDisponibili() {
+		return granPremioRepository.findDistinctAnni();
+	}
+
+	public Integer getUltimoAnnoDisponibile() {
+		List<Integer> anniDisponibili = getAnniDisponibili();
+		return anniDisponibili.isEmpty() ? null : anniDisponibili.get(anniDisponibili.size() - 1);
+	}
 }

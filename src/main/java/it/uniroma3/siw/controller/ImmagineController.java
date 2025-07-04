@@ -26,7 +26,7 @@ public class ImmagineController {
                 // Se il file non esiste, usa default.png dalla cartella static
                 return ResponseEntity.ok()
                         .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"default.png\"")
-                        .body(new UrlResource("classpath:/static/default.png"));
+                        .body(new UrlResource("classpath:/static/images/default.png"));
             }
 
             // Altrimenti carica il file richiesto

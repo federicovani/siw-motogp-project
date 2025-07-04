@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gran Premi</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" th:href="@{/css/pilotiETeam.css}">
+    <link rel="stylesheet" th:href="@{/css/granPremi.css}">
 </head>
 <body>
     <nav class="navbar">
@@ -30,8 +30,37 @@
     </header>
 
     <main>
+<!--        <section>-->
+<!--            <h2>Filtra per Anno</h2>-->
+<!--            &lt;!&ndash; Selettore per l'anno &ndash;&gt;-->
+<!--            <form method="get" th:action="@{/granPremi}">-->
+<!--                <div class="filtro-anno">-->
+<!--                    <label for="anno">Seleziona Anno:</label>-->
+<!--                    <select id="anno" name="anno" onchange="this.form.submit()">-->
+<!--                        <option th:each="anno : ${anniDisponibili}"-->
+<!--                                th:value="${anno}"-->
+<!--                                th:text="${anno}"-->
+<!--                                th:selected="${anno == annoSelezionato}"></option>-->
+<!--                    </select>-->
+<!--                    <p th:if="${annoSelezionato != null}" th:text="'Anno selezionato: ' + ${annoSelezionato}"></p>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </section>-->
+
         <section class="sectionContainer">
             <h2>Gran Premi Stagione</h2>
+
+            <form method="get" th:action="@{/granPremi}">
+                <div class="filtro-anno">
+                    <select id="anno" name="anno" onchange="this.form.submit()">
+                        <option th:each="anno : ${anniDisponibili}"
+                                th:value="${anno}"
+                                th:text="${anno}"
+                                th:selected="${anno == annoSelezionato}"></option>
+                    </select>
+                    <p th:if="${annoSelezionato != null}" th:text="'Anno selezionato: ' + ${annoSelezionato}"></p>
+                </div>
+            </form>
 
             <div th:if="${#lists.isEmpty(granPremi)}" class="empty-message">
                 Nessun Gran Premio disponibile al momento.
