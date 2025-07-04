@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campionato</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/campionati.css}">
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-logo">
+            <a th:if="${isAdmin}" th:href="@{'/'}" th:text="'MotoGP - Admin'"></a>
+            <a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
+        </div>
+        <ul class="navbar-menu">
+            <li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
+            <li class="navbar-item"><a th:href="@{'/granPremi'}" class="active-link">Gran Premi</a></li>
+            <li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
+            <li class="navbar-item">
+                <a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
+                <a th:if="${!isAnonymous}" th:href="'/logout'" th:text="${username} + ' - Logout'"></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<header>
+    <h1 th:text="'Classifica Campionato Piloti - ' + ${campionato.anno}"></h1>
+</header>
+
+<main>
+    <section>
+        <h2>Classifica</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Pilota</th>
+                <th>Team</th>
+                <th>Punti</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="entry, iterStat : ${classifica}">
+                <td th:text="${iterStat.index + 1}">1</td>
+                <td>
+                    <span th:text="${entry.pilota.nome} + ' ' + ${entry.pilota.cognome}"></span>
+                </td>
+                <td th:text="${entry.pilota.team?.nome != null ? entry.pilota.team.nome : 'Nessun Team'}">Team</td>
+                <td th:text="${entry.puntiTotali}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <div class="tasto-center-container">
+        <a class="tasto-generico-admin" th:href="@{/campionati/}">Torna ai Campionati</a>
+    </div>
+</main>
+
+<footer>
+    <p>Classifica aggiornata automaticamente</p>
+</footer>
+</body>
+
+</html>

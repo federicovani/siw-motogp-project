@@ -1,3 +1,4 @@
+/* -------- STILE GENERALE -------- */
 .container {
     max-width: 1000px;
     margin: 2em auto;
@@ -48,4 +49,88 @@ h1 {
 .card-text {
     font-size: 1em;
     color: #555;
+}
+
+/* -------- STILE CLASSIFICA ------ */
+
+/* Stile della tabella */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Header della tabella */
+table th {
+    background-color: #cc4444;
+    color: white;
+    font-weight: bold;
+}
+
+/* Riga alternata e hover */
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Titoli e sezioni */
+h2 {
+    color: #cc4444;
+    border-bottom: 2px solid #cc4444;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+/* Bottone per tornare indietro */
+.tasto-center-container {
+    display: flex; /* Layout flessibile */
+    justify-content: center; /* Centra orizzontalmente il pulsante */
+    align-items: center; /* Centra verticalmente il pulsante */
+    margin: 20px 0; /* Margine sopra e sotto */
+}
+
+.tasto-generico-admin {
+    background-color: #cc4444;
+    color: white;
+    text-decoration: none;
+    border: none;
+    padding: 10px 20px; /* Spaziatura interna */
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+}
+
+.tasto-generico-admin:hover {
+    background-color: #aa2222; /* Cambia colore al passaggio */
+    transform: scale(1.05); /* Effetto ingrandimento */
+}
+
+.tasto-generico-admin:active {
+    transform: scale(1); /* Torna alle dimensioni normali al clic */
+}
+
+/* -------- FOOTER -------- */
+footer {
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 10px 0;
+    border-top: 2px solid #ccc;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9em;
 }

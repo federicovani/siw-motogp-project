@@ -1,5 +1,8 @@
 package it.uniroma3.siw.service;
 
+import it.uniroma3.siw.model.Campionato;
+import it.uniroma3.siw.model.Pilota;
+import it.uniroma3.siw.model.PilotaGP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,11 +11,15 @@ import it.uniroma3.siw.repository.GranPremioRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class GranPremioService {
 	
-	@Autowired GranPremioRepository granPremioRepository;
+	@Autowired
+	GranPremioRepository granPremioRepository;
+	@Autowired
+	CampionatoService campionatoService;
 
 	@Transactional
 	public GranPremio getGranPremioById(Long id) {
@@ -45,5 +52,31 @@ public class GranPremioService {
 	@Transactional
 	public void save(GranPremio granPremio) {
 		granPremioRepository.save(granPremio);
+		salvaRisultati(granPremio, granPremio.getRisultati());
 	}
+
+	@Transactional
+	public void salvaRisultati(GranPremio granPremio, List<PilotaGP> risultati) {
+		Campionato campionato = granPremio.getCampionato();
+
+		Map<Integer, Integer> puntiPerPosizione = Map.of(
+				1, 25, 2, 18, 3, 15, 4, 12, 5, 10,
+				6, 8, 7, 6, 8, 4, 9, 2, 10, 1
+		);
+
+		for (PilotaGP risultato : risultati) {
+			int posizione = risultato.getPosizione();
+			Pilota pilota = risultato.getPilota();
+
+			int punti = 0;
+			if (puntiPerPosizione.containsKey(posizione))
+				punti = puntiPerPosizione.get(posizione);
+			// Utilizza il CampionatoService per aggiornare la classifica
+			campionatoService.aggiornaClassifica(campionato, pilota, punti);
+		}
+
+		granPremioRepository.save(granPremio);
+	}
+
+
 }
