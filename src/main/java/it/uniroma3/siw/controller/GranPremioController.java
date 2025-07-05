@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import it.uniroma3.siw.model.Circuito;
 import it.uniroma3.siw.model.GranPremio;
 import it.uniroma3.siw.model.Pilota;
 import it.uniroma3.siw.model.PilotaGP;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import it.uniroma3.siw.service.CircuitoService;
 import it.uniroma3.siw.service.GranPremioService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,9 +24,11 @@ import java.util.Map;
 public class GranPremioController {
 	
 	@Autowired
-	GranPremioService granPremioService;
+	private GranPremioService granPremioService;
 	@Autowired
-	PilotaService pilotaService;
+	private PilotaService pilotaService;
+	@Autowired
+	private CircuitoService circuitoService;
 
 	@GetMapping("/granPremi")
 	public String showGranPremi(@RequestParam(value = "anno", required = false) Integer anno, Model model) {
@@ -131,7 +135,9 @@ public class GranPremioController {
 	
 	@GetMapping("/admin/formNewGranPremio") 
 	public String formNewGranPremio(Model model) {
+		List<Circuito> circuiti = circuitoService.getAllCircuiti();
 		model.addAttribute("granPremio", new GranPremio());
+		model.addAttribute("circuiti", circuiti);
 		return "admin/formNewGranPremio.html";
 	}
 
