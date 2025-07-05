@@ -1,5 +1,6 @@
 package it.uniroma3.siw.service;
 
+import it.uniroma3.siw.model.Pilota;
 import it.uniroma3.siw.model.Sponsor;
 import it.uniroma3.siw.repository.SponsorRepository;
 import org.springframework.beans.factory.annotation.Autowired;

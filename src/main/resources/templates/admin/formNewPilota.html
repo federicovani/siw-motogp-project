@@ -74,18 +74,19 @@
 	        <input type="text" placeholder="Altezza" required th:field="${pilota.altezza}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
 	  </span>
 	    </div>
+		  <div class="select-container">
+			  <label>Team</label>
+			  <span>
+	        <select th:field="${pilota.team}">
+				<option value="" th:text="'Nessuno'">Nessuno</option>
+				<option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.nome}"></option>
+	        </select>
+	      </span>
+		  </div>
 	    <div>
 	      <label>Foto</label>
 	      <span>
 	        <input type="file" name="file" accept="image/*"/>
-	      </span>
-	    </div>
-	    <div>
-	      <label>Team</label>
-	      <span>
-	        <select th:field="${pilota.team}">
-	          <option th:each="team : ${pilota.team}" th:value="${team.id}" th:text="${team.nome}"></option>
-	        </select>
 	      </span>
 	    </div>
 		  <div>

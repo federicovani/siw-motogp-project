@@ -39,6 +39,22 @@
         </span>
     </div>
     <div>
+      <label>Seleziona Piloti (Massimo 2)</label>
+      <div class="checkbox-contenitore">
+        <div class="checkbox-item" th:each="pilota : ${piloti}">
+          <input type="checkbox" th:id="'pilota-' + ${pilota.id}"
+                 th:name="pilotiIds"
+                 th:value="${pilota.id}"
+                 class="pilota-checkbox"
+                 onclick="checkLimit(this)">
+          <label th:for="'pilota-' + ${pilota.id}"
+                 th:text="${pilota.nome} + ' ' + ${pilota.cognome}"></label>
+        </div>
+      </div>
+    </div>
+
+
+    <div>
       <label>Immagine Team</label>
       <span>
             <input type="file" name="file" accept="image/*" />
@@ -72,6 +88,20 @@
 <footer>
   <p>© 2025 MotoGP - Tutti i diritti riservati</p>
 </footer>
+<script>
+  function checkLimit(checkbox) {
+    // Ottieni tutte le checkbox con la classe "pilota-checkbox"
+    const checkboxes = document.querySelectorAll('.pilota-checkbox');
 
+    // Conta quante checkbox sono attualmente selezionate
+    const selectedCheckboxes = Array.from(checkboxes).filter(cb => cb.checked);
+
+    // Se il numero di selezioni supera 2
+    if (selectedCheckboxes.length > 2) {
+      // Deseleziona la checkbox corrente
+      checkbox.checked = false;
+    }
+  }
+</script>
 </body>
 </html>
