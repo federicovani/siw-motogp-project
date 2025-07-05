@@ -73,7 +73,7 @@ public class PilotaController {
 			return "redirect:/pilota/" + pilota.getId();
 		} else {
 			model.addAttribute("messaggioErrore", "Questo pilota esiste già");
-			return "admin/formNewPilota.html";
+			return "/admin/formNewPilota.html";
 		}
 	}
 

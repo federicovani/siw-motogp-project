@@ -33,6 +33,10 @@
     <main>
         <section class="sectionContainer">
             <h2>Gran Premi Stagione</h2>
+			
+			<div>
+				<a class="tasto-generico-admin" th:if="${isAdmin}" th:href="@{'/admin/formNewGranPremio'}"> Crea Nuovo Gran Premio</a>
+			</div>
 
             <form method="get" th:action="@{/granPremi}">
                 <div class="filtro-anno">

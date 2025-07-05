@@ -125,6 +125,13 @@ public class GranPremioController {
 			return "admin/formAddRisultatiGranPremio.html";
 		}
 	}
+	
+	
+	@GetMapping("/admin/formNewGranPremio") 
+	public String formNewGranPremio(Model model) {
+		model.addAttribute("granPremio", new GranPremio());
+		return "admin/formNewGranPremio.html";
+	}
 
 
 
