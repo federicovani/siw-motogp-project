@@ -1,18 +1,19 @@
 package it.uniroma3.siw.service;
 
-import it.uniroma3.siw.model.CampionatoPiloti;
-import it.uniroma3.siw.model.GranPremio;
-import it.uniroma3.siw.model.Pilota;
+import it.uniroma3.siw.model.*;
 import it.uniroma3.siw.repository.CampionatoPilotiRepository;
 import it.uniroma3.siw.repository.GranPremioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.uniroma3.siw.model.Campionato;
 import it.uniroma3.siw.repository.CampionatoRepository;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CampionatoService {
@@ -41,6 +42,10 @@ public class CampionatoService {
 		return campionato.getAnno();
 	}
 
+	@Transactional
+	public List<Integer> getAnniDisponibili() {
+		return campionatoRepository.findAllDistinctAnni();
+	}
 
 	@Transactional
 	public Campionato getCampionatoByGranPremio(GranPremio granPremio) {
@@ -99,8 +104,35 @@ public class CampionatoService {
 		campionatoRepository.save(campionato);
 	}
 
-	@Transactional
-	public List<Integer> getAnniDisponibili() {
-		return campionatoRepository.findAllDistinctAnni();
+	public Map<Team, Integer> calcolaClassificaTeam(Campionato campionato) {
+		if (campionato == null || campionato.getClassifica() == null) {
+			throw new IllegalArgumentException("Il campionato o la classifica non possono essere nulli.");
+		}
+
+		// Mappa per accumulare i punti totali per ogni team
+		Map<Team, Integer> classificaTeam = new HashMap<>();
+
+		// Itera attraverso la classifica piloti
+		for (CampionatoPiloti campionatoPiloti : campionato.getClassifica()) {
+			Pilota pilota = campionatoPiloti.getPilota();
+			Team team = pilota.getTeam();
+
+			if (team != null) {
+				// Somma i punti del pilota ai punti del team
+				classificaTeam.put(team, classificaTeam.getOrDefault(team, 0) + campionatoPiloti.getPuntiTotali());
+			}
+		}
+
+		// Ordina i team in base al punteggio totale in ordine decrescente
+		return classificaTeam.entrySet()
+				.stream()
+				.sorted(Map.Entry.<Team, Integer>comparingByValue().reversed())
+				.collect(Collectors.toMap(
+						Map.Entry::getKey,
+						Map.Entry::getValue,
+						(e1, e2) -> e1,
+						() -> new LinkedHashMap<>()
+				));
+
 	}
 }

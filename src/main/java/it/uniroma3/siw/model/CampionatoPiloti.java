@@ -6,6 +6,11 @@ import java.util.Map;
 import java.util.Objects;
 
 @Entity
+@Table(
+        name = "campionato_piloti",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"campionato_id", "pilota_id"})
+)
+
 public class CampionatoPiloti {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

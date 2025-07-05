@@ -3,6 +3,7 @@ package it.uniroma3.siw.controller;
 import it.uniroma3.siw.model.Campionato;
 import it.uniroma3.siw.model.CampionatoPiloti;
 import it.uniroma3.siw.model.GranPremio;
+import it.uniroma3.siw.model.Team;
 import it.uniroma3.siw.service.CampionatoPilotiService;
 import it.uniroma3.siw.service.GranPremioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import it.uniroma3.siw.service.CampionatoService;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class CampionatoController {
@@ -35,9 +37,9 @@ public class CampionatoController {
     }
 
     @GetMapping("/campionatoPiloti")
-    public String showGranPremi(@RequestParam(value = "anno", required = false) Integer anno, Model model) {
+    public String showCampionatoPiloti(@RequestParam(value = "anno", required = false) Integer anno, Model model) {
         if (anno == null)
-            anno = granPremioService.getUltimoAnnoDisponibile();
+            anno = campionatoService.getUltimoAnnoDisponibile();
         Campionato campionato = campionatoService.getCampionatoByAnno(anno);
 
         List<CampionatoPiloti> classifica = campionato.getClassifica();
@@ -50,6 +52,22 @@ public class CampionatoController {
         model.addAttribute("classifica", classifica);
 
         return "campionatoPiloti.html";
+    }
+
+    @GetMapping("/campionatoTeam")
+    public String showCampionatoTeam(@RequestParam(value = "anno", required = false) Integer anno, Model model) {
+        if (anno == null)
+            anno = campionatoService.getUltimoAnnoDisponibile();
+        Campionato campionato = campionatoService.getCampionatoByAnno(anno);
+
+        Map<Team, Integer> classifica = campionatoService.calcolaClassificaTeam(campionato);
+
+        model.addAttribute("annoSelezionato", anno);
+        model.addAttribute("anniDisponibili", campionatoService.getAnniDisponibili());
+        model.addAttribute("campionato", campionato);
+        model.addAttribute("classifica", classifica);
+
+        return "campionatoTeam.html";
     }
 
     @GetMapping("/admin/formNewCampionato")

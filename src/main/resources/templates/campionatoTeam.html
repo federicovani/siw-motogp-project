@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campionato</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/campionati.css}">
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-logo">
+            <a th:if="${isAdmin}" th:href="@{'/'}" th:text="'MotoGP - Admin'"></a>
+            <a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
+        </div>
+        <ul class="navbar-menu">
+            <li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
+            <li class="navbar-item"><a th:href="@{'/granPremi'}" class="active-link">Gran Premi</a></li>
+            <li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
+            <li class="navbar-item">
+                <a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
+                <a th:if="${!isAnonymous}" th:href="'/logout'" th:text="${username} + ' - Logout'"></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<header>
+    <h1 th:text="'Classifica Campionato Team - ' + ${campionato.anno}"></h1>
+</header>
+
+<main>
+    <section>
+        <form method="get" th:action="@{/campionatoTeam}">
+            <div class="filtro-anno">
+                <select id="anno" name="anno" onchange="this.form.submit()">
+                    <option th:each="anno : ${anniDisponibili}"
+                            th:value="${anno}"
+                            th:text="${anno}"
+                            th:selected="${anno == annoSelezionato}"></option>
+                </select>
+            </div>
+        </form>
+        <h2>Classifica</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Team</th>
+                <th>Moto</th>
+                <th>Punti Totali</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="entry, iterStat : ${classifica}">
+                <!-- Mostra il numero del team -->
+                <td th:text="${iterStat.index + 1}">1</td>
+
+                <!-- Nome del Team -->
+                <td th:text="${entry.key.nome}">Ducati Lenovo Team</td>
+
+                <!-- Nome della Moto -->
+                <td th:text="${entry.key.moto != null ? entry.key.moto.nome : 'N/A'}">Moto</td>
+
+                <!-- Punti Totali -->
+                <td th:text="${entry.value}">300</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h2>Gran Premi del Campionato</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Gran Premio</th>
+                <th>Circuito</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="gp : ${campionato.granPremi}">
+                <td th:text="${#temporals.format(gp.data, 'dd/MM/yyyy')}">01/01/2025</td>
+                <td th:text="'Gran Premio ' + (${gp.sponsor.size() > 0 ? gp.sponsor.get(0).nome : 'Senza Sponsor'}) + ' di ' + ${gp.circuito.paese}">
+                    Gran Premio
+                </td>
+                <td th:text="'Circuito di ' + ${gp.circuito.citta}">Circuito</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <div class="tasto-center-container">
+        <a class="tasto-generico-admin" th:href="@{/campionati}">Torna ai Campionati</a>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 MotoGP - Tutti i diritti riservati</p>
+</footer>
+</body>
+
+</html>
