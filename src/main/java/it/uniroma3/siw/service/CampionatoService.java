@@ -99,4 +99,8 @@ public class CampionatoService {
 		campionatoRepository.save(campionato);
 	}
 
+	@Transactional
+	public List<Integer> getAnniDisponibili() {
+		return campionatoRepository.findAllDistinctAnni();
+	}
 }

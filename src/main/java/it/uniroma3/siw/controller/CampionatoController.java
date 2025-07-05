@@ -34,18 +34,21 @@ public class CampionatoController {
         return "campionati.html";
     }
 
-    @GetMapping("/campionatoPiloti/{anno}")
-    public String classificaPiloti(@PathVariable("anno") int anno, Model model) {
-        if(anno == 0)
-            anno = campionatoService.getUltimoAnnoDisponibile();
+    @GetMapping("/campionatoPiloti")
+    public String showGranPremi(@RequestParam(value = "anno", required = false) Integer anno, Model model) {
+        if (anno == null)
+            anno = granPremioService.getUltimoAnnoDisponibile();
         Campionato campionato = campionatoService.getCampionatoByAnno(anno);
-        List<CampionatoPiloti> classifica = campionato.getClassifica();
 
+        List<CampionatoPiloti> classifica = campionato.getClassifica();
         // Ordina la classifica per punti in ordine decrescente
         classifica.sort((cp1, cp2) -> Integer.compare(cp2.getPuntiTotali(), cp1.getPuntiTotali()));
 
+        model.addAttribute("annoSelezionato", anno);
+        model.addAttribute("anniDisponibili", campionatoService.getAnniDisponibili());
         model.addAttribute("campionato", campionato);
         model.addAttribute("classifica", classifica);
+
         return "campionatoPiloti.html";
     }
 

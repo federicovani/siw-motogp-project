@@ -32,6 +32,16 @@
 
 <main>
     <section>
+        <form method="get" th:action="@{/campionatoPiloti}">
+            <div class="filtro-anno">
+                <select id="anno" name="anno" onchange="this.form.submit()">
+                    <option th:each="anno : ${anniDisponibili}"
+                            th:value="${anno}"
+                            th:text="${anno}"
+                            th:selected="${anno == annoSelezionato}"></option>
+                </select>
+            </div>
+        </form>
         <h2>Classifica</h2>
         <table>
             <thead>

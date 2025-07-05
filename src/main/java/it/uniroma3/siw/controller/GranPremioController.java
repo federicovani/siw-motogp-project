@@ -31,10 +31,12 @@ public class GranPremioController {
 		if (anno != null) {
 			model.addAttribute("granPremi", granPremioService.getGranPremiByAnno(anno));
 		} else {
-			model.addAttribute("granPremi", granPremioService.getGranPremiByAnno(granPremioService.getUltimoAnnoDisponibile()));
+			anno = granPremioService.getUltimoAnnoDisponibile();
+			model.addAttribute("granPremi", granPremioService.getGranPremiByAnno(anno));
 		}
 
-		// Aggiungi anche gli anni unici disponibili per il selettore
+		model.addAttribute("annoSelezionato", anno);
+		// Aggiungi gli anni disponibili per il selettore
 		model.addAttribute("anniDisponibili", granPremioService.getAnniDisponibili());
 
 		return "granPremi.html";

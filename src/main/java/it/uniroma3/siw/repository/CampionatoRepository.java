@@ -18,4 +18,8 @@ public interface CampionatoRepository extends CrudRepository<Campionato, Long>{
     Campionato findByGranPremiContains(@Param("granPremio") GranPremio granPremio);
 
     Campionato findTopByOrderByAnnoDesc();
+
+    @Query("SELECT DISTINCT c.anno FROM Campionato c ORDER BY c.anno ASC")
+    List<Integer> findAllDistinctAnni();
+
 }
