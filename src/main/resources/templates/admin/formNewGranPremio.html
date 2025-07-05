@@ -39,6 +39,21 @@
 			        <input type="text" placeholder="Numero giri" required th:field="${granPremio.numeroDiGiri}"/>
 			      </span>
 			    </div>
+				<div>
+			      <label>Data</label>
+			      <span>
+			        <input type="date" placeholder="Data" required th:field="${granPremio.data}"/>
+			      </span>
+			    </div>
+				
+				<!-- Selezione e creazione Circuiti -->
+				<div>
+			      <label>Circuito</label>
+			      
+				  <div th:if="${#lists.isEmpty(circuiti)}" class="empty-message">
+	                  Nessun circuito disponibile al momento.
+	              </div>
+			    </div>
 			</form>
 		</section>
 		
