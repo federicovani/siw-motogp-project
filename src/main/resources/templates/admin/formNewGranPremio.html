@@ -58,9 +58,13 @@
 					<div class="carousel-track" id="circuitiCarouselTrack">
 						<div class="carousel-card" th:each="circuito : ${circuiti}" th:data-id="${circuito.id}">
 							<img th:if="${circuito.immagine} != null" th:src="@{'/images/' + ${circuito.immagine}}" alt="Immagine">
-							<h5 th:text="${circuito.citta} + ' - ' ${circuito.paese}">Città Paese</h5>
-							<p th:text="'Lunghezza: ' + ${circuito.lunghezza} \n'Larghezza: ' + ${circuito.larghezza} \n
-							'Rettilineo: ' + ${circuito.rettilineo} \n'Curve a destra: ' + ${circuito.curveDx} \n'Curve a sinistra: ' + ${circuito.curveSx}"></p>  
+							<h5 th:text="${circuito.citta} + ' - ' + ${circuito.paese}">Città Paese</h5>
+							<p th:utext="'Lunghezza: ' + ${circuito.lunghezza} + '<br>' +
+							              'Larghezza: ' + ${circuito.larghezza} + '<br>' +
+							              'Rettilineo: ' + ${circuito.rettilineo} + '<br>' +
+							              'Curve a destra: ' + ${circuito.curveDx} + '<br>' +
+							              'Curve a sinistra: ' + ${circuito.curveSx}">
+							</p> 
 						</div>
 	              </div>
 			    </div>
