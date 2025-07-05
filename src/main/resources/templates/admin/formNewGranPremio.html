@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>MotoGP</title>
 	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet" th:href="@{/css/pilotiETeam.css}">
 </head>
 <body>
 	<nav class="navbar">
@@ -53,7 +54,21 @@
 				  <div th:if="${#lists.isEmpty(circuiti)}" class="empty-message">
 	                  Nessun circuito disponibile al momento.
 	              </div>
+				  <div th:if="${not #lists.isEmpty(circuiti)}" class="carousel-container">
+					<div class="carousel-track" id="circuitiCarouselTrack">
+						<div class="carousel-card" th:each="circuito : ${circuiti}" th:data-id="${circuito.id}">
+							<img th:if="${circuito.immagine} != null" th:src="@{'/images/' + ${circuito.immagine}}" alt="Immagine">
+							<h5 th:text="${circuito.citta} + ' - ' ${circuito.paese}">Città Paese</h5>
+							<p th:text="'Lunghezza: ' + ${circuito.lunghezza} \n'Larghezza: ' + ${circuito.larghezza} \n
+							'Rettilineo: ' + ${circuito.rettilineo} \n'Curve a destra: ' + ${circuito.curveDx} \n'Curve a sinistra: ' + ${circuito.curveSx}"></p>  
+						</div>
+	              </div>
 			    </div>
+				
+				<!-- Tasto per aggiungere un nuovo circuito -->
+				<div>
+					<a class="tasto-generico-admin" th:if="${isAdmin}" th:href="@{'/admin/formNewPilota'}"> Aggiungi Nuovo Circuito</a>
+				 </div>
 			</form>
 		</section>
 		
