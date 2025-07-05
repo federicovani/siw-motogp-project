@@ -13,9 +13,10 @@ public class Team {
     private String nome;
     @OneToMany(mappedBy = "team")
     private List<Pilota> pilotiUfficiali;
-    @ManyToOne
-    private Moto moto;
+    private String marcaMoto;
     private String immagine;
+    @ManyToMany
+    private List<Sponsor> sponsor;
 
     public Long getId() {
         return id;
@@ -49,13 +50,20 @@ public class Team {
         this.immagine = immagine;
     }
 
-    public Moto getMoto() {
-
-        return moto;
+    public String getMarcaMoto() {
+        return marcaMoto;
     }
 
-    public void setMoto(Moto moto) {
-        this.moto = moto;
+    public void setMarcaMoto(String marcaMoto) {
+        this.marcaMoto = marcaMoto;
+    }
+
+    public List<Sponsor> getSponsor() {
+        return sponsor;
+    }
+
+    public void setSponsor(List<Sponsor> sponsor) {
+        this.sponsor = sponsor;
     }
 
     @Override

@@ -3,6 +3,8 @@ package it.uniroma3.siw.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.uniroma3.siw.model.Sponsor;
+import it.uniroma3.siw.service.SponsorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,6 +25,7 @@ public class PilotaController {
 	
 	@Autowired private PilotaService pilotaService;
 	@Autowired private TeamService teamService;
+	@Autowired private SponsorService sponsorService;
 
 	
 	@GetMapping("/pilota/{id}")
@@ -59,19 +62,25 @@ public class PilotaController {
 	@GetMapping("/admin/formNewPilota")
 	public String formNewPilota(Model model) {
 		model.addAttribute("pilota", new Pilota());
+		model.addAttribute("sponsors", sponsorService.getAllSponsors());
 		return "admin/formNewPilota.html";
 	}
 
 	@PostMapping("/admin/formNewPilota")
-	public String salvaPilota(@ModelAttribute("pilota") Pilota pilota, @RequestParam("file") MultipartFile file, Model model) {
+	public String salvaPilota(@ModelAttribute("pilota") Pilota pilota, @RequestParam("file") MultipartFile file, @RequestParam(name = "sponsor", required = false) List<Long> sponsorIds, Model model) {
 
 		if (!pilotaService.existsByNomeAndCognome(pilota.getNome(), pilota.getCognome())) {
 			if (file != null && !file.isEmpty())
 				pilotaService.saveImmagine(pilota, file);
+			if(sponsorIds != null && !sponsorIds.isEmpty()) {
+				List<Sponsor> sponsors = sponsorService.findAllById(sponsorIds);
+				pilota.setSponsor(sponsors);
+			}
 			pilotaService.save(pilota);
 			model.addAttribute("pilota", pilota);
 			return "redirect:/pilota/" + pilota.getId();
 		} else {
+			model.addAttribute("sponsors", sponsorService.getAllSponsors());
 			model.addAttribute("messaggioErrore", "Questo pilota esiste già");
 			return "/admin/formNewPilota.html";
 		}
@@ -89,6 +98,7 @@ public class PilotaController {
 
 		if (pilota != null) {
 			model.addAttribute("pilota", pilota);
+			model.addAttribute("sponsors", sponsorService.getAllSponsors());
 			return "admin/formUpdatePilota.html";
 		} else {
 			model.addAttribute("messaggioErrore", "Pilota non trovato.");
@@ -97,7 +107,7 @@ public class PilotaController {
 	}
 
 	@PostMapping("/admin/formUpdatePilota")
-	public String updatePilota(@ModelAttribute("pilota") Pilota pilota, @RequestParam("file") MultipartFile file, Model model) {
+	public String updatePilota(@ModelAttribute("pilota") Pilota pilota, @RequestParam("file") MultipartFile file, @RequestParam(name = "sponsor", required = false) List<Long> sponsorIds, Model model) {
 		// Controlla l'esistenza del pilota in base all'ID
 		Pilota pilotaEsistente = pilotaService.getPilotaById(pilota.getId());
 
@@ -116,11 +126,19 @@ public class PilotaController {
 				pilotaService.saveImmagine(pilotaEsistente, file);
 			}
 
+			if (sponsorIds != null && !sponsorIds.isEmpty()) {
+				List<Sponsor> sponsors = sponsorService.findAllById(sponsorIds);
+				pilotaEsistente.setSponsor(sponsors);
+			} else {
+				pilotaEsistente.setSponsor(new ArrayList<>()); // Nessuno sponsor selezionato
+			}
+
 			// Salva le modifiche
 			pilotaService.save(pilotaEsistente);
 			model.addAttribute("pilota", pilotaEsistente);
 			return "redirect:/pilota/" + pilotaEsistente.getId();
 		} else {
+			model.addAttribute("sponsors", sponsorService.getAllSponsors());
 			model.addAttribute("messaggioErrore", "Pilota non trovato per l'aggiornamento.");
 			return "admin/formNewPilota.html";
 		}

@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.repository.CampionatoRepository;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,22 +54,20 @@ public class CampionatoService {
 
 	@Transactional
 	public void aggiornaClassifica(Campionato campionato, Pilota pilota, int punti) {
-		if (campionato == null) {
-			throw new IllegalArgumentException("Il campionato non può essere nullo.");
-		}
-		if (pilota == null) {
-			throw new IllegalArgumentException("Il pilota non può essere nullo.");
+		if (campionato == null || pilota == null) {
+			throw new IllegalArgumentException("Campionato e Pilota non possono essere nulli.");
 		}
 
-		CampionatoPiloti campionatoPiloti = campionato.getClassifica().stream()
-				.filter(cp -> cp.getPilota().equals(pilota))
-				.findFirst()
-				.orElseGet(() -> {
-					CampionatoPiloti nuovo = new CampionatoPiloti(campionato, pilota);
-					campionato.getClassifica().add(nuovo);
-					return nuovo;
 
-				});
+		Optional<CampionatoPiloti> esistente = campionatoPilotiRepository
+				.findByCampionatoIdAndPilotaId(campionato.getId(), pilota.getId());
+
+		CampionatoPiloti campionatoPiloti = esistente.orElseGet(() -> {
+			CampionatoPiloti nuovo = new CampionatoPiloti(campionato, pilota);
+			campionatoPilotiRepository.save(nuovo);
+			return nuovo;
+		});
+
 
 		campionatoPiloti.aggiungiPunti(punti);
 

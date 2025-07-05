@@ -14,6 +14,7 @@ public class Sponsor {
     private String descrizione;
     @ManyToMany(mappedBy = "sponsor")
     private List<GranPremio> granPremi;
+	private String immagine;
     
     public Sponsor() {
     	

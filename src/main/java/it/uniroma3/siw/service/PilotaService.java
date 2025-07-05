@@ -3,8 +3,8 @@ package it.uniroma3.siw.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.uniroma3.siw.model.Sponsor;
 import it.uniroma3.siw.model.Team;
-import it.uniroma3.siw.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +22,8 @@ public class PilotaService {
     private TeamService teamService;
     @Autowired
     private ImmagineService immagineService;
+    @Autowired
+    private SponsorService sponsorService;
 
     @Transactional
     public Pilota getPilotaById(Long id) {

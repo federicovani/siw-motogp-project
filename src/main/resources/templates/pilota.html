@@ -36,7 +36,7 @@
                 <img th:if="${pilota.immagine} != null" th:src="@{'/images/' + ${pilota.immagine}}" alt="Immagine">
                 <h4 th:text="'#' + ${pilota.numeroIdentificativo}"></h4>
                 <h2 th:text="${pilota.nome} + ' ' + ${pilota.cognome}"></h2>
-                <p th:text="${pilota.nazionalita} + ' - ' + ${pilota.team.nome}"></p>
+                <p th:text="${pilota.team != null ? pilota.nazionalita + ' - ' + pilota.team.nome : pilota.nazionalita}"></p>
             </div>
 
             <!-- Dettagli della stagione in corso -->
@@ -55,6 +55,9 @@
             </div>
             <div class="tasto-center-container">
                 <a class="tasto-generico-admin" th:if="${isAdmin}" th:href="@{'/admin/formUpdatePilota/' + ${pilota.id}}">Modifica Pilota</a>
+            </div>
+            <div th:if="${pilota.sponsor!=null and !pilota.sponsor.isEmpty()}" th:each="sponsor : ${pilota.sponsor}">
+                <p th:text="${sponsor.nome}"></p>
             </div>
         </div>
     </main>

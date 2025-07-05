@@ -46,7 +46,18 @@
             <input type="file" name="file" accept="image/*" />
         </span>
     </div>
-
+    <div>
+      <label>Sponsor</label>
+      <div class="checkbox-contenitore">
+        <div class="checkbox-item" th:each="sponsor : ${sponsors}">
+          <input type="checkbox" th:id="'sponsor-' + ${sponsor.id}"
+                 th:name="sponsor" th:value="${sponsor.id}"
+                 th:checked="${team.sponsor.contains(sponsor)}">
+          <label th:for="'sponsor-' + ${sponsor.id}"
+                 th:text="${sponsor.nome}"></label>
+        </div>
+      </div>
+    </div>
     <!-- Messaggio di errore -->
     <div th:if="${messaggioErrore != null}" class="messaggio-errore" style="color: red; margin-bottom: 1rem;">
       <p th:text="${messaggioErrore}"></p>

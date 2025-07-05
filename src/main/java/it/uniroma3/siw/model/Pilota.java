@@ -20,12 +20,16 @@ public class Pilota {
     private String nazionalita;
     private int peso;
     private int altezza;
+    private LocalDate dataDiNascita;
 
     @ManyToOne
     private Team team;
 
     @OneToMany(mappedBy = "pilota", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PilotaGP> partecipazioni = new ArrayList<>();
+
+    @ManyToMany
+    private List<Sponsor> sponsor;
 
     private String immagine;
 
@@ -69,6 +73,22 @@ public class Pilota {
 
     public void setPartecipazioni(List<PilotaGP> partecipazioni) {
         this.partecipazioni = partecipazioni;
+    }
+
+    public LocalDate getDataDiNascita() {
+        return dataDiNascita;
+    }
+
+    public void setDataDiNascita(LocalDate dataDiNascita) {
+        this.dataDiNascita = dataDiNascita;
+    }
+
+    public List<Sponsor> getSponsor() {
+        return sponsor;
+    }
+
+    public void setSponsor(List<Sponsor> sponsor) {
+        this.sponsor = sponsor;
     }
 
     // Aggiunge una partecipazione
