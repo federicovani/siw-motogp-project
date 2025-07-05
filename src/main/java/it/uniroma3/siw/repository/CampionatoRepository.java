@@ -1,5 +1,6 @@
 package it.uniroma3.siw.repository;
 
+import aj.org.objectweb.asm.commons.Remapper;
 import it.uniroma3.siw.model.GranPremio;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,4 +17,5 @@ public interface CampionatoRepository extends CrudRepository<Campionato, Long>{
     @Query("SELECT c FROM Campionato c JOIN c.granPremi gp WHERE gp = :granPremio")
     Campionato findByGranPremiContains(@Param("granPremio") GranPremio granPremio);
 
+    Campionato findTopByOrderByAnnoDesc();
 }

@@ -36,6 +36,8 @@ public class CampionatoController {
 
     @GetMapping("/campionatoPiloti/{anno}")
     public String classificaPiloti(@PathVariable("anno") int anno, Model model) {
+        if(anno == 0)
+            anno = campionatoService.getUltimoAnnoDisponibile();
         Campionato campionato = campionatoService.getCampionatoByAnno(anno);
         List<CampionatoPiloti> classifica = campionato.getClassifica();
 

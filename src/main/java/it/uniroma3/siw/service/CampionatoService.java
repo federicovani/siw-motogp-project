@@ -33,13 +33,22 @@ public class CampionatoService {
 	}
 
 	@Transactional
+	public int getUltimoAnnoDisponibile() {
+		Campionato campionato = campionatoRepository.findTopByOrderByAnnoDesc();
+		if (campionato == null) {
+			throw new IllegalStateException("Nessun anno disponibile nei campionati.");
+		}
+		return campionato.getAnno();
+	}
+
+
+	@Transactional
 	public Campionato getCampionatoByGranPremio(GranPremio granPremio) {
 		if (granPremio == null) {
 			throw new IllegalArgumentException("Il Gran Premio fornito è nullo!");
 		}
 		return campionatoRepository.findByGranPremiContains(granPremio);
 	}
-
 
 	@Transactional
 	public void aggiornaClassifica(Campionato campionato, Pilota pilota, int punti) {

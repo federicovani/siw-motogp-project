@@ -15,7 +15,7 @@ public class Campionato {
 	private List<GranPremio> granPremi;
 
 	@OneToMany(mappedBy = "campionato", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<CampionatoPiloti> classifica = new ArrayList<>();
+	private List<CampionatoPiloti> classifica;
 
 	public List<CampionatoPiloti> getClassifica() {
 		return classifica;
