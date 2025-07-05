@@ -97,4 +97,27 @@ public class PilotaService {
         }
         return null;
     }
+
+    @Transactional
+    public List<Pilota> getPilotiDisponibili() {
+        List<Pilota> pilotiDisponibili = new ArrayList<>();
+
+        //Restituisci tutti i piloti che non fanno parte di un team
+        pilotaRepository.findAll().forEach(pilota -> {
+            if (pilota.getTeam() == null) {
+                pilotiDisponibili.add(pilota);
+            }
+        });
+        return pilotiDisponibili;
+    }
+
+    @Transactional
+    public List<Pilota> findAllById(List<Long> pilotiIds) {
+        // Usa il metodo già fornito da CrudRepository
+        Iterable<Pilota> pilotiIterable = pilotaRepository.findAllById(pilotiIds);
+        // Converti da Iterable a List
+        List<Pilota> piloti = new ArrayList<>();
+        pilotiIterable.forEach(piloti::add);
+        return piloti;
+    }
 }

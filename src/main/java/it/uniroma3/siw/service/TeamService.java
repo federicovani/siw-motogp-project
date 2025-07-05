@@ -92,4 +92,27 @@ public class TeamService {
         }
         teamRepository.save(team);
     }
+
+    public List<Team> findAllAvailable() {
+        List<Team> teamDisponibili = new ArrayList<>();
+        //Restituisci tutti i team con meno di due piloti al loro interno
+        teamRepository.findAll().forEach(team -> {
+            if (team.getPilotiUfficiali() == null || team.getPilotiUfficiali().size() < 2) {
+                teamDisponibili.add(team);
+            }
+        });
+        return teamDisponibili;
+    }
+
+    public void rimuoviPilotiUfficiali(Team team) {
+        List<Pilota> piloti = team.getPilotiUfficiali();
+        if (piloti != null) {
+            for(Pilota pilota : piloti){
+                pilota.setTeam(null);
+                pilotaRepository.save(pilota);
+            }
+        }
+        team.setPilotiUfficiali(null);
+        teamRepository.save(team);
+    }
 }

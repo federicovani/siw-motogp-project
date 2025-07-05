@@ -62,16 +62,33 @@ public class PilotaController {
 	@GetMapping("/admin/formNewPilota")
 	public String formNewPilota(Model model) {
 		model.addAttribute("pilota", new Pilota());
+		model.addAttribute("teams", teamService.findAllAvailable());
 		model.addAttribute("sponsors", sponsorService.getAllSponsors());
 		return "admin/formNewPilota.html";
 	}
 
 	@PostMapping("/admin/formNewPilota")
-	public String salvaPilota(@ModelAttribute("pilota") Pilota pilota, @RequestParam("file") MultipartFile file, @RequestParam(name = "sponsor", required = false) List<Long> sponsorIds, Model model) {
+	public String salvaPilota(@ModelAttribute("pilota") Pilota pilota,
+							  @RequestParam("file") MultipartFile file,
+							  @RequestParam(name = "sponsor", required = false) List<Long> sponsorIds,
+							  @RequestParam(name = "team", required = false) Long teamId,
+							  Model model) {
 
 		if (!pilotaService.existsByNomeAndCognome(pilota.getNome(), pilota.getCognome())) {
+
+			// Gestione del team: se "Nessuno" è selezionato, rimuovi il team
+			if (teamId == null) {
+				pilota.setTeam(null);
+			} else {
+				Team team = teamService.getTeamById(teamId);
+				pilota.setTeam(team);
+			}
+
+			//Gestione immagini
 			if (file != null && !file.isEmpty())
 				pilotaService.saveImmagine(pilota, file);
+
+			//Gestione sponsor
 			if(sponsorIds != null && !sponsorIds.isEmpty()) {
 				List<Sponsor> sponsors = sponsorService.findAllById(sponsorIds);
 				pilota.setSponsor(sponsors);
@@ -81,6 +98,7 @@ public class PilotaController {
 			return "redirect:/pilota/" + pilota.getId();
 		} else {
 			model.addAttribute("sponsors", sponsorService.getAllSponsors());
+			model.addAttribute("teams", teamService.findAllAvailable());
 			model.addAttribute("messaggioErrore", "Questo pilota esiste già");
 			return "/admin/formNewPilota.html";
 		}
@@ -99,6 +117,12 @@ public class PilotaController {
 		if (pilota != null) {
 			model.addAttribute("pilota", pilota);
 			model.addAttribute("sponsors", sponsorService.getAllSponsors());
+
+			List<Team> teamDisponibili = teamService.findAllAvailable();
+			if(pilota.getTeam() != null)
+				teamDisponibili.add(pilota.getTeam());
+			model.addAttribute("teams", teamDisponibili);
+
 			return "admin/formUpdatePilota.html";
 		} else {
 			model.addAttribute("messaggioErrore", "Pilota non trovato.");
@@ -107,7 +131,11 @@ public class PilotaController {
 	}
 
 	@PostMapping("/admin/formUpdatePilota")
-	public String updatePilota(@ModelAttribute("pilota") Pilota pilota, @RequestParam("file") MultipartFile file, @RequestParam(name = "sponsor", required = false) List<Long> sponsorIds, Model model) {
+	public String updatePilota(@ModelAttribute("pilota") Pilota pilota,
+							   @RequestParam("file") MultipartFile file,
+							   @RequestParam(name = "sponsor", required = false) List<Long> sponsorIds,
+							   @RequestParam(name = "team", required = false) Long teamId,
+							   Model model) {
 		// Controlla l'esistenza del pilota in base all'ID
 		Pilota pilotaEsistente = pilotaService.getPilotaById(pilota.getId());
 
@@ -119,7 +147,14 @@ public class PilotaController {
 			pilotaEsistente.setNazionalita(pilota.getNazionalita());
 			pilotaEsistente.setPeso(pilota.getPeso());
 			pilotaEsistente.setAltezza(pilota.getAltezza());
-			pilotaEsistente.setTeam(pilota.getTeam());
+
+			// Gestione del team: se "Nessuno" è selezionato, rimuovi il team
+			if (teamId == null) {
+				pilotaEsistente.setTeam(null);
+			} else {
+				Team team = teamService.getTeamById(teamId);
+				pilotaEsistente.setTeam(team);
+			}
 
 			// Aggiorna l'immagine, se caricata
 			if (file != null && !file.isEmpty()) {
@@ -139,6 +174,12 @@ public class PilotaController {
 			return "redirect:/pilota/" + pilotaEsistente.getId();
 		} else {
 			model.addAttribute("sponsors", sponsorService.getAllSponsors());
+
+			List<Team> teamDisponibili = teamService.findAllAvailable();
+			if(pilota.getTeam() != null)
+				teamDisponibili.add(pilota.getTeam());
+			model.addAttribute("teams", teamDisponibili);
+
 			model.addAttribute("messaggioErrore", "Pilota non trovato per l'aggiornamento.");
 			return "admin/formNewPilota.html";
 		}

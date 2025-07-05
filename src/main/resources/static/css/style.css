@@ -376,7 +376,7 @@ footer p {
 	background-color: #ffffff; /* Sfondo bianco */
 	border: 2px solid #cc4444; /* Bordo rosso scuro */
 	border-radius: 6px;       /* Angoli arrotondati */
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 	cursor: pointer;          /* Cursore puntatore */
 	transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -392,6 +392,71 @@ footer p {
 	outline: none;
 	border-color: #ff4444; /* Bordo rosso acceso */
 	box-shadow: 0 3px 6px rgba(255, 68, 68, 0.5); /* Ombra rossa */
+}
+
+/* Stile globale per il container della select */
+.select-container {
+	position: relative;
+	margin: 1rem 0;
+	font-family: Arial, sans-serif;
+}
+
+/* Etichetta della select */
+.select-container label {
+	display: block;
+	font-size: 1rem;
+	font-weight: bold;
+	margin-bottom: 0.5rem;
+	color: #333; /* Colore testo */
+}
+
+/* Stile per il select */
+.select-container select {
+	width: 100%; /* Occupare il 100% del container */
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	background-color: #f9f9f9; /* Sfondo dropdown */
+	border: 1px solid #ccc; /* Bordo classico */
+	border-radius: 5px; /* Spigoli arrotondati */
+	outline: none;
+	transition: border-color 0.3s, box-shadow 0.3s;
+	appearance: none; /* Rimuove lo stile di default */
+}
+
+/* Cambio bordo su hover */
+.select-container select:hover {
+	border-color: #888; /* Cambio colore bordo */
+}
+
+/* Effetto focus */
+.select-container select:focus {
+	border: 1px solid #007BFF; /* Colore blu scuro */
+	box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Effetto luce */
+}
+
+/* Freccia di default migliorata */
+.select-container select::-ms-expand {
+	display: none; /* Nasconde la freccia di default su IE */
+}
+
+/* Per compatibilità con la freccia */
+.select-container::after {
+	content: "▼";
+	position: absolute;
+	top: 75%;
+	right: 1rem;
+	transform: translateY(-50%);
+	pointer-events: none;
+	font-size: 0.8rem;
+	color: #666;
+}
+
+/* Responsività */
+@media (max-width: 768px) {
+	.select-container select {
+		font-size: 0.9rem;
+	}
 }
 
 
