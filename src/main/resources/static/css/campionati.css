@@ -1,42 +1,56 @@
+/* Contenitore generale */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Card */
 .card-container {
     display: flex;
     flex-wrap: wrap;
+    gap: 1.5rem;
     justify-content: center;
-    gap: 2em;
+    margin: 2rem 0;
 }
 
 .card {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 250px;
+    margin: 15px;
+    background-color: #cc4444;
+    border: 1px solid #aa2222;
+    border-radius: 6px;
     text-align: center;
-    padding: 2em 1em;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 4px 4px 12px rgba(0,0,0,0.15);
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.card a {
-    color: inherit;
+.card-link {
     text-decoration: none;
+    color: inherit;
     display: block;
+    padding: 1rem;
+    height: 100%;
 }
 
 .card-title {
-    font-size: 1.3em;
-    margin-bottom: 0.5em;
-    color: #222;
+    margin-top: 6px;
+    color: #ffffff; /* Testo bianco per contrasti migliori */
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
 .card-text {
-    font-size: 1em;
-    color: #555;
+    margin-top: 8px;
+    color: #ffffff; /* Testo bianco */
+    font-size: 1rem;
 }
+
 
 /* -------- STILE CLASSIFICA ------ */
 
@@ -84,29 +98,6 @@ h2 {
     justify-content: center; /* Centra orizzontalmente il pulsante */
     align-items: center; /* Centra verticalmente il pulsante */
     margin: 20px 0; /* Margine sopra e sotto */
-}
-
-.tasto-generico-admin {
-    background-color: #cc4444;
-    color: white;
-    text-decoration: none;
-    border: none;
-    padding: 10px 20px; /* Spaziatura interna */
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    text-align: center;
-}
-
-.tasto-generico-admin:hover {
-    background-color: #aa2222; /* Cambia colore al passaggio */
-    transform: scale(1.05); /* Effetto ingrandimento */
-}
-
-.tasto-generico-admin:active {
-    transform: scale(1); /* Torna alle dimensioni normali al clic */
 }
 
 /* -------- FOOTER -------- */

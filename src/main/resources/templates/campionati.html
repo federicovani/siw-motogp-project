@@ -30,33 +30,32 @@
 <main>
 
     <!-- Contenuto principale -->
-    <div class="container">
-        <h2>Campionati</h2>
-        <div class="card-container">
-            <div class="card">
-                <a th:href="@{/campionatoPiloti}">
-                    <div class="card-title">Campionato Piloti</div>
-                    <div class="card-text">Consulta la classifica dei piloti per anno.</div>
-                </a>
+    <section class="sectionContainer">
+            <h2>Campionati</h2>
+            <div class="card-container">
+                <div class="card">
+                    <a th:href="@{/campionatoPiloti}">
+                        <div class="card-title">Campionato Piloti</div>
+                        <div class="card-text">Consulta la classifica dei piloti per anno.</div>
+                    </a>
+                </div>
+                <div class="card">
+                    <a th:href="@{/campionatoTeam}">
+                        <div class="card-title">Campionato Team</div>
+                        <div class="card-text">Scopri la classifica dei team per anno.</div>
+                    </a>
+                </div>
+                <div class="card">
+                    <a th:href="@{/campionatoCostruttori}">
+                        <div class="card-title">Campionato Costruttori</div>
+                        <div class="card-text">Visualizza la classifica costruttori per anno.</div>
+                    </a>
+                </div>
             </div>
-            <div class="card">
-                <a th:href="@{/campionati/team}">
-                    <div class="card-title">Campionato Team</div>
-                    <div class="card-text">Scopri la classifica dei team per anno.</div>
-                </a>
-            </div>
-            <div class="card">
-                <a th:href="@{/campionati/costruttori}">
-                    <div class="card-title">Campionato Costruttori</div>
-                    <div class="card-text">Visualizza la classifica costruttori per anno.</div>
-                </a>
-            </div>
+        <div>
+            <a class="tasto-generico-admin" th:if="${isAdmin}" th:href="@{'/admin/formNewCampionato'}"> Crea Nuovo Campionato</a>
         </div>
-    </div>
-    <div>
-        <a class="tasto-generico-admin" th:if="${isAdmin}" th:href="@{'/admin/formNewCampionato'}"> Crea Nuovo Campionato</a>
-    </div>
-
+    </section>
 
 
 </main>
