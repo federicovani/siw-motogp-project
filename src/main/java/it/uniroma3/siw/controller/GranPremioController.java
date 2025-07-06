@@ -174,6 +174,12 @@ public class GranPremioController {
 		model.addAttribute("granPremio", granPremio);
 		return "redirect:/granPremio/" + granPremio.getId();
 	}
+	
+	@GetMapping("/admin/deleteGranPremio/{granPremioId}")
+	public String deleteGranPremio(@PathVariable("granPremioId") Long granPremioId, Model model) {
+		granPremioService.deleteById(granPremioId);
+		return "redirect:/granPremi";
+	}
 
 
 

@@ -72,6 +72,10 @@
                                 <p th:text="'Circuito di ' + ${gp.circuito.citta}">Circuito NomeCircuito</p>
                                 <p th:text="'Lunghezza: ' + ${gp.numeroDiGiri} + ' giri'">Lunghezza: 50 giri</p>
                             </div>
+							
+							<div th:if="${isAdmin}" class="button-container">
+								<a class="tasto-card-admin" th:href="@{'/admin/deleteGranPremio/' + ${gp.id}}">Elimina Gran Premio</a>
+							</div>
                         </a>
                     </div>
                     

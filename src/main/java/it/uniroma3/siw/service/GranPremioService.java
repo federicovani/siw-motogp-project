@@ -62,5 +62,10 @@ public class GranPremioService {
 		if(campionato != null)
 			campionatoService.aggiornaClassifica(campionato);
 	}
+	
+	@Transactional
+	public void deleteById(Long id) {
+		granPremioRepository.deleteById(id);;
+	}
 
 }
