@@ -1,17 +1,17 @@
 -- ========================
 -- TEAM
 -- ========================
-INSERT INTO team (id, nome) VALUES (10001, 'Ducati Lenovo Team');
-INSERT INTO team (id, nome) VALUES (10002, 'Red Bull KTM Factory Racing');
-INSERT INTO team (id, nome) VALUES (10003, 'Aprilia Racing');
-INSERT INTO team (id, nome) VALUES (10004, 'Monster Energy Yamaha MotoGP');
-INSERT INTO team (id, nome) VALUES (10005, 'Repsol Honda Team');
-INSERT INTO team (id, nome) VALUES (10006, 'Gresini Racing MotoGP');
-INSERT INTO team (id, nome) VALUES (10007, 'Mooney VR46 Racing Team');
-INSERT INTO team (id, nome) VALUES (10008, 'LCR Honda');
-INSERT INTO team (id, nome) VALUES (10009, 'GasGas Factory Racing Tech3');
-INSERT INTO team (id, nome) VALUES (10010, 'Prima Pramac Racing');
-INSERT INTO team (id, nome) VALUES (10011, 'RNF MotoGP Team');
+INSERT INTO team (id, nome, marcaMoto) VALUES (10001, 'Ducati Lenovo Team', 'Ducati');
+INSERT INTO team (id, nome, marcaMoto) VALUES (10002, 'Red Bull KTM Factory Racing', 'KTM');
+INSERT INTO team (id, nome, marcaMoto) VALUES (10003, 'Aprilia Racing', 'Aprilia');
+INSERT INTO team (id, nome, marcaMoto) VALUES (10004, 'Monster Energy Yamaha MotoGP', 'Yamaha');
+INSERT INTO team (id, nome, marcaMoto) VALUES (10005, 'Repsol Honda Team', 'Honda');
+INSERT INTO team (id, nome, marcaMoto) VALUES (10006, 'Gresini Racing MotoGP', 'Ducati');
+INSERT INTO team (id, nome, marcaMoto) VALUES (10007, 'Mooney VR46 Racing Team', 'Ducati');
+INSERT INTO team (id, nome, marcaMoto) VALUES (10008, 'LCR Honda', 'Honda');
+INSERT INTO team (id, nome, marcaMoto) VALUES (10009, 'GasGas Factory Racing Tech3',  'KTM');
+INSERT INTO team (id, nome, marcaMoto) VALUES (10010, 'Prima Pramac Racing', 'Ducati');
+INSERT INTO team (id, nome, marcaMoto) VALUES (10011, 'RNF MotoGP Team', 'Aprilia');
 
 
 -- ========================
@@ -45,7 +45,7 @@ INSERT INTO pilota (id, nome, cognome, numero_identificativo, nazionalita, altez
 -- CIRCUITI
 -- ======================================
 
-INSERT INTO circuito (id, "città", paese, curve_dx, curve_sx, larghezza, lunghezza, rettilineo) VALUES(10001, 'Scarperia', 'Italia', 6, 6, 14.0, 5245.0, 1141.0);
+INSERT INTO circuito (id, "città", paese, curve_dx, curve_sx, larghezza, lunghezza, rettilineo) VALUES(10001, 'Mugello', 'Italia', 6, 6, 14.0, 5245.0, 1141.0);
 INSERT INTO circuito (id, "città", paese, curve_dx, curve_sx, larghezza, lunghezza, rettilineo) VALUES(10002, 'Silverstone', 'Regno Unito', 8, 10, 15.0, 5891.0, 770.0);
 INSERT INTO circuito (id, "città", paese, curve_dx, curve_sx, larghezza, lunghezza, rettilineo) VALUES(10003, 'Assen', 'Paesi Bassi', 12, 6, 14.0, 4542.0, 560.0);
 INSERT INTO circuito (id, "città", paese, curve_dx, curve_sx, larghezza, lunghezza, rettilineo) VALUES(10004, 'Jerez', 'Spagna', 5, 8, 11.0, 4423.0, 607.0);

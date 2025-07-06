@@ -82,11 +82,15 @@
             </tr>
             </tbody>
         </table>
+        <div class="tasto-center-container">
+            <a class="tasto-generico-admin" th:href="@{/campionati}">Torna ai Campionati</a>
+        </div>
     </section>
 
-    <div class="tasto-center-container">
-        <a class="tasto-generico-admin" th:href="@{/campionati}">Torna ai Campionati</a>
+    <div class="tasto-center-container" th:if="${isAdmin}">
+        <a class="tasto-generico-admin" th:href="@{'/admin/formUpdateCampionato/' + ${campionato.id}}">Modifica Campionato</a>
     </div>
+
 </main>
 
 <footer>

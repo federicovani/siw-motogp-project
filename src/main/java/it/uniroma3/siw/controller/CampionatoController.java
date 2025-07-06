@@ -25,11 +25,6 @@ public class CampionatoController {
     CampionatoPilotiService campionatoPilotiService;
     @Autowired
     GranPremioService granPremioService;
-
-	/*@GetMapping("/campionati")
-	public String showCampionati(Model model) {
-		model.addAttribute("campionati", this.campionatoService.getAllCampionati());
-		ret*/
 	
 	@GetMapping("/campionati")
     public String showCampionati() {
@@ -70,6 +65,22 @@ public class CampionatoController {
         return "campionatoTeam.html";
     }
 
+    @GetMapping("/campionatoCostruttori")
+    public String showCampionatoCostruttori(@RequestParam(value = "anno", required = false) Integer anno, Model model) {
+        if (anno == null)
+            anno = campionatoService.getUltimoAnnoDisponibile();
+        Campionato campionato = campionatoService.getCampionatoByAnno(anno);
+
+        Map<String, Integer> classifica = campionatoService.calcolaClassificaCostruttori(campionato);
+
+        model.addAttribute("annoSelezionato", anno);
+        model.addAttribute("anniDisponibili", campionatoService.getAnniDisponibili());
+        model.addAttribute("campionato", campionato);
+        model.addAttribute("classifica", classifica);
+
+        return "campionatoCostruttori.html";
+    }
+
     @GetMapping("/admin/formNewCampionato")
     public String mostraFormNuovoCampionato(@RequestParam(value = "anno", required = false) Integer anno,
                                             Model model) {
@@ -83,11 +94,11 @@ public class CampionatoController {
         //Per il primo caricamento seleziona in automatico l'ultimo anno disponibile
         if(anno==null)
             anno = granPremioService.getUltimoAnnoDisponibile();
-        else {
-            List<GranPremio> granPremiDisponibili = granPremioService.getGranPremiByAnno(anno);
-            model.addAttribute("granPremiDisponibili", granPremiDisponibili);
-            model.addAttribute("annoSelezionato", anno);
-        }
+
+        List<GranPremio> granPremiDisponibili = granPremioService.getGranPremiByAnno(anno);
+        model.addAttribute("granPremiDisponibili", granPremiDisponibili);
+        model.addAttribute("annoSelezionato", anno);
+
 
         return "/admin/formNewCampionato.html";
     }
@@ -103,12 +114,49 @@ public class CampionatoController {
             return "/admin/formNewCampionato.html";
         }
         if (granPremi.isEmpty()) {
-            model.addAttribute("errorMessage", "Lista gran premi vuota");
+            model.addAttribute("errorMessage", "Seleziona almeno un Gran Premio.");
             return "/admin/formNewCampionato.html";
         }
         // Crea e salva il nuovo campionato
         campionatoService.creaCampionato(anno, granPremi);
         return "redirect:/campionati";
+    }
+
+    @GetMapping("/admin/formUpdateCampionato/{id}")
+    public String mostraFormUpdateCampionato(@PathVariable("id") Long id,
+                                            Model model) {
+
+        Campionato campionato = campionatoService.getCampionatoById(id);
+        model.addAttribute("campionato", campionato);
+
+
+        List<GranPremio> granPremiDisponibili = granPremioService.getGranPremiByAnno(campionato.getAnno());
+        model.addAttribute("granPremiDisponibili", granPremiDisponibili);
+
+        return "/admin/formUpdateCampionato.html";
+    }
+
+    @PostMapping("/admin/formUpdateCampionato/{id}")
+    public String modificaCampionato(@PathVariable("id") Long id,
+                                     @RequestParam List<Long> granPremi,
+                                     Model model) {
+
+        Campionato campionato = campionatoService.getCampionatoById(id);
+
+        if (campionato == null) {
+            model.addAttribute("errorMessage", "Campionato inesistente.");
+            return "/campionati.html";
+        }
+        if (granPremi == null || granPremi.isEmpty()) {
+            model.addAttribute("errorMessage", "Seleziona almeno un Gran Premio.");
+            model.addAttribute("campionato", campionato);
+            List<GranPremio> granPremiDisponibili = granPremioService.getGranPremiByAnno(campionato.getAnno());
+            model.addAttribute("granPremiDisponibili", granPremiDisponibili);
+            return "/admin/formUpdateCampionato.html";
+        }
+        // Modifica lista gran premi
+        campionatoService.aggiornaCampionato(campionato, granPremi);
+        return "redirect:/campionatoPiloti";
     }
 
 

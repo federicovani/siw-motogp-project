@@ -15,7 +15,12 @@ import java.util.Map;
 
 @Service
 public class GranPremioService {
-	
+
+	public static final Map<Integer, Integer> PUNTI_PER_POSIZIONE = Map.of(
+			1, 25, 2, 18, 3, 15, 4, 12, 5, 10,
+			6, 8, 7, 6, 8, 4, 9, 2, 10, 1
+	);
+
 	@Autowired
 	GranPremioRepository granPremioRepository;
 	@Autowired
@@ -52,32 +57,10 @@ public class GranPremioService {
 	@Transactional
 	public void save(GranPremio granPremio) {
 		granPremioRepository.save(granPremio);
-		salvaRisultati(granPremio, granPremio.getRisultati());
-	}
 
-	@Transactional
-	public void salvaRisultati(GranPremio granPremio, List<PilotaGP> risultati) {
 		Campionato campionato = campionatoService.getCampionatoByGranPremio(granPremio);
-
-		Map<Integer, Integer> puntiPerPosizione = Map.of(
-				1, 25, 2, 18, 3, 15, 4, 12, 5, 10,
-				6, 8, 7, 6, 8, 4, 9, 2, 10, 1
-		);
-
-
-		for (PilotaGP risultato : risultati) {
-			int posizione = risultato.getPosizione();
-			Pilota pilota = risultato.getPilota();
-
-			int punti = 0;
-			if (puntiPerPosizione.containsKey(posizione))
-				punti = puntiPerPosizione.get(posizione);
-			// Utilizza il CampionatoService per aggiornare la classifica
-			campionatoService.aggiornaClassifica(campionato, pilota, punti);
-		}
-
-		granPremioRepository.save(granPremio);
+		if(campionato != null)
+			campionatoService.aggiornaClassifica(campionato);
 	}
-
 
 }

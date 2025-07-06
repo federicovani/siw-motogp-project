@@ -53,11 +53,10 @@ public class CampionatoService {
 	}
 
 	@Transactional
-	public void aggiornaClassifica(Campionato campionato, Pilota pilota, int punti) {
+	public void aggiornaPilotaInClassifica(Campionato campionato, Pilota pilota, int punti) {
 		if (campionato == null || pilota == null) {
 			throw new IllegalArgumentException("Campionato e Pilota non possono essere nulli.");
 		}
-
 
 		Optional<CampionatoPiloti> esistente = campionatoPilotiRepository
 				.findByCampionatoIdAndPilotaId(campionato.getId(), pilota.getId());
@@ -90,15 +89,82 @@ public class CampionatoService {
 		// Recupera i gran premi selezionati e associa al campionato
 		List<GranPremio> granPremiSelezionati = new java.util.ArrayList<>();
 		for(Long id : granPremiIds) {
-			GranPremio gp = granPremioRepository.findById(id).orElse(null);
-			granPremiSelezionati.add(gp);
+			if(id != null) {
+				GranPremio gp = granPremioRepository.findById(id).orElse(null);
+				granPremiSelezionati.add(gp);
+			}
 		}
 		campionato.setGranPremi(granPremiSelezionati);
 
 		// Salva il campionato
 		campionatoRepository.save(campionato);
+
+		//Aggiorna classifica
+		aggiornaClassifica(campionato);
 	}
 
+	@Transactional
+	public void aggiornaCampionato(Campionato campionato, List<Long> granPremiIds) {
+		// Recupera i gran premi selezionati e associa al campionato
+		List<GranPremio> granPremiSelezionati = new java.util.ArrayList<>();
+
+		for(Long id : granPremiIds) {
+			if(id != null) {
+				GranPremio gp = granPremioRepository.findById(id).orElse(null);
+				granPremiSelezionati.add(gp);
+			}
+		}
+		campionato.setGranPremi(granPremiSelezionati);
+
+		// Salva il campionato
+		campionatoRepository.save(campionato);
+
+		//Aggiorna anche la classifica
+		aggiornaClassifica(campionato);
+	}
+
+	@Transactional
+	public void aggiornaClassifica(Campionato campionato) {
+		resetClassifica(campionato);
+
+		List<GranPremio> granPremiCampionato = new ArrayList<>(campionato.getGranPremi());
+
+		for(GranPremio gp : granPremiCampionato) {
+			if(gp.getRisultati() != null) {
+				for (PilotaGP risultato : gp.getRisultati()) {
+					int posizione = risultato.getPosizione();
+					Pilota pilota = risultato.getPilota();
+
+					int punti = 0;
+					if (GranPremioService.PUNTI_PER_POSIZIONE.containsKey(posizione))
+						punti = GranPremioService.PUNTI_PER_POSIZIONE.get(posizione);
+					// Utilizza il CampionatoService per aggiornare la classifica
+					aggiornaPilotaInClassifica(campionato, pilota, punti);
+				}
+			}
+		}
+		campionatoRepository.save(campionato);
+	}
+
+	@Transactional
+	public void resetClassifica(Campionato campionato) {
+		if (campionato == null) {
+			throw new IllegalArgumentException("Il campionato non può essere null.");
+		}
+
+		// Rimuovere tutte le entità della classifica
+		List<CampionatoPiloti> classifica = campionato.getClassifica();
+		if (classifica != null) {
+			classifica.clear(); // Hibernate gestirà automaticamente gli orfani
+		}
+
+
+		// Salva il campionato aggiornato
+		campionatoRepository.save(campionato);
+	}
+
+
+	@Transactional
 	public Map<Team, Integer> calcolaClassificaTeam(Campionato campionato) {
 		if (campionato == null || campionato.getClassifica() == null) {
 			throw new IllegalArgumentException("Il campionato o la classifica non possono essere nulli.");
@@ -122,6 +188,39 @@ public class CampionatoService {
 		return classificaTeam.entrySet()
 				.stream()
 				.sorted(Map.Entry.<Team, Integer>comparingByValue().reversed())
+				.collect(Collectors.toMap(
+						Map.Entry::getKey,
+						Map.Entry::getValue,
+						(e1, e2) -> e1,
+						() -> new LinkedHashMap<>()
+				));
+
+	}
+
+	@Transactional
+	public Map<String, Integer> calcolaClassificaCostruttori(Campionato campionato) {
+		if (campionato == null || campionato.getClassifica() == null) {
+			throw new IllegalArgumentException("Il campionato o la classifica non possono essere nulli.");
+		}
+
+		// Mappa per accumulare i punti totali per ogni costruttore
+		Map<String, Integer> classificaCostruttori = new HashMap<>();
+
+		// Itera attraverso la classifica piloti
+		for (CampionatoPiloti campionatoPiloti : campionato.getClassifica()) {
+			Pilota pilota = campionatoPiloti.getPilota();
+			Team team = pilota.getTeam();
+
+			if (team != null && team.getMarcaMoto() != null) {
+				// Somma i punti del pilota ai punti del costruttore
+				classificaCostruttori.put(team.getMarcaMoto(), classificaCostruttori.getOrDefault(team.getMarcaMoto(), 0) + campionatoPiloti.getPuntiTotali());
+			}
+		}
+
+		// Ordina i costruttori in base al punteggio totale in ordine decrescente
+		return classificaCostruttori.entrySet()
+				.stream()
+				.sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
 				.collect(Collectors.toMap(
 						Map.Entry::getKey,
 						Map.Entry::getValue,

@@ -122,6 +122,7 @@ public class TeamController {
         if (teamEsistente != null) {
             // Aggiorna i dati del team
             teamEsistente.setNome(team.getNome());
+            teamEsistente.setMarcaMoto(team.getMarcaMoto());
 
             // Aggiorna l'immagine, se caricata
             if (file != null && !file.isEmpty()) {

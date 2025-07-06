@@ -26,35 +26,15 @@
   </div>
 </nav>
 <header>
-  <h1>Nuovo Campionato</h1>
+  <h1>Modifica Campionato</h1>
 </header>
 
 <section class="formGenerico">
-  <h2>Crea Nuovo Campionato</h2>
-
-  <!-- Modulo per la selezione e aggiornamento dell'anno -->
-  <div>
-    <form th:action="@{/admin/formNewCampionato}" method="GET">
-      <div class="selezione-contenitore">
-        <label for="anno">Anno</label>
-        <select id="anno" name="anno" onchange="this.form.submit()"
-                th:required="true" th:value="${annoSelezionato}">
-          <option th:each="anno : ${anniDisponibili}" th:value="${anno}"
-                  th:text="${anno}" th:selected="${anno == annoSelezionato}"></option>
-        </select>
-      </div>
-    </form>
-  </div>
-
-  <div>
-    <span th:if="${errorMessage != null}" th:text="${errorMessage}">Errore.</span>
-  </div>
+  <h2 th:text="'Modifica Campionato ' + ${campionato.anno}">Modifica Campionato</h2>
 
   <!-- Modulo principale per creare il campionato -->
   <div th:if="${not #lists.isEmpty(granPremiDisponibili)}">
-    <form th:action="@{/admin/formNewCampionato}" method="POST">
-      <!-- Campo nascosto per inviare l'anno selezionato -->
-      <input type="hidden" name="anno" th:value="${annoSelezionato}" />
+    <form th:action="@{'/admin/formUpdateCampionato/' + ${campionato.id}}" method="POST">
 
       <!-- Campo nascosto per garantire la presenza di granPremi -->
       <input type="hidden" name="granPremi" value="" />
@@ -63,13 +43,19 @@
       <div class="checkbox-contenitore">
         <div class="checkbox-item" th:each="granPremio : ${granPremiDisponibili}">
           <input type="checkbox" th:id="'granPremio-' + ${granPremio.id}"
-                 th:name="granPremi" th:value="${granPremio.id}">
+                 th:name="granPremi" th:value="${granPremio.id}"
+                 th:checked="${campionato.granPremi.contains(granPremio)}">
           <label th:for="'granPremio-' + ${granPremio.id}"
                  th:text="${'Gran Premio di ' + granPremio.circuito.paese + ' (' + granPremio.data + ')'}"></label>
         </div>
       </div>
+
+      <div class="messaggio-errore">
+        <span th:if="${errorMessage != null}" th:text="${errorMessage}">Errore.</span>
+      </div>
+
       <div>
-        <button type="submit">Crea Campionato</button>
+        <button type="submit">Modifica Campionato</button>
         <a th:href="@{/campionati}" class="link"><button type="button">Annulla</button></a>
       </div>
   </form>

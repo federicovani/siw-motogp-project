@@ -70,7 +70,7 @@
                                th:text="${risultato.pilota.nome} + ' ' + ${risultato.pilota.cognome}+ ' #' + ${risultato.pilota.numeroIdentificativo}"></a>
                         </td>
                         <td>
-                            <a th:href="@{'/team/' + ${risultato.pilota.team.id}}"
+                            <a th:if="${risultato.pilota.team != null}" th:href="@{'/team/' + ${risultato.pilota.team.id}}"
                                th:text="${risultato.pilota.team.nome}"></a>
                         </td>
                     </tr>

@@ -41,6 +41,12 @@
         </span>
     </div>
     <div>
+      <label>Marca Moto</label>
+      <span>
+            <input type="text" placeholder="Costruttore della Moto" required th:field="${team.marcaMoto}" />
+        </span>
+    </div>
+    <div>
       <label>Seleziona Piloti (Massimo 2)</label>
       <div class="checkbox-contenitore">
         <div class="checkbox-item" th:each="pilota : ${piloti}">
@@ -55,12 +61,7 @@
         </div>
       </div>
     </div>
-    <div>
-      <label>Immagine Team</label>
-      <span>
-            <input type="file" name="file" accept="image/*" />
-        </span>
-    </div>
+
     <div>
       <label>Sponsor</label>
       <div class="checkbox-contenitore">
@@ -73,6 +74,14 @@
         </div>
       </div>
     </div>
+
+    <div>
+      <label>Immagine Team</label>
+      <span>
+            <input type="file" name="file" accept="image/*" />
+        </span>
+    </div>
+
     <!-- Messaggio di errore -->
     <div th:if="${messaggioErrore != null}" class="messaggio-errore" style="color: red; margin-bottom: 1rem;">
       <p th:text="${messaggioErrore}"></p>
