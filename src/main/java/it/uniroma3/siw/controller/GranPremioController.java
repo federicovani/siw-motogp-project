@@ -5,6 +5,8 @@ import it.uniroma3.siw.model.GranPremio;
 import it.uniroma3.siw.model.Pilota;
 import it.uniroma3.siw.model.PilotaGP;
 import it.uniroma3.siw.service.PilotaService;
+import it.uniroma3.siw.service.SponsorService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,8 @@ public class GranPremioController {
 	private PilotaService pilotaService;
 	@Autowired
 	private CircuitoService circuitoService;
+	@Autowired
+	private SponsorService sponsorService;
 
 	@GetMapping("/granPremi")
 	public String showGranPremi(@RequestParam(value = "anno", required = false) Integer anno, Model model) {
@@ -135,9 +139,9 @@ public class GranPremioController {
 	
 	@GetMapping("/admin/formNewGranPremio") 
 	public String formNewGranPremio(Model model) {
-		List<Circuito> circuiti = circuitoService.getAllCircuiti();
 		model.addAttribute("granPremio", new GranPremio());
-		model.addAttribute("circuiti", circuiti);
+		model.addAttribute("circuiti", circuitoService.getAllCircuiti());
+		model.addAttribute("sponsors", sponsorService.getAllSponsors());
 		return "admin/formNewGranPremio.html";
 	}
 

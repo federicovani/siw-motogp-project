@@ -82,8 +82,30 @@
 				<div>
 					<a class="tasto-generico-admin" th:if="${isAdmin}" th:href="@{'/admin/formNewPilota'}"> Aggiungi Nuovo Circuito</a>
 				 </div>
+				 
+				 <div>
+					<label style="margin-top: 30px">Sponsor</label>
+					<div class="checkbox-contenitore">
+						<div class="checkbox-item" th:each="sponsor : ${sponsors}">
+							<input type="checkbox" th:id="'sponsor-' + ${sponsor.id}" 
+							th:name="sponsor" th:value="${sponsor.id}">
+							<label th:for="'sponsor-' + ${sponsor.id}"
+							th:text="${sponsor.nome}"></label>
+						</div>
+					</div>
+				 </div>
+				 
+				 <div>
+					<button type="submit">Salva Gran Premio</button>
+					<a th:href="@{/granPremi}" class="link"><button type="button">Annulla</button></a>
+				 </div>
+
 			</form>
 		</section>
+		
+		<footer>
+			<p>© 2025 MotoGP - Tutti i diritti riservati</p>
+		</footer>
 		
 	</body>
 </html>
