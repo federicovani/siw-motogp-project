@@ -34,19 +34,6 @@
 			<h2>Crea nuovo Gran Premio</h2>
 			
 			<form th:action="@{/admin/formNewGranPremio}" enctype="multipart/form-data" method="POST">
-				<div>
-			      <label>Numero di giri</label>
-			      <span>
-			        <input type="text" placeholder="Numero giri" required th:field="${granPremio.numeroDiGiri}"/>
-			      </span>
-			    </div>
-				<div>
-			      <label>Data</label>
-			      <span>
-			        <input type="date" placeholder="Data" required th:field="${granPremio.data}"/>
-			      </span>
-			    </div>
-				
 				<!-- Selezione e creazione Circuiti -->
 				<div>
 					<label>Circuito</label>
@@ -81,10 +68,23 @@
 				<!-- Tasto per aggiungere un nuovo circuito -->
 				<div>
 					<a class="tasto-generico-admin" th:if="${isAdmin}" th:href="@{'/admin/formNewCircuito'}"> Aggiungi Nuovo Circuito</a>
-				 </div>
+				</div>
+				
+				<div>
+			      <label style="margin-top: 30px">Numero di giri</label>
+			      <span>
+			        <input type="text" placeholder="Numero giri" required th:field="${granPremio.numeroDiGiri}"/>
+			      </span>
+			    </div>
+				<div>
+			      <label>Data</label>
+			      <span>
+			        <input type="date" placeholder="Data" required th:field="${granPremio.data}"/>
+			      </span>
+			    </div>
 				 
 				 <div>
-					<label style="margin-top: 30px">Sponsor</label>
+					<label>Sponsor</label>
 					<div class="checkbox-contenitore">
 						<div class="checkbox-item" th:each="sponsor : ${sponsors}">
 							<input type="checkbox" th:id="'sponsor-' + ${sponsor.id}" 

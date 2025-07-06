@@ -17,7 +17,7 @@ public class Circuito {
 	private double rettilineo;
 	private int curveDx;
 	private int curveSx;
-	private String citta;
+	private String città;
 	private String paese;
 	private String immagine;
 	
@@ -65,10 +65,10 @@ public class Circuito {
 	}
 	
 	public String getCitta() {
-		return citta;
+		return città;
 	}
-	public void setCitta(String citta) {
-		this.citta = citta;
+	public void setCitta(String città) {
+		this.città = città;
 	}
 	
 	public String getPaese() {
@@ -89,7 +89,7 @@ public class Circuito {
 	// Equals e hashCode
 	@Override
 	public int hashCode() {
-		return Objects.hash(citta, curveDx, curveSx, id, larghezza, lunghezza, paese, rettilineo);
+		return Objects.hash(città, curveDx, curveSx, id, larghezza, lunghezza, paese, rettilineo);
 	}
 	
 	@Override
@@ -101,7 +101,7 @@ public class Circuito {
 		if (getClass() != obj.getClass())
 			return false;
 		Circuito other = (Circuito) obj;
-		return Objects.equals(citta, other.citta) && curveDx == other.curveDx && curveSx == other.curveSx
+		return Objects.equals(città, other.città) && curveDx == other.curveDx && curveSx == other.curveSx
 				&& Objects.equals(id, other.id)
 				&& Double.doubleToLongBits(larghezza) == Double.doubleToLongBits(other.larghezza)
 				&& Double.doubleToLongBits(lunghezza) == Double.doubleToLongBits(other.lunghezza)
