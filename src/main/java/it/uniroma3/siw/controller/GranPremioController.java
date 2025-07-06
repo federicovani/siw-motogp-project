@@ -4,6 +4,7 @@ import it.uniroma3.siw.model.Circuito;
 import it.uniroma3.siw.model.GranPremio;
 import it.uniroma3.siw.model.Pilota;
 import it.uniroma3.siw.model.PilotaGP;
+import it.uniroma3.siw.model.Sponsor;
 import it.uniroma3.siw.service.PilotaService;
 import it.uniroma3.siw.service.SponsorService;
 
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import it.uniroma3.siw.service.CircuitoService;
@@ -143,6 +145,34 @@ public class GranPremioController {
 		model.addAttribute("circuiti", circuitoService.getAllCircuiti());
 		model.addAttribute("sponsors", sponsorService.getAllSponsors());
 		return "admin/formNewGranPremio.html";
+	}
+	
+	@PostMapping("/admin/formNewGranPremio")
+	public String salvaGranPemio(@ModelAttribute("granPremio") GranPremio granPremio, 
+			@RequestParam(name = "circuito", required = true) Long circuitoId, 
+			@RequestParam(name = "sponsor", required = false) List<Long> sponsorIds,
+			Model model) {
+		
+		// Gestione circuito
+		Circuito circuito = circuitoService.getCircuitoById(circuitoId);
+		
+		if(circuito == null) {
+			model.addAttribute("messaggioErrore", "Circuito non trovato.");
+			return "admin/formNewGranPremio.html";
+		}
+		else {
+			granPremio.setCircuito(circuito);
+		}
+		
+		//Gestione sponsor
+		if(sponsorIds != null && !sponsorIds.isEmpty()) {
+			List<Sponsor> sponsors = sponsorService.findAllById(sponsorIds);
+			granPremio.setSponsor(sponsors);
+		}
+		
+		granPremioService.save(granPremio);
+		model.addAttribute("granPremio", granPremio);
+		return "redirect:/granPremio/" + granPremio.getId();
 	}
 
 

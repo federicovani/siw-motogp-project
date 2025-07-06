@@ -10,7 +10,7 @@ public class GranPremio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     private int numeroDiGiri;
     private LocalDate data;
