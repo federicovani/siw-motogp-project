@@ -65,9 +65,9 @@
 								<input type="radio" th:name="circuito" th:value="${circuito.id}" class="custom-radio" required>
 								<h5 th:text="${circuito.citta} + ' - ' + ${circuito.paese}">Città Paese</h5>
 								<ul>
-									<li th:text="'Lunghezza: ' + ${circuito.lunghezza}"></li>
-									<li th:text="'Larghezza: ' + ${circuito.larghezza}"></li>
-									<li th:text="'Rettilineo: ' + ${circuito.rettilineo}"></li>
+									<li th:text="'Lunghezza: ' + ${circuito.lunghezza} + ' m'"></li>
+									<li th:text="'Larghezza: ' + ${circuito.larghezza} + ' m'"></li>
+									<li th:text="'Rettilineo: ' + ${circuito.rettilineo} + ' m'"></li>
 									<li th:text="'Curve a destra: ' + ${circuito.curveDx}"></li>
 									<li th:text="'Curve a sinistra: ' + ${circuito.curveSx}"></li>
 								</ul>
