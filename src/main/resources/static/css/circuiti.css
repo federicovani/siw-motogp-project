@@ -1,0 +1,112 @@
+
+.empty-message {
+    text-align: center;
+    color: #ccc;
+    margin-top: 20px;
+}
+
+/* Contenitore del carosello per collegamento con il gran premio */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1500px;
+    margin: 20px auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px; /* Bordo arrotondato */
+    background-color: #661111; /* Colore rosso scuro */
+    scrollbar-width: thin; /* Per Firefox */
+    scrollbar-color: #cc4444 #661111; /* Colore thumb e track */
+}
+
+/* Traccia del carosello */
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    scrollbar-color: #cc4444 #661111;
+}
+
+/* Card del carosello */
+.carousel-card {
+    display: flex;
+	flex-direction: column; /* Impila verticalmente */
+	justify-content: flex-start; /* Facoltativo: allinea in alto */
+    flex: 0 0 calc(20% - 20px);
+    margin: 15px;
+    background-color: #cc4444;
+    border: 1px solid #aa2222;
+    border-radius: 4px;
+    padding: 35px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+	position: relative; /* Per posizionare la radio all'interno */
+}
+
+/* Hover ed effetto visivo card */
+.carousel-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-card h5 {
+    margin-top: 8px;
+	margin-bottom: 12px;
+    color: #ffffff; /* Testo bianco per contrasti migliori */
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Responsività del carosello */
+@media (max-width: 768px) {
+    .carousel-card {
+        flex: 0 0 calc(50% - 20px); /* Mostra 2 card per riga su schermi più piccoli */
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-card {
+        flex: 0 0 calc(100% - 20px); /* Mostra 1 card per riga su schermi molto piccoli */
+    }
+}
+
+.carousel-card ul {
+    list-style-type: none; /* Rimuove l'elenco puntato */
+    padding: 0; /* Elimina lo spazio interno */
+    margin: 0; /* Elimina i margini */
+}
+
+.carousel-card li {
+    color: #ffffff; /* Colore del testo bianco */
+    font-size: 1rem; /* Dimensione del testo per i nomi */
+    margin-bottom: 5px; /* Spaziatura tra i nomi */
+	margin-left: 2px;
+}
+
+/* Radio come checkbox nell'angolo in basso a destra */
+.custom-radio {
+    appearance: none;
+    -webkit-appearance: none;
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid #661111;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Stato selezionato: sfondo + spunta */
+.custom-radio:checked {
+    background-color: #ffffff;
+    border-color: #661111;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' fill='none' stroke='%23661111' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='4 11 8 15 16 6' /%3E%3C/svg%3E");
+    background-size: 16px 16px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+

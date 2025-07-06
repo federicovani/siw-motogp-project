@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>MotoGP</title>
 	<link rel="stylesheet" th:href="@{/css/style.css}">
-	<link rel="stylesheet" th:href="@{/css/pilotiETeam.css}">
+	<link rel="stylesheet" th:href="@{/css/circuiti.css}">
 </head>
 <body>
 	<nav class="navbar">
@@ -49,25 +49,34 @@
 				
 				<!-- Selezione e creazione Circuiti -->
 				<div>
-			      <label>Circuito</label>
-			      
-				  <div th:if="${#lists.isEmpty(circuiti)}" class="empty-message">
-	                  Nessun circuito disponibile al momento.
-	              </div>
-				  <div th:if="${not #lists.isEmpty(circuiti)}" class="carousel-container">
-					<div class="carousel-track" id="circuitiCarouselTrack">
-						<div class="carousel-card" th:each="circuito : ${circuiti}" th:data-id="${circuito.id}">
-							<img th:if="${circuito.immagine} != null" th:src="@{'/images/' + ${circuito.immagine}}" alt="Immagine">
-							<h5 th:text="${circuito.citta} + ' - ' + ${circuito.paese}">Città Paese</h5>
-							<p th:utext="'Lunghezza: ' + ${circuito.lunghezza} + '<br>' +
-							              'Larghezza: ' + ${circuito.larghezza} + '<br>' +
-							              'Rettilineo: ' + ${circuito.rettilineo} + '<br>' +
-							              'Curve a destra: ' + ${circuito.curveDx} + '<br>' +
-							              'Curve a sinistra: ' + ${circuito.curveSx}">
-							</p> 
+					<label>Circuito</label>
+					<!-- Per salvare il circuito selezionato-->
+					<input type="hidden" name="circuitoId" id="selectedCircuitoId">
+					
+					<div th:if="${#lists.isEmpty(circuiti)}" class="empty-message">
+						Nessun circuito disponibile al momento.
+					</div>
+					
+					<div th:if="${not #lists.isEmpty(circuiti)}" class="carousel-container">
+						<div class="carousel-track" id="circuitiCarouselTrack">
+							
+							<!-- Utilizzo il tag label per rendere cliccabile tutta la card -->
+							<label class="carousel-card" th:each="circuito : ${circuiti}">
+								<input type="radio" name="circuitoId" th:value="${circuito.id}" class="custom-radio" required>
+								<h5 th:text="${circuito.citta} + ' - ' + ${circuito.paese}">Città Paese</h5>
+								<ul>
+									<li th:text="'Lunghezza: ' + ${circuito.lunghezza}"></li>
+									<li th:text="'Larghezza: ' + ${circuito.larghezza}"></li>
+									<li th:text="'Rettilineo: ' + ${circuito.rettilineo}"></li>
+									<li th:text="'Curve a destra: ' + ${circuito.curveDx}"></li>
+									<li th:text="'Curve a sinistra: ' + ${circuito.curveSx}"></li>
+								</ul>
+							</label>
+							
 						</div>
-	              </div>
-			    </div>
+						
+					</div>
+				</div>
 				
 				<!-- Tasto per aggiungere un nuovo circuito -->
 				<div>
