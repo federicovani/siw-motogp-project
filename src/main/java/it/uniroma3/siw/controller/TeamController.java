@@ -38,7 +38,7 @@ public class TeamController {
     
 
     @GetMapping("/admin/formNewTeam")
-    public String formNewPilota(Model model) {
+    public String formNewSponsor(Model model) {
         model.addAttribute("team", new Team());
         model.addAttribute("piloti", pilotaService.getPilotiDisponibili());
         model.addAttribute("sponsors", sponsorService.getAllSponsors());

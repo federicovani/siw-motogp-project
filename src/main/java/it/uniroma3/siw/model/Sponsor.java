@@ -9,18 +9,15 @@ import jakarta.persistence.*;
 public class Sponsor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     private String nome;
     private String descrizione;
-    @ManyToMany(mappedBy = "sponsor")
-    private List<GranPremio> granPremi;
 	private String immagine;
     
     public Sponsor() {
-    	
     }
     
-    public Sponsor(int id, String nome, String descrizione) {
+    public Sponsor(Long id, String nome, String descrizione) {
     	this.id = id;
     	this.nome = nome;
     	this.descrizione = descrizione;
@@ -41,18 +38,19 @@ public class Sponsor {
 		this.descrizione = descrizione;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public List<GranPremio> getGranPremi() {
-		return granPremi;
+	public String getImmagine() {
+		return immagine;
 	}
-	public void setGranPremi(List<GranPremio> granPremi) {
-		this.granPremi = granPremi;
+
+	public void setImmagine(String immagine) {
+		this.immagine = immagine;
 	}
 
 	@Override
@@ -69,7 +67,7 @@ public class Sponsor {
 		if (getClass() != obj.getClass())
 			return false;
 		Sponsor other = (Sponsor) obj;
-		return Objects.equals(descrizione, other.descrizione) && id == other.id && Objects.equals(nome, other.nome);
+		return Objects.equals(descrizione, other.descrizione) && Objects.equals(id, other.id) && Objects.equals(nome, other.nome);
 	}
 
 
