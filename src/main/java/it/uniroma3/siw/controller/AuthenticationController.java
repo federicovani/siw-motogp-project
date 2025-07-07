@@ -4,6 +4,7 @@ import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.model.UserDto;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.SponsorService;
 import it.uniroma3.siw.service.UserService;
 import it.uniroma3.siw.sessionData.SessionData;
 import jakarta.validation.Valid;
@@ -30,11 +31,14 @@ public class AuthenticationController {
     private CredentialsService credentialsService;
     @Autowired 
     private UserService userService;
+	@Autowired
+	private SponsorService sponsorService;
     @Autowired 
     private SessionData sessionData;
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+		model.addAttribute("sponsors", sponsorService.getAllSponsors());
         return "homepage.html";
     }
     
