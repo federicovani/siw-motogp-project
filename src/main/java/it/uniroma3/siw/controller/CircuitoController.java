@@ -32,7 +32,7 @@ public class CircuitoController {
 		}
 		
 		circuitoService.save(circuito);
-		return "/admin/formNewGranPremio";
+		return "admin/formNewGranPremio";
 	}
 
 }
