@@ -19,6 +19,11 @@ public class GranPremio {
     private Circuito circuito;
 
     @ManyToMany
+    @JoinTable(
+            name = "gran_premio_sponsor", // Nome della tabella di join
+            joinColumns = @JoinColumn(name = "gran_premi_id"), // Nome della colonna in questa entità
+            inverseJoinColumns = @JoinColumn(name = "sponsor_id") // Nome della colonna nell'altra entità
+    )
     private List<Sponsor> sponsor;
 
     @OneToMany(mappedBy = "granPremio", cascade = CascadeType.ALL, orphanRemoval = true)
