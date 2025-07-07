@@ -214,6 +214,17 @@ public class GranPremioController {
 			pilotaGPService.addVotoRiderOfTheRace(gp, pilota, user);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", e.getMessage());
+
+			// Ordina i risultati: Prima le posizioni > 0, poi gli zeri
+			gp.getRisultati().sort((r1, r2) -> {
+				if (r1.getPosizione() == 0 && r2.getPosizione() != 0) {
+					return 1; // r1 dopo r2
+				} else if (r1.getPosizione() != 0 && r2.getPosizione() == 0) {
+					return -1; // r1 prima di r2
+				} else {
+					return Integer.compare(r1.getPosizione(), r2.getPosizione()); // Ordina per posizione
+				}
+			});
 			model.addAttribute("granPremio", gp);
 			model.addAttribute("riderOfTheRace", pilotaGPService.getRiderOfTheRace(gp));
 			return "granPremio.html";
