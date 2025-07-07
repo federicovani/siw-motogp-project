@@ -45,6 +45,12 @@ public class SponsorController {
         }
     }
 
+    @GetMapping("/admin/deleteSponsor/{sponsorId}")
+    public String deleteSponsor(@PathVariable("sponsorId") Long sponsorId, Model model) {
+        sponsorService.deleteById(sponsorId);
+        return "redirect:/";
+    }
+
     @GetMapping("/admin/formUpdateSponsor/{id}")
     public String formEditSponsor(@PathVariable("id") Long id, Model model) {
         Sponsor sponsor = sponsorService.getSponsorById(id);

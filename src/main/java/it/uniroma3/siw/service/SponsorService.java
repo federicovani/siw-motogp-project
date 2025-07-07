@@ -1,5 +1,6 @@
 package it.uniroma3.siw.service;
 
+import it.uniroma3.siw.model.GranPremio;
 import it.uniroma3.siw.model.Pilota;
 import it.uniroma3.siw.model.Sponsor;
 import it.uniroma3.siw.model.Team;
@@ -17,6 +18,12 @@ public class SponsorService {
     private SponsorRepository sponsorRepository;
     @Autowired
     private ImmagineService immagineService;
+    @Autowired
+    private PilotaService pilotaService;
+    @Autowired
+    private TeamService teamService;
+    @Autowired
+    private GranPremioService granPremioService;
 
     public List<Sponsor> getAllSponsors() {
         return sponsorRepository.findAll();
@@ -49,7 +56,34 @@ public class SponsorService {
         sponsorRepository.save(sponsor);
     }
 
+    @Transactional
     public Sponsor getSponsorById(Long id) {
         return sponsorRepository.findById(id).orElse(null);
     }
+
+    @Transactional
+    public void deleteById(Long id) {
+        Sponsor sponsor = getSponsorById(id);
+
+        if (sponsor == null) {
+            throw new IllegalArgumentException("Sponsor non trovato con id: " + id);
+        }
+
+        // Rimuovi i riferimenti allo sponsor da tutte le entità correlate
+        for (Pilota pilota : pilotaService.getAllPiloti()) {
+            pilotaService.rimuoviSponsor(pilota, sponsor);
+        }
+
+        for (Team team : teamService.findAll()) {
+            teamService.rimuoviSponsor(team, sponsor);
+        }
+
+        for (GranPremio granPremio : granPremioService.getAllGranPremi()) {
+            granPremioService.rimuoviSponsor(granPremio, sponsor);
+        }
+
+        // Elimina lo sponsor
+        sponsorRepository.deleteById(id);
+    }
+
 }

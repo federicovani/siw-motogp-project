@@ -53,6 +53,16 @@ public class CampionatoService {
 	}
 
 	@Transactional
+	public void removeGranPremioFromCampionato(GranPremio granPremio) {
+		Campionato campionato = getCampionatoByGranPremio(granPremio);
+		if(campionato != null) {
+			campionato.getGranPremi().remove(granPremio);
+			campionatoRepository.save(campionato);
+		}
+		aggiornaClassifica(campionato);
+	}
+
+	@Transactional
 	public void aggiornaPilotaInClassifica(Campionato campionato, Pilota pilota, int punti) {
 		if (campionato == null || pilota == null) {
 			throw new IllegalArgumentException("Campionato e Pilota non possono essere nulli.");

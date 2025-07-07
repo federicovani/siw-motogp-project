@@ -4,6 +4,7 @@ import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.model.UserDto;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.GranPremioService;
 import it.uniroma3.siw.service.SponsorService;
 import it.uniroma3.siw.service.UserService;
 import it.uniroma3.siw.sessionData.SessionData;
@@ -33,11 +34,14 @@ public class AuthenticationController {
     private UserService userService;
 	@Autowired
 	private SponsorService sponsorService;
+	@Autowired
+	private GranPremioService granPremioService;
     @Autowired 
     private SessionData sessionData;
 
     @GetMapping("/")
     public String index(Model model) {
+		model.addAttribute("granPremi", granPremioService.getGranPremiFuturiOrdinatiPerData());
 		model.addAttribute("sponsors", sponsorService.getAllSponsors());
         return "homepage.html";
     }
@@ -54,7 +58,7 @@ public class AuthenticationController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		if(auth instanceof AnonymousAuthenticationToken) {
-			return "homepage.html";
+			return "redirect:/";
 		}
 		else {
 			userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -63,11 +67,11 @@ public class AuthenticationController {
 			model.addAttribute("user", loggedUser);
 			
 			if(credentials.getRole().trim().equals(ADMIN_ROLE)) {
-				return "/admin/adminHomepage";
+				return "redirect:/";
 			}
 		}
 		
-		return "homepage.html";
+		return "redirect:/";
 	}
     
     @GetMapping("/register")

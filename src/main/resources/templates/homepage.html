@@ -32,14 +32,37 @@
 		
 		<main>
 			<section class="sectionContainer">
-				<div th:if="${not #lists.isEmpty(sponsors)}" class="carousel-container">
-					<div class="carousel-track" id="sponsorCarouselTrack">
-						<div class="carousel-card" th:each="sponsor : ${sponsors}">
-								<img th:if="${sponsor.immagine} != null" th:src="@{'/images/' + ${sponsor.immagine}}" alt="Immagine">
-								<h5 th:text="${sponsor.nome}"</h5>
-								<p th:if="${sponsor.descrizione != null}" th:text="${sponsor.descrizione}">Descrizione</p>
-							<div th:if="${isAdmin}" class="button-container">
-								<a class="tasto-card-admin" th:href="@{'/admin/deleteSponsor/' + ${sponsor.id}}">Elimina Sponsor</a>
+				<div>
+					<h2>Prossimi eventi</h2>
+					<div th:if="${not #lists.isEmpty(granPremi)}" class="carousel-container">
+						<div class="carousel-track">
+							<div class="carousel-card" th:each="gp : ${granPremi}">
+								<a th:href="@{'/granPremio/' + ${gp.id}}">
+									<p  th:text="${#temporals.format(gp.data, 'dd/MM/yyyy')}">01/01/2025</p>
+									<h5 th:text="'Gran Premio ' + (${gp.sponsor.size() > 0 ? gp.sponsor.get(0).nome : 'Senza Sponsor'}) + ' di ' + ${gp.circuito.paese}">
+										Gran Premio NomeSponsor di Paese
+									</h5>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<h2>Sponsor</h2>
+					<div th:if="${not #lists.isEmpty(sponsors)}" class="carousel-container">
+						<div class="carousel-track">
+							<div class="carousel-card" th:each="sponsor : ${sponsors}">
+									<img th:if="${sponsor.immagine} != null" th:src="@{'/images/' + ${sponsor.immagine}}" alt="Immagine">
+									<h5 th:text="${sponsor.nome}"</h5>
+									<p th:if="${sponsor.descrizione != null}" th:text="${sponsor.descrizione}">Descrizione</p>
+								<div th:if="${isAdmin}" class="button-container">
+									<a class="tasto-card-admin" th:href="@{'/admin/deleteSponsor/' + ${sponsor.id}}">Elimina Sponsor</a>
+								</div>
+							</div>
+							<div class="carousel-card" th:if="${isAdmin}">
+								<a th:href="@{/admin/formNewSponsor}">
+									<h5>Aggiungi nuovo sponsor</h5>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -47,9 +70,7 @@
 			<div>
 				<h1>Campionato 2025</h1>
 			</div>
-			<div>
-				<h2>Prossimi eventi</h2>
-			</div>
+
 			<div>
 				<h3>Sponsor</h3>
 			</div>

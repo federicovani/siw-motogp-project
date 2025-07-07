@@ -15,7 +15,7 @@ public class Team {
     private List<Pilota> pilotiUfficiali;
     private String marcaMoto;
     private String immagine;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Sponsor> sponsor;
 
     public Long getId() {

@@ -28,7 +28,7 @@ public class Pilota {
     @OneToMany(mappedBy = "pilota", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PilotaGP> partecipazioni = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Sponsor> sponsor;
 
     private String immagine;

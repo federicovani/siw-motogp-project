@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.uniroma3.siw.model.Pilota;
+import it.uniroma3.siw.model.Sponsor;
 import it.uniroma3.siw.repository.PilotaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,6 +85,7 @@ public class TeamService {
         team.setImmagine(fileName);
     }
 
+    @Transactional
     public void removePilotaFromTeam(Team team, Pilota pilota) {
         List<Pilota> piloti = team.getPilotiUfficiali();
         if (piloti != null && piloti.contains(pilota)) {
@@ -93,6 +95,7 @@ public class TeamService {
         teamRepository.save(team);
     }
 
+    @Transactional
     public List<Team> findAllAvailable() {
         List<Team> teamDisponibili = new ArrayList<>();
         //Restituisci tutti i team con meno di due piloti al loro interno
@@ -104,6 +107,7 @@ public class TeamService {
         return teamDisponibili;
     }
 
+    @Transactional
     public void rimuoviPilotiUfficiali(Team team) {
         List<Pilota> piloti = team.getPilotiUfficiali();
         if (piloti != null) {
@@ -114,5 +118,13 @@ public class TeamService {
         }
         team.setPilotiUfficiali(null);
         teamRepository.save(team);
+    }
+
+    @Transactional
+    public void rimuoviSponsor(Team team, Sponsor sponsor) {
+        if(team!=null && team.getSponsor() != null && team.getSponsor().contains(sponsor)) {
+            team.getSponsor().remove(sponsor);
+            teamRepository.save(team);
+        }
     }
 }

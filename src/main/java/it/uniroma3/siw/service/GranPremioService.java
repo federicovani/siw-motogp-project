@@ -1,15 +1,13 @@
 package it.uniroma3.siw.service;
 
-import it.uniroma3.siw.model.Campionato;
-import it.uniroma3.siw.model.Pilota;
-import it.uniroma3.siw.model.PilotaGP;
+import it.uniroma3.siw.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.uniroma3.siw.model.GranPremio;
 import it.uniroma3.siw.repository.GranPremioRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +53,12 @@ public class GranPremioService {
 	}
 
 	@Transactional
+	public List<GranPremio> getGranPremiFuturiOrdinatiPerData() {
+		// Passa la data attuale
+		return granPremioRepository.findByDataAfterOrderByDataAsc(LocalDate.now());
+	}
+
+	@Transactional
 	public void save(GranPremio granPremio) {
 		granPremioRepository.save(granPremio);
 
@@ -65,7 +69,15 @@ public class GranPremioService {
 	
 	@Transactional
 	public void deleteById(Long id) {
-		granPremioRepository.deleteById(id);;
+		campionatoService.removeGranPremioFromCampionato(getGranPremioById(id));
+		granPremioRepository.deleteById(id);
 	}
 
+	@Transactional
+	public void rimuoviSponsor(GranPremio granPremio, Sponsor sponsor) {
+		if(granPremio != null && granPremio.getSponsor() != null && granPremio.getSponsor().contains(sponsor)) {
+			granPremio.getSponsor().remove(sponsor);
+			granPremioRepository.save(granPremio);
+		}
+	}
 }

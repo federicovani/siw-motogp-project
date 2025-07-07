@@ -22,8 +22,6 @@ public class PilotaService {
     private TeamService teamService;
     @Autowired
     private ImmagineService immagineService;
-    @Autowired
-    private SponsorService sponsorService;
 
     @Transactional
     public Pilota getPilotaById(Long id) {
@@ -119,5 +117,13 @@ public class PilotaService {
         List<Pilota> piloti = new ArrayList<>();
         pilotiIterable.forEach(piloti::add);
         return piloti;
+    }
+
+    @Transactional
+    public void rimuoviSponsor(Pilota pilota, Sponsor sponsor) {
+        if(pilota!=null && pilota.getSponsor() != null && pilota.getSponsor().contains(sponsor)) {
+            pilota.getSponsor().remove(sponsor);
+            pilotaRepository.save(pilota);
+        }
     }
 }

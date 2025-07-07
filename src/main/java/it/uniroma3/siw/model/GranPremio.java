@@ -18,7 +18,7 @@ public class GranPremio {
     @ManyToOne
     private Circuito circuito;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "gran_premio_sponsor", // Nome della tabella di join
             joinColumns = @JoinColumn(name = "gran_premi_id"), // Nome della colonna in questa entità
