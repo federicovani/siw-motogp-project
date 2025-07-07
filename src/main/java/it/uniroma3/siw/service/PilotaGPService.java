@@ -56,9 +56,11 @@ public class PilotaGPService {
                 .orElseThrow(() -> new IllegalStateException("Impossibile trovare un pilota con più voti."));
 
         // Ritorna il pilota associato a quel risultato
+        if(riderOfTheRace.getVoti() == 0){
+            return null;
+        }
         return riderOfTheRace.getPilota();
     }
-
 
     public int getPosizionePilota(GranPremio gp, Pilota pilota){
         if (pilota == null || gp == null) {

@@ -2,6 +2,7 @@ package it.uniroma3.siw.controller;
 
 import it.uniroma3.siw.model.*;
 import it.uniroma3.siw.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,4 +87,18 @@ public class AuthenticationController {
 		}
 		return "register.html";
 	}
+
+	@GetMapping("/error")
+	public String handleError(HttpServletRequest request, Model model) {
+		// Recupera dettagli dell'errore tramite attributi impostati da Spring
+		Integer statusCode = (Integer) request.getAttribute("jakarta.servlet.error.status_code");
+		String errorMessage = (String) request.getAttribute("jakarta.servlet.error.message");
+
+
+		// Aggiunge attributi al modello per visualizzarli nella pagina di errore
+		model.addAttribute("statusCode", statusCode);
+		model.addAttribute("errorMessage", errorMessage);
+		return "error.html";
+	}
+
 }

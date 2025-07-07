@@ -63,7 +63,8 @@ public class AuthConfiguration {
             			    "/css/**", 
             			    "/images/**", 
             			    "/js/**", 
-            			    "/favicon.ico"
+            			    "/favicon.ico",
+							"/error"
             			).permitAll()
 
                 .requestMatchers(HttpMethod.POST, "/register", "/login").permitAll()
@@ -89,7 +90,18 @@ public class AuthConfiguration {
 					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 					.clearAuthentication(true)
 					.permitAll()
-            );
+            )
+
+			// Configurazione per eccezioni
+			.exceptionHandling(handler -> handler
+					.accessDeniedHandler((request, response, accessDeniedException) -> {
+						response.sendRedirect("/error"); // Reindirizza a /error per accessi negati
+					})
+					.authenticationEntryPoint((request, response, authException) -> {
+						response.sendRedirect("/error"); // Reindirizza a /error per utenti non autenticati
+					})
+			);
+		;
 
         return http.build();
     }

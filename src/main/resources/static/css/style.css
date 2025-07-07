@@ -564,3 +564,43 @@ table tr:hover {
 	transform: scale(0.98); /* Leggera compressione al click */
 }
 
+.error-container {
+	text-align: center;
+	margin: 50px auto;
+}
+
+.error-content h2 {
+	color: #d9534f;
+}
+
+.error-content p {
+	margin: 20px 0;
+	font-size: 1.2rem;
+}
+
+.error-actions .btn {
+	text-decoration: none;
+	margin: 10px;
+	padding: 10px 20px;
+	border-radius: 5px;
+}
+
+.btn-primary {
+	background-color: #d9534f; /* Rosso */
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	text-decoration: none;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.2s ease; /* Animazioni */
+}
+
+.btn-primary:hover {
+	background-color: #c9302c; /* Rosso più scuro */
+	transform: scale(1.1); /* Piccolo ingrandimento */
+}
+
+
+
