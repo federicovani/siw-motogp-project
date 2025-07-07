@@ -39,11 +39,13 @@ public class AuthenticationController {
 		int anno = java.time.Year.now().getValue();
 		Campionato campionato = campionatoService.getCampionatoByAnno(anno);
 
-		List<CampionatoPiloti> classifica = campionato.getClassifica();
-		// Ordina la classifica per punti in ordine decrescente
-		classifica.sort((cp1, cp2) -> Integer.compare(cp2.getPuntiTotali(), cp1.getPuntiTotali()));
+		if(campionato != null) {
+			List<CampionatoPiloti> classifica = campionato.getClassifica();
+			// Ordina la classifica per punti in ordine decrescente
+			classifica.sort((cp1, cp2) -> Integer.compare(cp2.getPuntiTotali(), cp1.getPuntiTotali()));
 
-		model.addAttribute("classifica", classifica);
+			model.addAttribute("classifica", classifica);
+		}
 
         return "homepage.html";
     }

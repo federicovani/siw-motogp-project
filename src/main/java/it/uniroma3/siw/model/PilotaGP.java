@@ -1,15 +1,11 @@
 package it.uniroma3.siw.model;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "piloto_gp") // Nome della tabella di relazione
@@ -29,14 +25,18 @@ public class PilotaGP {
 
     private int posizione;
 
+    @Column(nullable = false)
+    private int voti = 0;
+
     // Costruttore vuoto
     public PilotaGP() {}
 
     // Costruttore personalizzato
-    public PilotaGP(Pilota pilota, GranPremio granPremio, int posizione, Duration migliorTempo) {
+    public PilotaGP(Pilota pilota, GranPremio granPremio, int posizione) {
         this.pilota = pilota;
         this.granPremio = granPremio;
         this.posizione = posizione;
+        this.voti = 0;
     }
 
     // Getter e Setter
@@ -70,6 +70,18 @@ public class PilotaGP {
 
     public void setPosizione(int posizione) {
         this.posizione = posizione;
+    }
+
+    public int getVoti() {
+        return voti;
+    }
+
+    public void setVoti(int voti) {
+        this.voti = voti;
+    }
+
+    public void addVoto(){
+        this.voti++;
     }
 
     @Override

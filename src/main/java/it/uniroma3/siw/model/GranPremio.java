@@ -29,6 +29,9 @@ public class GranPremio {
     @OneToMany(mappedBy = "granPremio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PilotaGP> risultati = new ArrayList<>();
 
+    @ManyToMany
+    private List<User> utentiVotanti;
+
     // Getter e Setter principali
 
     public long getId() {
@@ -77,6 +80,18 @@ public class GranPremio {
 
     public void setRisultati(List<PilotaGP> risultati) {
         this.risultati = risultati;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<User> getUtentiVotanti() {
+        return utentiVotanti;
+    }
+
+    public void setUtentiVotanti(List<User> utentiVotanti) {
+        this.utentiVotanti = utentiVotanti;
     }
 
     // Aggiunge un PilotaGP al Gran Premio

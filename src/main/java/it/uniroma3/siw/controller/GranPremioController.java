@@ -1,22 +1,19 @@
 package it.uniroma3.siw.controller;
 
-import it.uniroma3.siw.model.Circuito;
-import it.uniroma3.siw.model.GranPremio;
-import it.uniroma3.siw.model.Pilota;
-import it.uniroma3.siw.model.PilotaGP;
-import it.uniroma3.siw.model.Sponsor;
-import it.uniroma3.siw.service.PilotaService;
-import it.uniroma3.siw.service.SponsorService;
+import it.uniroma3.siw.model.*;
+import it.uniroma3.siw.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import it.uniroma3.siw.service.CircuitoService;
-import it.uniroma3.siw.service.GranPremioService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -35,6 +32,10 @@ public class GranPremioController {
 	private CircuitoService circuitoService;
 	@Autowired
 	private SponsorService sponsorService;
+	@Autowired
+	private PilotaGPService pilotaGPService;
+	@Autowired
+	private CredentialsService credentialsService;
 
 	@GetMapping("/granPremi")
 	public String showGranPremi(@RequestParam(value = "anno", required = false) Integer anno, Model model) {
@@ -68,6 +69,7 @@ public class GranPremioController {
 		});
 
 		model.addAttribute("granPremio", granPremio);
+		model.addAttribute("riderOfTheRace", pilotaGPService.getRiderOfTheRace(granPremio));
 		return "granPremio.html";
 	}
 
@@ -180,6 +182,46 @@ public class GranPremioController {
 		granPremioService.deleteById(granPremioId);
 		return "redirect:/granPremi";
 	}
+
+	@PostMapping("/voteRiderOfTheRace")
+	public String voteRiderOfTheRace(@RequestParam("pilotaId") Long pilotaId,
+									 @RequestParam("granPremioId") Long granPremioId,
+									 Model model) {
+
+		// Verifica se l'utente ha già votato per questo GP
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = null;
+		if (!(authentication == null || authentication instanceof AnonymousAuthenticationToken)) {
+			Object principal = authentication.getPrincipal();
+			if (principal instanceof org.springframework.security.core.userdetails.UserDetails userDetails) {
+				user = credentialsService.getUserByUsername(userDetails.getUsername());
+			}
+		}
+		if(user == null) {
+			model.addAttribute("error", "Devi essere registrato per votare per un Gran Premio.");
+			return "redirect:/granPremio/" + granPremioId;
+		}
+
+		Pilota pilota = pilotaService.getPilotaById(pilotaId);
+		GranPremio gp = granPremioService.getGranPremioById(granPremioId);
+		if (pilota == null || gp == null) {
+			model.addAttribute("error", "Gran Premio o Pilota non trovato.");
+			return "redirect:/granPremi";
+		}
+
+		// Recupera il pilota e aggiungi il voto
+		try {
+			pilotaGPService.addVotoRiderOfTheRace(gp, pilota, user);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			model.addAttribute("granPremio", gp);
+			return "redirect:/granPremio/" + granPremioId;
+		}
+
+
+		return "redirect:/granPremio/" + granPremioId;
+	}
+
 
 
 
