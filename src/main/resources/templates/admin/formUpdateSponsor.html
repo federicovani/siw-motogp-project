@@ -61,6 +61,7 @@
 
     <div>
       <button type="submit">Salva Sponsor</button>
+      <a class="link" th:href="@{'/admin/deleteSponsor/' + ${sponsor.id}}"><button type="button">Elimina Sponsor</button></a>
       <a th:href="@{/}" class="link"><button type="button">Annulla</button></a>
     </div>
   </form>

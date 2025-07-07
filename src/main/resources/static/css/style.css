@@ -461,12 +461,9 @@ footer p {
 	}
 }
 
-
-
 .button-container {
 	margin-top: auto; /* Spinge il contenitore verso il fondo della card */
-	width: 100%; /* Larghezza completa della card */
-	display: flex; /* Imposta flexbox layout */
+	display: block; /* Imposta flexbox layout */
 	justify-content: center; /* Centra il pulsante orizzontalmente */
 	align-items: center; /* Centra il pulsante verticalmente (se necessario) */
 }
@@ -474,7 +471,7 @@ footer p {
 
 /* Stile del pulsante */
 .tasto-card-admin {
-	display: inline-flex;
+	display: block;
 	background-color: #FF0000; /* Rosso acceso */
 	color: white; /* Testo bianco */
 	text-decoration: none; /* Rimuove la sottolineatura */

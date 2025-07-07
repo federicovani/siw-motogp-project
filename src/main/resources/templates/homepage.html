@@ -53,10 +53,10 @@
 						<div class="carousel-track">
 							<div class="carousel-card" th:each="sponsor : ${sponsors}">
 									<img th:if="${sponsor.immagine} != null" th:src="@{'/images/' + ${sponsor.immagine}}" alt="Immagine">
-									<h5 th:text="${sponsor.nome}"</h5>
+									<h5 th:text="${sponsor.nome}"></h5>
 									<p th:if="${sponsor.descrizione != null}" th:text="${sponsor.descrizione}">Descrizione</p>
 								<div th:if="${isAdmin}" class="button-container">
-									<a class="tasto-card-admin" th:href="@{'/admin/deleteSponsor/' + ${sponsor.id}}">Elimina Sponsor</a>
+									<a class="tasto-card-admin" th:href="@{'/admin/formUpdateSponsor/' + ${sponsor.id}}">Modifica Sponsor</a>
 								</div>
 							</div>
 							<div class="carousel-card" th:if="${isAdmin}">
@@ -67,15 +67,14 @@
 						</div>
 					</div>
 				</div>
-			<div>
-				<h1>Campionato 2025</h1>
-			</div>
+				<div>
+					<h2>Campionato 2025</h2>
+				</div>
 
-			<div>
-				<h3>Sponsor</h3>
-			</div>
 			</section>
 		</main>
-		
+	<footer>
+		<p>© 2025 MotoGP - Tutti i diritti riservati</p>
+	</footer>
 	</body>
 </html>

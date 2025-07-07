@@ -30,7 +30,10 @@
 /* Card del carosello */
 .carousel-card {
     display: flex;
+    flex-direction: column;
     flex: 0 0 calc(20% - 20px);
+    width: 100%; /* Adatta la larghezza disponibile, entro il max-width */
+    box-sizing: border-box;
     margin: 15px;
     background-color: #cc4444;
     border: 1px solid #aa2222;
@@ -40,6 +43,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 
 /* Hover ed effetto visivo card */
 .carousel-card:hover {
@@ -64,6 +68,10 @@
     margin-top: 8px;
     color: #ffffff; /* Testo bianco */
     font-size: 1rem;
+    word-wrap: break-word; /* Spezza parole lunghe */
+    word-break: break-word; /* Rende le parole spezzabili */
+    overflow-wrap: break-word; /* Permette di gestire parole molto lunghe */
+    white-space: normal; /* Permette il ritorno a capo */
 }
 
 /* Responsività del carosello */
