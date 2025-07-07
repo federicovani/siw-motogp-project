@@ -76,8 +76,8 @@ INSERT INTO sponsor (id, nome) VALUES (10003, 'Michelin');
 -- RELAZIONI GRAN_PREMIO - SPONSOR
 -- ======================================
 
-INSERT INTO gran_premio_sponsor (gran_premio_id, sponsor_id) VALUES (10001, 10001);
-INSERT INTO gran_premio_sponsor (gran_premio_id, sponsor_id) VALUES (10002, 10002);
-INSERT INTO gran_premio_sponsor (gran_premio_id, sponsor_id) VALUES (10003, 10003);
-INSERT INTO gran_premio_sponsor (gran_premio_id, sponsor_id) VALUES (10004, 10001);
-INSERT INTO gran_premio_sponsor (gran_premio_id, sponsor_id) VALUES (10005, 10002);
+INSERT INTO gran_premio_sponsor (gran_premi_id, sponsor_id) VALUES (10001, 10001);
+INSERT INTO gran_premio_sponsor (gran_premi_id, sponsor_id) VALUES (10002, 10002);
+INSERT INTO gran_premio_sponsor (gran_premi_id, sponsor_id) VALUES (10003, 10003);
+INSERT INTO gran_premio_sponsor (gran_premi_id, sponsor_id) VALUES (10004, 10001);
+INSERT INTO gran_premio_sponsor (gran_premi_id, sponsor_id) VALUES (10005, 10002);
