@@ -48,13 +48,36 @@
 					</div>
 				</div>
 				<div>
+					<h2>Campionato in corso</h2>
+					<table>
+						<thead>
+						<tr>
+							<th>#</th>
+							<th>Pilota</th>
+							<th>Team</th>
+							<th>Punti</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:each="entry, iterStat : ${classifica}">
+							<td th:text="${iterStat.index + 1}">1</td>
+							<td>
+								<span th:text="${entry.pilota.nome} + ' ' + ${entry.pilota.cognome}"></span>
+							</td>
+							<td th:text="${entry.pilota.team?.nome != null ? entry.pilota.team.nome : 'Nessun Team'}">Team</td>
+							<td th:text="${entry.puntiTotali}"></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div>
 					<h2>Sponsor</h2>
 					<div th:if="${not #lists.isEmpty(sponsors)}" class="carousel-container">
 						<div class="carousel-track">
 							<div class="carousel-card" th:each="sponsor : ${sponsors}">
-									<img th:if="${sponsor.immagine} != null" th:src="@{'/images/' + ${sponsor.immagine}}" alt="Immagine">
-									<h5 th:text="${sponsor.nome}"></h5>
-									<p th:if="${sponsor.descrizione != null}" th:text="${sponsor.descrizione}">Descrizione</p>
+								<img th:if="${sponsor.immagine} != null" th:src="@{'/images/' + ${sponsor.immagine}}" alt="Immagine">
+								<h5 th:text="${sponsor.nome}"></h5>
+								<p th:if="${sponsor.descrizione != null}" th:text="${sponsor.descrizione}">Descrizione</p>
 								<div th:if="${isAdmin}" class="button-container">
 									<a class="tasto-card-admin" th:href="@{'/admin/formUpdateSponsor/' + ${sponsor.id}}">Modifica Sponsor</a>
 								</div>
@@ -67,10 +90,6 @@
 						</div>
 					</div>
 				</div>
-				<div>
-					<h2>Campionato 2025</h2>
-				</div>
-
 			</section>
 		</main>
 	<footer>

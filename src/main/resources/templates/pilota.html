@@ -43,7 +43,24 @@
             <!-- Dettagli della stagione in corso -->
             <div class="section">
                 <h3>Stagione in Corso</h3>
-                <p>Dati Stagione</p>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Posizione</th>
+                        <th>Punti</th>
+                        <th>Vittorie</th>
+                        <th>Podi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${posizione}">N/A</td>
+                        <td th:text="${punti}">N/A</td>
+                        <td th:text="${vittorieCampionato}">N/A</td>
+                        <td th:text="${podiCampionato}">N/A</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- Sezione Compagno di squadra -->
@@ -54,12 +71,57 @@
                 </a>
                 <p th:if="${compagnoDiSquadra == null}">Nessun compagno di squadra disponibile</p>
             </div>
-            <div class="tasto-center-container">
-                <a class="tasto-generico-admin" th:if="${isAdmin}" th:href="@{'/admin/formUpdatePilota/' + ${pilota.id}}">Modifica Pilota</a>
+
+            <!-- Dettagli totali -->
+            <div class="section">
+                <h3>Statistiche</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Partecipazioni</th>
+                        <th>Vittorie</th>
+                        <th>Podi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${partecipazioniTotali}">N/A</td>
+                        <td th:text="${vittorieTotali}">N/A</td>
+                        <td th:text="${podiTotali}">N/A</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
+
+            <!-- Dettagli totali -->
+            <div class="section">
+                <h3>Informazioni</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Data di nascita</th>
+                        <th>Altezza</th>
+                        <th>Peso</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${#temporals.format(pilota.dataDiNascita, 'dd/MM/yyyy')}">N/A</td>
+                        <td th:text="${pilota.altezza} + 'cm'">N/A</td>
+                        <td th:text="${pilota.peso} + 'kg'">N/A</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <div th:if="${pilota.sponsor!=null and !pilota.sponsor.isEmpty()}" th:each="sponsor : ${pilota.sponsor}">
                 <p th:text="${sponsor.nome}"></p>
             </div>
+
+            <div class="tasto-center-container">
+                <a class="tasto-generico-admin" th:if="${isAdmin}" th:href="@{'/admin/formUpdatePilota/' + ${pilota.id}}">Modifica Pilota</a>
+            </div>
+
         </div>
     </main>
     <footer>

@@ -3,6 +3,7 @@ package it.uniroma3.siw.service;
 import it.uniroma3.siw.model.*;
 import it.uniroma3.siw.repository.CampionatoPilotiRepository;
 import it.uniroma3.siw.repository.GranPremioRepository;
+import it.uniroma3.siw.repository.PilotaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,10 @@ public class CampionatoService {
 	CampionatoPilotiRepository campionatoPilotiRepository;
     @Autowired
     private GranPremioRepository granPremioRepository;
+	@Autowired
+	private PilotaGPService pilotaGPService;
+	@Autowired
+	private PilotaRepository pilotaRepository;
 
 	public Campionato getCampionatoById(Long id) {
 		return campionatoRepository.findById(id).orElse(null);
@@ -239,4 +244,43 @@ public class CampionatoService {
 				));
 
 	}
+
+	public int getVittoriePilotaInCampionato(Long idPilota){
+
+		Pilota pilota = pilotaRepository.findById(idPilota).orElse(null);
+
+		int anno = java.time.Year.now().getValue();
+		Campionato campionato = getCampionatoByAnno(anno);
+
+		if (pilota == null || campionato == null)
+			throw new IllegalArgumentException("Pilota o campionato non possono essere null.");
+
+		int vittorie = 0;
+
+		for(GranPremio gp : campionato.getGranPremi()){
+			if(pilotaGPService.getPosizionePilota(gp, pilota) == 1)
+				vittorie++;
+		}
+		return vittorie;
+	}
+
+	public int getPodiPilotaInCampionato(Long idPilota){
+
+		Pilota pilota = pilotaRepository.findById(idPilota).orElse(null);
+
+		int anno = java.time.Year.now().getValue();
+		Campionato campionato = getCampionatoByAnno(anno);
+
+		if (pilota == null || campionato == null)
+			throw new IllegalArgumentException("Pilota o campionato non possono essere null.");
+
+		int podi = 0;
+
+		for(GranPremio gp : campionato.getGranPremi()){
+			if(pilotaGPService.getPosizionePilota(gp, pilota) > 0 && pilotaGPService.getPosizionePilota(gp, pilota) < 4)
+				podi++;
+		}
+		return podi;
+	}
+
 }

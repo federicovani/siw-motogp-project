@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.uniroma3.siw.model.Sponsor;
-import it.uniroma3.siw.service.SponsorService;
+import it.uniroma3.siw.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import it.uniroma3.siw.service.PilotaService;
-import it.uniroma3.siw.service.TeamService;
 import it.uniroma3.siw.model.Team;
 import it.uniroma3.siw.model.Pilota;
 import it.uniroma3.siw.model.PilotaGP;
@@ -23,16 +21,44 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class PilotaController {
 	
-	@Autowired private PilotaService pilotaService;
-	@Autowired private TeamService teamService;
-	@Autowired private SponsorService sponsorService;
+	@Autowired
+	private PilotaService pilotaService;
+	@Autowired
+	private TeamService teamService;
+	@Autowired
+	private SponsorService sponsorService;
+	@Autowired
+	private CampionatoService campionatoService;
+    @Autowired
+    private CampionatoPilotiService campionatoPilotiService;
+	@Autowired
+	private PilotaGPService pilotaGPService;
 
-	
+	@GetMapping("/pilota")
+	public String mostraPilota(Model model) {
+		model.addAttribute("pilota", new Pilota());
+		model.addAttribute("teams", teamService.findAllAvailable());
+		model.addAttribute("sponsors", sponsorService.getAllSponsors());
+		return "pilota.html";
+	}
+
 	@GetMapping("/pilota/{id}")
 	public String getPilota(@PathVariable("id") Long id, Model model) {
 		Pilota compagnoDiSquadra = pilotaService.getCompagnoDiSquadra(id);
 		model.addAttribute("pilota", pilotaService.getPilotaById(id));
+
+		List<Integer> posizionePunti = campionatoPilotiService.getPunteggioEPosizionePilota(id);
+		model.addAttribute("posizione", posizionePunti.get(0));
+		model.addAttribute("punti", posizionePunti.get(1));
+		model.addAttribute("vittorieCampionato", campionatoService.getVittoriePilotaInCampionato(id));
+		model.addAttribute("podiCampionato", campionatoService.getPodiPilotaInCampionato(id));
+
 		model.addAttribute("compagnoDiSquadra", compagnoDiSquadra);
+
+		Pilota pilota = pilotaService.getPilotaById(id);
+		model.addAttribute("partecipazioniTotali", pilotaGPService.getPartecipazioniTotaliPilota(pilota));
+		model.addAttribute("podiTotali", pilotaGPService.getPodiTotaliPilota(pilota));
+		model.addAttribute("vittorieTotali", pilotaGPService.getVittorieTotaliPilota(pilota));
 		return "pilota.html";
 	}
 	

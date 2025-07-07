@@ -51,39 +51,6 @@
     font-size: 1rem;
 }
 
-
-/* -------- STILE CLASSIFICA ------ */
-
-/* Stile della tabella */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-table th,
-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-/* Header della tabella */
-table th {
-    background-color: #cc4444;
-    color: white;
-    font-weight: bold;
-}
-
-/* Riga alternata e hover */
-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-table tr:hover {
-    background-color: #f1f1f1;
-}
-
 /* Titoli e sezioni */
 h2 {
     color: #cc4444;
