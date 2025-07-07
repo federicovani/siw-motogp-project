@@ -138,7 +138,7 @@ public class CampionatoController {
 
     @PostMapping("/admin/formUpdateCampionato/{id}")
     public String modificaCampionato(@PathVariable("id") Long id,
-                                     @RequestParam List<Long> granPremi,
+                                     @RequestParam(required = false) List<Long> granPremi,
                                      Model model) {
 
         Campionato campionato = campionatoService.getCampionatoById(id);

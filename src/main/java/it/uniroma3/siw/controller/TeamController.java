@@ -48,7 +48,7 @@ public class TeamController {
     @PostMapping("/admin/formNewTeam")
     public String salvaTeam(@ModelAttribute("team") Team team,
                             @RequestParam("file") MultipartFile file,
-                            @RequestParam List<Long> pilotiIds,
+                            @RequestParam(required = false) List<Long> pilotiIds,
                             @RequestParam(name = "sponsor", required = false) List<Long> sponsorIds,
                             Model model) {
 
@@ -113,7 +113,7 @@ public class TeamController {
     @PostMapping("/admin/formUpdateTeam")
     public String updateTeam(@ModelAttribute("team") Team team,
                              @RequestParam("file") MultipartFile file,
-                             @RequestParam List<Long> pilotiIds,
+                             @RequestParam(required = false) List<Long> pilotiIds,
                              @RequestParam(name = "sponsor", required = false) List<Long> sponsorIds,
                              Model model) {
         // Controlla l'esistenza del team in base all'ID
