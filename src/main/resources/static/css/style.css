@@ -525,3 +525,21 @@ table tr:nth-child(even) {
 table tr:hover {
 	background-color: #f1f1f1;
 }
+
+.sponsor-list {
+	list-style-type: disc; /* Mostra i puntini accanto agli elementi */
+	padding-left: 1.5rem; /* Allinea la lista spostandola a destra */
+	margin-top: 10px; /* Aggiunge spazio sopra la lista */
+	font-family: Arial, sans-serif; /* Font più leggibile */
+	color: #333; /* Testo più scuro per migliore contrasto */
+}
+
+.sponsor-list li {
+	margin-bottom: 10px; /* Spaziatura tra gli elementi */
+	line-height: 1.6; /* Migliora la leggibilità */
+}
+
+.sponsor-list strong {
+	color: #555; /* Colore rosso per evidenziare il nome */
+	font-size: 1rem; /* Leggermente più grande per differenziarlo */
+}

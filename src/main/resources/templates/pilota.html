@@ -114,8 +114,13 @@
                 </table>
             </div>
 
-            <div th:if="${pilota.sponsor!=null and !pilota.sponsor.isEmpty()}" th:each="sponsor : ${pilota.sponsor}">
-                <p th:text="${sponsor.nome}"></p>
+            <div class="section" th:if="${pilota.sponsor != null and !pilota.sponsor.isEmpty()}">
+                <h3>Sponsor</h3>
+                <ul class="sponsor-list">
+                    <li th:each="sponsor : ${pilota.sponsor}">
+                        <strong th:text="${sponsor.nome}">Nome Sponsor</strong>
+                    </li>
+                </ul>
             </div>
 
             <div class="tasto-center-container">
