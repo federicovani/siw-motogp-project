@@ -215,9 +215,9 @@ public class GranPremioController {
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", e.getMessage());
 			model.addAttribute("granPremio", gp);
-			return "redirect:/granPremio/" + granPremioId;
+			model.addAttribute("riderOfTheRace", pilotaGPService.getRiderOfTheRace(gp));
+			return "granPremio.html";
 		}
-
 
 		return "redirect:/granPremio/" + granPremioId;
 	}

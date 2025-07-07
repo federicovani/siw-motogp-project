@@ -37,6 +37,9 @@
 
     <!-- Main content -->
     <main>
+        <div th:if="${errorMessage != null}" class="messaggio-errore" style="color: red; margin-bottom: 1rem;">
+            <p th:text="${errorMessage}"></p>
+        </div>
         <!-- Informazioni sul circuito -->
         <section class="section">
             <h2>Informazioni Circuito</h2>
