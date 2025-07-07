@@ -11,9 +11,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
 import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
 
 @Configuration
@@ -48,10 +51,15 @@ public class AuthConfiguration {
             			    "/register", 
             			    "/login", 
             			    "/logout",
-            			    "/pilotiETeam", 
-            			    "/granPremi", 
-            			    "/campionati", 
-            			    "/shop", 
+            			    "/pilotiETeam",
+							"/pilota/**",
+							"/team/**",
+            			    "/granPremi",
+							"/granPremio/**",
+							"/campionati",
+							"/campionatoPiloti/**",
+							"/campionatoTeam/**",
+							"/campionatoCostruttori/**",
             			    "/css/**", 
             			    "/images/**", 
             			    "/js/**", 
@@ -74,11 +82,13 @@ public class AuthConfiguration {
 
             // Configurazione del logout
             .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .clearAuthentication(true)
+					.logoutUrl("/logout")
+					.logoutSuccessUrl("/")
+					.invalidateHttpSession(true)
+					.deleteCookies("JSESSIONID")
+					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+					.clearAuthentication(true)
+					.permitAll()
             );
 
         return http.build();
@@ -96,4 +106,5 @@ public class AuthConfiguration {
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
 		return authenticationConfiguration.getAuthenticationManager();
 	}
+
 }

@@ -25,12 +25,15 @@ public class Credentials {
 		this.role = role;
 		this.user = user;
 	}
-	
-	public Credentials() {}
-	
 
-    public String getUsername() {
-        return username;
+    public Credentials() {}
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -41,12 +44,8 @@ public class Credentials {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public String getUsername() {
+        return username;
     }
 
     public void setUsername(String username) {

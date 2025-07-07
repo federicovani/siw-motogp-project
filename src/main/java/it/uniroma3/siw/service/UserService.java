@@ -36,7 +36,7 @@ public class UserService {
      */
     @Transactional
     public User saveUser(String name, String surname, String email) {
-    	User user = new User(name, surname, email);
+        User user = new User(name, surname, email);
         return this.userRepository.save(user);
     }
 

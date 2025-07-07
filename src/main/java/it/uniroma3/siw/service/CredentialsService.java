@@ -31,9 +31,17 @@ public class CredentialsService {
     }
 
     @Transactional
-    public Credentials saveCredentials(String username, String password, String role, User user) {
-    	String cryptedPassword = this.passwordEncoder.encode(password);
-		Credentials credentials = new Credentials(username, cryptedPassword, role, user);
+    public Credentials saveCredentials(Credentials credentials) {
+        credentials.setRole(Credentials.DEFAULT_ROLE);
+        credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
         return this.credentialsRepository.save(credentials);
+    }
+
+    @Transactional
+    public User getUserByUsername(String username){
+        Credentials credentials = this.getCredentials(username);
+        if (credentials != null)
+            return credentials.getUser();
+        return null;
     }
 }

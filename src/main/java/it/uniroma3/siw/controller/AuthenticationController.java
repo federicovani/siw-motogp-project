@@ -10,6 +10,8 @@ import static it.uniroma3.siw.model.Credentials.DEFAULT_ROLE;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +27,9 @@ import java.util.List;
 @Controller
 public class AuthenticationController {
 
-    @Autowired
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	@Autowired
     private CredentialsService credentialsService;
     @Autowired 
     private UserService userService;
@@ -82,22 +86,34 @@ public class AuthenticationController {
 		
 		return "redirect:/";
 	}
-    
-    @GetMapping("/register")
-	public String showRegisterUser(Model model) {
-		UserDto userDto = new UserDto();
-		model.addAttribute("userDto", userDto);
+
+	@GetMapping(value = "/register")
+	public String showRegisterForm (Model model) {
+		model.addAttribute("user", new User());
+		model.addAttribute("credentials", new Credentials());
 		return "register.html";
 	}
-	
-	@PostMapping("/register")
-	public String registraUtente(@Valid @ModelAttribute("user") UserDto userDto, BindingResult userBindingResult,
-			Model model) {
-		if(!userBindingResult.hasErrors()) {
-			User user = this.userService.saveUser(userDto.getName(), userDto.getSurname(), userDto.getEmail());
-			Credentials credentials = this.credentialsService.saveCredentials(userDto.getUsername(), userDto.getPassword(), DEFAULT_ROLE, user);
+
+	@PostMapping(value = { "/register" })
+	public String registerUser(@Valid @ModelAttribute("user") User user,
+							   BindingResult userBindingResult, @Valid
+							   @ModelAttribute("credentials") Credentials credentials,
+							   BindingResult credentialsBindingResult,
+							   Model model) {
+		// Controllo se lo username esiste già
+		if (credentialsService.getCredentials(credentials.getUsername()) != null) {
+			model.addAttribute("usernameError", "Il nome utente è già registrato.");
+			return "register.html";
+		}
+
+		// Se user e credential hanno entrambi contenuti validi, salva User e Credentials nel DB
+		if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
+			credentials.setUser(user);
+			credentialsService.saveCredentials(credentials);
 			model.addAttribute("user", user);
-			return "login.html";
+
+			return "redirect:/";
+
 		}
 		return "register.html";
 	}
