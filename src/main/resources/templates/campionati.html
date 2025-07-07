@@ -21,8 +21,9 @@
             <li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
             <li class="navbar-item">
                 <a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
-                <a th:if="${!isAnonymous}" th:href="'/logout'" th:text="${username} + ' - Logout'"></a>
+                <a th:if="${!isAnonymous}" th:href="'/logout'" th:text="'Logout'"></a>
             </li>
+            <li th:if="${!isAnonymous}" class="navbar-item"><a th:href="@{'/user'}" th:text="${username}"></a></li>
         </ul>
     </div>
 </nav>

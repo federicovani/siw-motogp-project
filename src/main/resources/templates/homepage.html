@@ -8,24 +8,25 @@
 	<link rel="stylesheet" th:href="@{/css/pilotiETeam.css}">
 </head>
 <body>
-	<nav class="navbar">
-		<div class="navbar-container">
-			<div class="navbar-logo">
-				<a th:if="${isAdmin}" th:href="@{'/'}" th:text="'MotoGP - Admin'"></a>
-				<a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
-			</div>
-			<ul class="navbar-menu">
-				<li class="navbar-item"><a th:href="@{'/'}">Home</a></li>
-				<li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
-				<li class="navbar-item"><a th:href="@{'/granPremi'}">Gran Premi</a></li>
-				<li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
-				<li class="navbar-item">
-					<a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
-					<a th:if="${!isAnonymous}" th:href="'/logout'" th:text="${username} + ' - Logout'"></a>
-				</li>
-			</ul>
+<nav class="navbar">
+	<div class="navbar-container">
+		<div class="navbar-logo">
+			<a th:if="${isAdmin}" th:href="@{'/'}" th:text="'MotoGP - Admin'"></a>
+			<a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
 		</div>
-	</nav>
+		<ul class="navbar-menu">
+			<li class="navbar-item"><a th:href="@{'/'}">Home</a></li>
+			<li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
+			<li class="navbar-item"><a th:href="@{'/granPremi'}">Gran Premi</a></li>
+			<li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
+			<li class="navbar-item">
+				<a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
+				<a th:if="${!isAnonymous}" th:href="'/logout'" th:text="'Logout'"></a>
+			</li>
+			<li th:if="${!isAnonymous}" class="navbar-item"><a th:href="@{'/user'}" th:text="${username}"></a></li>
+		</ul>
+	</div>
+</nav>
 	<header>
 		<h1>Benvenuto su MotoGP</h1>
 	</header>
