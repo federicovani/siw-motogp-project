@@ -2,19 +2,10 @@ package it.uniroma3.siw.controller;
 
 import it.uniroma3.siw.model.*;
 import it.uniroma3.siw.service.*;
-import it.uniroma3.siw.sessionData.SessionData;
 import jakarta.validation.Valid;
 
-import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
-import static it.uniroma3.siw.model.Credentials.DEFAULT_ROLE;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,8 +30,6 @@ public class AuthenticationController {
 	private GranPremioService granPremioService;
 	@Autowired
 	private CampionatoService campionatoService;
-    @Autowired 
-    private SessionData sessionData;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -63,29 +52,7 @@ public class AuthenticationController {
 	public String login() {
 		return "login.html";
 	}
-    
-    @GetMapping("/success")
-	public String defaultAfterLogin(Model model) {
-		UserDetails userDetails = null;
-		Credentials credentials = null;
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
-		if(auth instanceof AnonymousAuthenticationToken) {
-			return "redirect:/";
-		}
-		else {
-			userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			credentials = this.credentialsService.getCredentials(userDetails.getUsername());
-			User loggedUser = this.sessionData.getLoggedUser();
-			model.addAttribute("user", loggedUser);
-			
-			if(credentials.getRole().trim().equals(ADMIN_ROLE)) {
-				return "redirect:/";
-			}
-		}
-		
-		return "redirect:/";
-	}
+
 
 	@GetMapping(value = "/register")
 	public String showRegisterForm (Model model) {
