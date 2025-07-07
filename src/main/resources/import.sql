@@ -1,17 +1,17 @@
 -- ========================
 -- TEAM
 -- ========================
-INSERT INTO team (id, nome, marcaMoto) VALUES (10001, 'Ducati Lenovo Team', 'Ducati');
-INSERT INTO team (id, nome, marcaMoto) VALUES (10002, 'Red Bull KTM Factory Racing', 'KTM');
-INSERT INTO team (id, nome, marcaMoto) VALUES (10003, 'Aprilia Racing', 'Aprilia');
-INSERT INTO team (id, nome, marcaMoto) VALUES (10004, 'Monster Energy Yamaha MotoGP', 'Yamaha');
-INSERT INTO team (id, nome, marcaMoto) VALUES (10005, 'Repsol Honda Team', 'Honda');
-INSERT INTO team (id, nome, marcaMoto) VALUES (10006, 'Gresini Racing MotoGP', 'Ducati');
-INSERT INTO team (id, nome, marcaMoto) VALUES (10007, 'Mooney VR46 Racing Team', 'Ducati');
-INSERT INTO team (id, nome, marcaMoto) VALUES (10008, 'LCR Honda', 'Honda');
-INSERT INTO team (id, nome, marcaMoto) VALUES (10009, 'GasGas Factory Racing Tech3',  'KTM');
-INSERT INTO team (id, nome, marcaMoto) VALUES (10010, 'Prima Pramac Racing', 'Ducati');
-INSERT INTO team (id, nome, marcaMoto) VALUES (10011, 'RNF MotoGP Team', 'Aprilia');
+INSERT INTO team (id, nome, marca_Moto) VALUES (10001, 'Ducati Lenovo Team', 'Ducati');
+INSERT INTO team (id, nome, marca_Moto) VALUES (10002, 'Red Bull KTM Factory Racing', 'KTM');
+INSERT INTO team (id, nome, marca_Moto) VALUES (10003, 'Aprilia Racing', 'Aprilia');
+INSERT INTO team (id, nome, marca_Moto) VALUES (10004, 'Monster Energy Yamaha MotoGP', 'Yamaha');
+INSERT INTO team (id, nome, marca_Moto) VALUES (10005, 'Repsol Honda Team', 'Honda');
+INSERT INTO team (id, nome, marca_Moto) VALUES (10006, 'Gresini Racing MotoGP', 'Ducati');
+INSERT INTO team (id, nome, marca_Moto) VALUES (10007, 'Mooney VR46 Racing Team', 'Ducati');
+INSERT INTO team (id, nome, marca_Moto) VALUES (10008, 'LCR Honda', 'Honda');
+INSERT INTO team (id, nome, marca_Moto) VALUES (10009, 'GasGas Factory Racing Tech3',  'KTM');
+INSERT INTO team (id, nome, marca_Moto) VALUES (10010, 'Prima Pramac Racing', 'Ducati');
+INSERT INTO team (id, nome, marca_Moto) VALUES (10011, 'RNF MotoGP Team', 'Aprilia');
 
 
 -- ========================
@@ -76,8 +76,8 @@ INSERT INTO sponsor (id, nome) VALUES (10003, 'Michelin');
 -- RELAZIONI GRAN_PREMIO - SPONSOR
 -- ======================================
 
-INSERT INTO gran_premio_sponsor (gran_premio_id, sponsor_id) VALUES (10001, 10001);
-INSERT INTO gran_premio_sponsor (gran_premio_id, sponsor_id) VALUES (10002, 10002);
-INSERT INTO gran_premio_sponsor (gran_premio_id, sponsor_id) VALUES (10003, 10003);
-INSERT INTO gran_premio_sponsor (gran_premio_id, sponsor_id) VALUES (10004, 10001);
-INSERT INTO gran_premio_sponsor (gran_premio_id, sponsor_id) VALUES (10005, 10002);
+INSERT INTO gran_premio_sponsor (gran_premi_id, sponsor_id) VALUES (10001, 10001);
+INSERT INTO gran_premio_sponsor (gran_premi_id, sponsor_id) VALUES (10002, 10002);
+INSERT INTO gran_premio_sponsor (gran_premi_id, sponsor_id) VALUES (10003, 10003);
+INSERT INTO gran_premio_sponsor (gran_premi_id, sponsor_id) VALUES (10004, 10001);
+INSERT INTO gran_premio_sponsor (gran_premi_id, sponsor_id) VALUES (10005, 10002);

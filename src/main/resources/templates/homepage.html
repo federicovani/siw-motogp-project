@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>MotoGP</title>
 	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet" th:href="@{/css/pilotiETeam.css}">
 </head>
 <body>
 	<nav class="navbar">
@@ -30,6 +31,19 @@
 	</header>
 		
 		<main>
+			<section class="sectionContainer">
+				<div th:if="${not #lists.isEmpty(sponsors)}" class="carousel-container">
+					<div class="carousel-track" id="sponsorCarouselTrack">
+						<div class="carousel-card" th:each="sponsor : ${sponsors}">
+								<img th:if="${sponsor.immagine} != null" th:src="@{'/images/' + ${sponsor.immagine}}" alt="Immagine">
+								<h5 th:text="${sponsor.nome}"</h5>
+								<p th:if="${sponsor.descrizione != null}" th:text="${sponsor.descrizione}">Descrizione</p>
+							<div th:if="${isAdmin}" class="button-container">
+								<a class="tasto-card-admin" th:href="@{'/admin/deleteSponsor/' + ${sponsor.id}}">Elimina Sponsor</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			<div>
 				<h1>Campionato 2025</h1>
 			</div>
@@ -39,6 +53,7 @@
 			<div>
 				<h3>Sponsor</h3>
 			</div>
+			</section>
 		</main>
 		
 	</body>
