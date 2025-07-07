@@ -16,6 +16,7 @@
                 <a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
             </div>
             <ul class="navbar-menu">
+                <li class="navbar-item"><a th:href="@{'/'}">Home</a></li>
                 <li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
                 <li class="navbar-item"><a th:href="@{'/granPremi'}" class="active-link">Gran Premi</a></li>
                 <li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
