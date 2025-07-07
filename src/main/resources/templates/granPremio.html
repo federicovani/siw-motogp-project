@@ -37,9 +37,6 @@
 
     <!-- Main content -->
     <main>
-        <div th:if="${errorMessage != null}">
-            <span th:text="${errorMessage}">Errore.</span>
-        </div>
         <!-- Informazioni sul circuito -->
         <section class="section">
             <h2>Informazioni Circuito</h2>
@@ -105,7 +102,7 @@
                             <form th:action="@{'/voteRiderOfTheRace'}" method="post">
                                 <input type="hidden" name="pilotaId" th:value="${risultato.pilota.id}" />
                                 <input type="hidden" name="granPremioId" th:value="${granPremio.id}" />
-                                <button type="submit" class="vote-button">Vota Pilota</button>
+                                <button th:if="${!isAdmin}" type="submit" class="vote-button">Vota Pilota</button>
                             </form>
                         </td>
                     </tr>

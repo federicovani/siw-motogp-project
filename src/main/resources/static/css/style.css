@@ -543,3 +543,24 @@ table tr:hover {
 	color: #555; /* Colore rosso per evidenziare il nome */
 	font-size: 1rem; /* Leggermente più grande per differenziarlo */
 }
+
+.vote-button {
+	background-color: #cc4444; /* Azzurro per il background */
+	color: white; /* Testo in bianco */
+	border: none; /* Nessun bordo */
+	border-radius: 5px; /* Angoli arrotondati */
+	padding: 10px 20px; /* Spazi interni */
+	cursor: pointer; /* Mostra la mano quando si passa sopra */
+	font-size: 16px; /* Dimensione del carattere */
+	transition: background-color 0.3s ease; /* Effetto di transizione al passaggio del mouse */
+}
+
+.vote-button:hover {
+	background-color: #c82222; /* Colore più scuro al passaggio del mouse */
+}
+
+.vote-button:active {
+	background-color: #CC0000; /* Colore ancora più scuro al click */
+	transform: scale(0.98); /* Leggera compressione al click */
+}
+
