@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MotoGP</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet" th:href="@{/css/circuiti.css}">
+</head>
+<body>
+	<nav class="navbar">
+		<div class="navbar-container">
+			<div class="navbar-logo">
+				<a th:if="${isAdmin}" th:href="@{'/'}" th:text="'MotoGP - Admin'"></a>
+				<a th:if="${!isAdmin}" th:href="@{'/'}" th:text="'MotoGP'"></a>
+			</div>
+			<ul class="navbar-menu">
+				<li class="navbar-item"><a th:href="@{'/'}">Home</a></li>
+				<li class="navbar-item"><a th:href="@{'/pilotiETeam'}">Piloti e Team</a></li>
+				<li class="navbar-item"><a th:href="@{'/granPremi'}">Gran Premi</a></li>
+				<li class="navbar-item"><a th:href="@{'/campionati'}">Campionato</a></li>
+				<li class="navbar-item">
+					<a th:if="${isAnonymous}" th:href="'/login'" th:text="'Login/Registrati'"></a>
+					<a th:if="${!isAnonymous}" th:href="'/logout'" th:text="${username} + ' - Logout'"></a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<header>
+		<h1>Modifica Circuito</h1>
+	</header>
+		
+		<section class="formGenerico">
+			<h2>Modifica Circuito</h2>
+			
+			<form th:action="@{/admin/formUpdateCircuito}" enctype="multipart/form-data" method="POST">
+				<input type="hidden" th:field="${circuito.id}" />
+				<div>
+			      <label>Lunghezza [m]</label>
+			      <span>
+			        <input type="text" placeholder="Lunghezza" required th:field="${circuito.lunghezza}"/>
+			      </span>
+			    </div>
+				<div>
+			      <label>Larghezza [m]</label>
+			      <span>
+			        <input type="text" placeholder="Larghezza" required th:field="${circuito.larghezza}"/>
+			      </span>
+			    </div>
+				<div>
+			      <label>Rettilineo [m]</label>
+			      <span>
+			        <input type="text" placeholder="Rettilineo" required th:field="${circuito.rettilineo}"/>
+			      </span>
+			    </div>
+				<div>
+			      <label>Curve a destra</label>
+			      <span>
+			        <input type="text" placeholder="Curve Dx" required th:field="${circuito.curveDx}"/>
+			      </span>
+			    </div>
+				<div>
+			      <label>Curve a sinistra</label>
+			      <span>
+			        <input type="text" placeholder="Curve Sx" required th:field="${circuito.curveSx}"/>
+			      </span>
+			    </div>
+				<div>
+			      <label>Città</label>
+			      <span>
+			        <input type="text" placeholder="Città" required th:field="${circuito.citta}"/>
+			      </span>
+			    </div>
+				<div>
+			      <label>Paese</label>
+			      <span>
+			        <input type="text" placeholder="Paese" required th:field="${circuito.paese}"/>
+			      </span>
+			    </div>
+				<div>
+			      <label>Foto</label>
+			      <span>
+			        <input type="file" name="file" accept="image/*"/>
+			      </span>
+			    </div>
+
+				<!-- Messaggio di errore -->
+				<div th:if="${messaggioErrore != null}" class="messaggio-errore" style="color: red; margin-bottom: 1rem;">
+					<p th:text="${messaggioErrore}"></p>
+				</div>
+				 
+				 <div>
+					<button type="submit">Modifica Circuito</button>
+					<a th:href="@{/admin/formNewGranPremio}" class="link"><button type="button">Annulla</button></a>
+				 </div>
+
+			</form>
+		</section>
+		
+		<footer>
+			<p>© 2025 MotoGP - Tutti i diritti riservati</p>
+		</footer>
+		
+	</body>
+</html>

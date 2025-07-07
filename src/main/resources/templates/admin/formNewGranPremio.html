@@ -58,6 +58,9 @@
 									<li th:text="'Curve a destra: ' + ${circuito.curveDx}"></li>
 									<li th:text="'Curve a sinistra: ' + ${circuito.curveSx}"></li>
 								</ul>
+								<div th:if="${isAdmin}" class="button-container">
+									<a class="tasto-card-admin" th:href="@{'/admin/formUpdateCircuito/' + ${circuito.id}}">Modifica Circuito</a>
+								</div>
 							</label>
 							
 						</div>
