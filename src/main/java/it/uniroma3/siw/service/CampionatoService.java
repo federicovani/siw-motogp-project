@@ -90,7 +90,7 @@ public class CampionatoService {
 	}
 
 
-	public Campionato getCampionatoByAnno(int anno) {
+	public Campionato getCampionatoByAnno(Integer anno) {
 		return campionatoRepository.findByAnno(anno);
 	}
 
