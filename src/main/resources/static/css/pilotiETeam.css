@@ -54,6 +54,7 @@
 .carousel-card img {
     max-width: 100%;
     height: auto;
+	max-height: 200px;
     border-radius: 4px; /* Allinea il bordo immagine con la card */
 }
 
